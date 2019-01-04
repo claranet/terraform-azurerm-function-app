@@ -15,7 +15,6 @@ module "app_service_plan" {
     tier = "Dynamic"
   }
 
-  #kind = "${lookup(local.app_service_kind_map, var.function_language, "Linux")}"
   kind = "FunctionApp"
 
   extra_tags = "${merge(var.extra_tags, var.app_service_plan_extra_tags, local.default_tags)}"
@@ -33,7 +32,7 @@ resource "azurerm_storage_account" "storage" {
 
   tags = "${merge(var.extra_tags, var.storage_account_extra_tags, local.default_tags)}"
 
-  count = "${var.storage_account_connection_string == "" ? 1 : 0}"
+  count = "${var.create_storage_account_resource == "true" ? 1 : 0}"
 }
 
 # Application Insights
@@ -47,7 +46,7 @@ resource "azurerm_application_insights" "app_insights" {
 
   tags = "${merge(var.extra_tags, var.application_insights_extra_tags, local.default_tags)}"
 
-  count = "${var.application_insights_instrumentation_key == "" ? 1 : 0}"
+  count = "${var.create_application_insights_resource == "true" ? 1 : 0}"
 }
 
 # Function App

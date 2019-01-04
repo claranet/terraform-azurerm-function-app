@@ -1,7 +1,7 @@
 # Azure Function App on Linux
 
 ## Purpose
-This Terraform module creates an [Azure Function App v2 on Linux](https://github.com/Azure/Azure-Functions/wiki/Azure-Functions-on-Linux-Preview) with an consumption plan.
+This Terraform feature creates an [Azure Function App v2 on Linux](https://github.com/Azure/Azure-Functions/wiki/Azure-Functions-on-Linux-Preview) with a consumption plan.
 A Storage Account and an Application Insights are required and are created if not provided.
 
 ## Usage
@@ -51,6 +51,8 @@ module "function_app" {
 | application_insights_instrumentation_key | Application Insights instrumentation key for function logs, generated if empty | string | `` | no |
 | application_insights_type | Application Insights type if need to be generated | string | `Web` | no |
 | client_name |  | string | - | yes |
+| create_application_insights_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | string | `true` | no |
+| create_storage_account_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | string | `true` | no |
 | environment |  | string | - | yes |
 | extra_tags | Extra tags to add | map | `<map>` | no |
 | function_app_application_settings | Function App application settings | map | `<map>` | no |
@@ -76,10 +78,10 @@ module "function_app" {
 | function_app_name | Name of the created Function App |
 | function_app_outbound_ip_addresses | Outbound IP adresses of the created Function App |
 | function_app_version | Version of the created Function App |
-| storage_account_id | Id of the associated Storage Account |
-| storage_account_name | Name of the associated Storage Account |
-| storage_account_primary_access_key | Primary connection string of the associated Storage Account |
-| storage_account_primary_connection_string | Primary connection string of the associated Storage Account |
+| storage_account_id | Id of the associated Storage Account, empty if connection string provided |
+| storage_account_name | Name of the associated Storage Account, empty if connection string provided |
+| storage_account_primary_access_key | Primary connection string of the associated Storage Account, empty if connection string provided |
+| storage_account_primary_connection_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 
 ## Related documentation
 Microsoft Azure Functions documentation: [https://github.com/Azure/Azure-Functions#documentation-1]
