@@ -15,18 +15,59 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "Azure location for App Service Plan."
+  description = "Azure location for Function App and related resources"
   type        = "string"
 }
 
 variable "location_short" {
-  description = "Short string for Azure location."
+  description = "Short string for Azure location"
   type        = "string"
 }
 
-variable "short_name" {
-  description = "Function name"
+variable "name_suffix" {
+  description = "Name suffix for all resources generated name"
   type        = "string"
+  default     = ""
+}
+
+variable "app_service_plan_name_suffix" {
+  description = "App Service Plan name suffix"
+  type        = "string"
+  default     = ""
+}
+
+variable "function_app_name_suffix" {
+  description = "Function App name suffix"
+  type        = "string"
+  default     = ""
+}
+
+variable "application_insights_name_suffix" {
+  description = "Application Insights name suffix"
+  type        = "string"
+  default     = ""
+}
+
+variable "storage_account_name_suffix" {
+  description = "Storage Account name suffix"
+  type        = "string"
+  default     = ""
+}
+
+variable "app_service_plan_sku" {
+  description = "App Service Plan sku if created, consumption plan by default"
+  type        = "map"
+
+  default = {
+    size = "Y1"
+    tier = "Dynamic"
+  }
+}
+
+variable "app_service_plan_os" {
+  description = "App Service Plan OS for dedicated plans, can be \"Linux\" or \"Windows\""
+  type        = "string"
+  default     = "Linux"
 }
 
 variable "extra_tags" {
@@ -60,7 +101,7 @@ variable "function_app_extra_tags" {
 }
 
 variable "function_language" {
-  description = "Language of the function, can be \"dotnet\", \"node\" or \"python\""
+  description = "Language of the Function App, can be \"dotnet\", \"node\" or \"python\""
   type        = "string"
 }
 

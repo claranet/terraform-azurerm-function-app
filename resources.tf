@@ -8,64 +8,43 @@ module "app_service_plan" {
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
   location_short      = "${var.location_short}"
-  name_suffix         = "-${var.short_name}"
+  name_suffix         = "${coalesce(var.app_service_plan_name_suffix, var.name_suffix)}"
 
-  sku = {
-    size = "Y1"
-    tier = "Dynamic"
-  }
+  sku = "${var.app_service_plan_sku}"
 
-  kind = "FunctionApp"
+  kind = "${lookup(var.app_service_plan_sku, "tier") == "Dynamic" ? "FunctionApp" : var.app_service_plan_os}"
 
   extra_tags = "${merge(var.extra_tags, var.app_service_plan_extra_tags, local.default_tags)}"
 }
 
-# Storage account
-resource "azurerm_storage_account" "storage" {
-  name = "${local.storage_default_name}"
+module "function_app" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=TER-372-azure-function-linux"
 
-  location            = "${var.location}"
+  client_name         = "${var.client_name}"
+  environment         = "${var.environment}"
+  stack               = "${var.stack}"
   resource_group_name = "${var.resource_group_name}"
-
-  account_replication_type = "LRS"
-  account_tier             = "Standard"
-
-  tags = "${merge(var.extra_tags, var.storage_account_extra_tags, local.default_tags)}"
-
-  count = "${var.create_storage_account_resource == "true" ? 1 : 0}"
-}
-
-# Application Insights
-resource "azurerm_application_insights" "app_insights" {
-  name = "ai-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}"
-
   location            = "${var.location}"
-  resource_group_name = "${var.resource_group_name}"
+  location_short      = "${var.location_short}"
 
-  application_type = "${var.application_insights_type}"
+  name_suffix                      = "${var.name_suffix}"
+  storage_account_name_suffix      = "${var.storage_account_name_suffix}"
+  application_insights_name_suffix = "${var.application_insights_name_suffix}"
+  function_app_name_suffix         = "${var.function_app_name_suffix}"
 
-  tags = "${merge(var.extra_tags, var.application_insights_extra_tags, local.default_tags)}"
+  app_service_plan_id               = "${module.app_service_plan.app_service_plan_id}"
+  function_language                 = "${var.function_language}"
+  function_app_application_settings = "${var.function_app_application_settings}"
 
-  count = "${var.create_application_insights_resource == "true" ? 1 : 0}"
-}
+  create_application_insights_resource     = "${var.create_application_insights_resource}"
+  application_insights_instrumentation_key = "${var.application_insights_instrumentation_key}"
+  application_insights_type                = "${var.application_insights_type}"
 
-# Function App
-resource "azurerm_function_app" "function_app" {
-  name = "func-${var.environment}-${var.location_short}-${var.client_name}-${var.stack}-${var.short_name}"
+  create_storage_account_resource   = "${var.create_storage_account_resource}"
+  storage_account_connection_string = "${var.storage_account_connection_string}"
 
-  app_service_plan_id       = "${module.app_service_plan.app_service_plan_id}"
-  location                  = "${var.location}"
-  resource_group_name       = "${var.resource_group_name}"
-  storage_connection_string = "${local.storage_account_connection_string}"
-
-  app_settings = "${merge(local.default_application_settings, var.function_app_application_settings)}"
-
-  tags = "${merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)}"
-
-  lifecycle {
-    ignore_changes = [
-      "app_settings.WEBSITE_RUN_FROM_ZIP",
-      "app_settings.WEBSITE_RUN_FROM_PACKAGE",
-    ]
-  }
+  extra_tags                      = "${merge(var.extra_tags, local.default_tags)}"
+  application_insights_extra_tags = "${merge(var.extra_tags, var.application_insights_extra_tags, local.default_tags)}"
+  storage_account_extra_tags      = "${merge(var.extra_tags, var.storage_account_extra_tags, local.default_tags)}"
+  function_app_extra_tags         = "${merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)}"
 }
