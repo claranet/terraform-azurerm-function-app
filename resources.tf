@@ -1,3 +1,9 @@
+# Data App Service Plan
+data "azurerm_app_service_plan" "plan" {
+  name                = "${element(split("/", var.app_service_plan_id), 8)}"
+  resource_group_name = "${var.resource_group_name}"
+}
+
 # Storage account
 resource "azurerm_storage_account" "storage" {
   name = "${local.storage_default_name}"
@@ -38,11 +44,7 @@ resource "azurerm_function_app" "function_app" {
 
   app_settings = "${merge(local.default_application_settings, var.function_app_application_settings)}"
 
-  tags = "${merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)}"
-
-  site_config {
-    always_on = true
-  }
+  site_config = ["${map("always_on", replace(jsonencode(data.azurerm_app_service_plan.plan.sku), "/.*Dynamic.*/", "dummy") == "dummy" ? false : true)}"]
 
   lifecycle {
     ignore_changes = [
