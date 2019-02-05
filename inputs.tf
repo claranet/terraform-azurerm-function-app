@@ -24,32 +24,32 @@ variable "location_short" {
   type        = "string"
 }
 
-variable "name_suffix" {
-  description = "Name suffix for all resources generated name"
+variable "name_prefix" {
+  description = "Name prefix for all resources generated name"
   type        = "string"
   default     = ""
 }
 
-variable "app_service_plan_name_suffix" {
-  description = "App Service Plan name suffix"
+variable "app_service_plan_name_prefix" {
+  description = "App Service Plan name prefix"
   type        = "string"
   default     = ""
 }
 
-variable "function_app_name_suffix" {
-  description = "Function App name suffix"
+variable "function_app_name_prefix" {
+  description = "Function App name prefix"
   type        = "string"
   default     = ""
 }
 
-variable "application_insights_name_suffix" {
-  description = "Application Insights name suffix"
+variable "application_insights_name_prefix" {
+  description = "Application Insights name prefix"
   type        = "string"
   default     = ""
 }
 
-variable "storage_account_name_suffix" {
-  description = "Storage Account name suffix"
+variable "storage_account_name_prefix" {
+  description = "Storage Account name prefix"
   type        = "string"
   default     = ""
 }
