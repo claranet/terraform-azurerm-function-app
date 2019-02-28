@@ -44,7 +44,10 @@ resource "azurerm_function_app" "function_app" {
 
   app_settings = "${merge(local.default_application_settings, var.function_app_application_settings)}"
 
-  site_config = ["${map("always_on", replace(jsonencode(data.azurerm_app_service_plan.plan.sku), "/.*Dynamic.*/", "dummy") == "dummy" ? false : true)}"]
+  site_config {
+    always_on        = "${replace(jsonencode(data.azurerm_app_service_plan.plan.sku), "/.*Dynamic.*/", "dummy") == "dummy" ? false : true}"
+    linux_fx_version = "DOCKER|${lookup(local.container_default_image, var.function_language)}"
+  }
 
   lifecycle {
     ignore_changes = [
@@ -53,19 +56,5 @@ resource "azurerm_function_app" "function_app" {
       "app_settings.MACHINEKEY_DecryptionKey",
     ]
   }
-
   version = "~2"
-}
-
-# Force container configuration, mandatory for dedicated App Service Plans
-# Temporary fix for issue https://github.com/terraform-providers/terraform-provider-azurerm/issues/1937
-resource "null_resource" "container" {
-  provisioner "local-exec" {
-    command = <<SCRIPT
-        az webapp config set --ids ${azurerm_function_app.function_app.id} --linux-fx-version "DOCKER|${lookup(local.container_default_image, var.function_language)}"
-        az functionapp config appsettings delete --ids ${azurerm_function_app.function_app.id} --setting-names WEBSITES_ENABLE_APP_SERVICE_STORAGE
-SCRIPT
-  }
-
-  depends_on = ["azurerm_function_app.function_app"]
 }
