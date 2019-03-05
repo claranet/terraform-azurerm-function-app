@@ -5,6 +5,8 @@ This Terraform feature creates an [Azure Function App V2](https://github.com/Azu
 A Storage Account and an Application Insights are required and are created if not provided.
 An App Service Plan must be provided for hosting.
 
+**This module requires the version 1.22+ of the AzureRM provider**
+
 ## Usage
 Here's an example combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
 ```
