@@ -56,5 +56,6 @@ resource "azurerm_function_app" "function_app" {
       "app_settings.MACHINEKEY_DecryptionKey",
     ]
   }
+
   version = "~2"
 }
