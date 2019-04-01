@@ -1,6 +1,7 @@
 # Azure Function App V2
 
 ## Purpose
+
 This Terraform feature creates an [Azure Function App V2](https://github.com/Azure/Azure-Functions/wiki/Azure-Functions-on-Linux-Preview).
 A Storage Account and an Application Insights are required and are created if not provided.
 An App Service Plan must be provided for hosting.
@@ -8,8 +9,10 @@ An App Service Plan must be provided for hosting.
 **This module requires the version 1.22+ of the AzureRM provider**
 
 ## Usage
+
 Here's an example combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
-```
+
+```shell
 module "az-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
@@ -127,4 +130,5 @@ module "function2" {
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
 
 ## Related documentation
+
 Microsoft Azure Functions documentation: [https://github.com/Azure/Azure-Functions#documentation-1]
