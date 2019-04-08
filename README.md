@@ -16,7 +16,7 @@ module "az-region" {
 module "rg" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
 
-  azure_region = "${module.az-region.location}"
+  location     = "${module.az-region.location}"
   client_name  = "${var.client_name}"
   environment  = "${var.environment}"
   stack        = "${var.stack}"
