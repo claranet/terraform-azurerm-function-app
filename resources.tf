@@ -1,6 +1,6 @@
 # App Service Plan
 module "app_service_plan" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=AZ-68-default-scaling"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=v1.1.0"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
@@ -18,7 +18,7 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=TER-372-azure-function-linux"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=v1.0.0"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
