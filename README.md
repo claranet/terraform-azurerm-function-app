@@ -32,7 +32,7 @@ module "function_app" {
   location            = "${module.az-region.location}"
   location_short      = "${module.az-region.location-short}"
 
-  name_suffix       = "-hello"
+  name_prefix       = "hello-"
   function_language = "python"
 
   function_app_application_settings = {
@@ -51,12 +51,12 @@ module "function_app" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | app_service_plan_extra_tags | Extra tags to add to App Service Plan | map | `<map>` | no |
-| app_service_plan_name_suffix | App Service Plan name suffix | string | `` | no |
+| app_service_plan_name_prefix | App Service Plan name prefix | string | `` | no |
 | app_service_plan_os | App Service Plan OS for dedicated plans, can be "Linux" or "Windows" | string | `Linux` | no |
 | app_service_plan_sku | App Service Plan sku if created, consumption plan by default | map | `<map>` | no |
 | application_insights_extra_tags | Extra tags to add to Application Insights | map | `<map>` | no |
 | application_insights_instrumentation_key | Application Insights instrumentation key for function logs, generated if empty | string | `` | no |
-| application_insights_name_suffix | Application Insights name suffix | string | `` | no |
+| application_insights_name_prefix | Application Insights name prefix | string | `` | no |
 | application_insights_type | Application Insights type if need to be generated | string | `Web` | no |
 | client_name |  | string | - | yes |
 | create_application_insights_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | string | `true` | no |
@@ -65,16 +65,16 @@ module "function_app" {
 | extra_tags | Extra tags to add | map | `<map>` | no |
 | function_app_application_settings | Function App application settings | map | `<map>` | no |
 | function_app_extra_tags | Extra tags to add to Function App | map | `<map>` | no |
-| function_app_name_suffix | Function App name suffix | string | `` | no |
+| function_app_name_prefix | Function App name prefix | string | `` | no |
 | function_language | Language of the Function App, can be "dotnet", "node" or "python" | string | - | yes |
 | location | Azure location for Function App and related resources | string | - | yes |
 | location_short | Short string for Azure location | string | - | yes |
-| name_suffix | Name suffix for all resources generated name | string | `` | no |
+| name_prefix | Name prefix for all resources generated name | string | `` | no |
 | resource_group_name |  | string | - | yes |
 | stack |  | string | - | yes |
 | storage_account_connection_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | string | `` | no |
 | storage_account_extra_tags | Extra tags to add to Storage Account | map | `<map>` | no |
-| storage_account_name_suffix | Storage Account name suffix | string | `` | no |
+| storage_account_name_prefix | Storage Account name prefix | string | `` | no |
 
 ## Outputs
 

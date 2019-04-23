@@ -1,6 +1,6 @@
 # App Service Plan
 module "app_service_plan" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-68-default-scaling"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=v1.1.0"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
@@ -8,7 +8,7 @@ module "app_service_plan" {
   resource_group_name = "${var.resource_group_name}"
   location            = "${var.location}"
   location_short      = "${var.location_short}"
-  name_suffix         = "${coalesce(var.app_service_plan_name_suffix, var.name_suffix)}"
+  name_prefix         = "${coalesce(var.app_service_plan_name_prefix, var.name_prefix)}"
 
   sku = "${var.app_service_plan_sku}"
 
@@ -18,7 +18,7 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=TER-372-azure-function-linux"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=v1.0.0"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
@@ -27,10 +27,10 @@ module "function_app" {
   location            = "${var.location}"
   location_short      = "${var.location_short}"
 
-  name_suffix                      = "${var.name_suffix}"
-  storage_account_name_suffix      = "${var.storage_account_name_suffix}"
-  application_insights_name_suffix = "${var.application_insights_name_suffix}"
-  function_app_name_suffix         = "${var.function_app_name_suffix}"
+  name_prefix                      = "${var.name_prefix}"
+  storage_account_name_prefix      = "${var.storage_account_name_prefix}"
+  application_insights_name_prefix = "${var.application_insights_name_prefix}"
+  function_app_name_prefix         = "${var.function_app_name_prefix}"
 
   app_service_plan_id               = "${module.app_service_plan.app_service_plan_id}"
   function_language                 = "${var.function_language}"
