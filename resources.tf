@@ -21,7 +21,7 @@ resource "azurerm_storage_account" "storage" {
 
 # Application Insights
 resource "azurerm_application_insights" "app_insights" {
-  name = "${coalesce(var.application_insights_name_prefix, var.name_prefix)}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai"
+  name = "${local.ai_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai"
 
   location            = "${var.location}"
   resource_group_name = "${var.resource_group_name}"
@@ -35,7 +35,7 @@ resource "azurerm_application_insights" "app_insights" {
 
 # Function App
 resource "azurerm_function_app" "function_app" {
-  name = "${coalesce(var.function_app_name_prefix, var.name_prefix)}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func"
+  name = "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func"
 
   app_service_plan_id       = "${var.app_service_plan_id}"
   location                  = "${var.location}"
@@ -46,7 +46,7 @@ resource "azurerm_function_app" "function_app" {
 
   site_config {
     always_on        = "${replace(jsonencode(data.azurerm_app_service_plan.plan.sku), "/.*Dynamic.*/", "dummy") == "dummy" ? false : true}"
-    linux_fx_version = "DOCKER|${lookup(local.container_default_image, var.function_language)}"
+    linux_fx_version = "DOCKER|${lookup(local.container_default_image, var.function_language_for_linux)}"
   }
 
   lifecycle {
