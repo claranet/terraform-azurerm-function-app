@@ -1,3 +1,9 @@
-# 1.0.0 (23/04/2019)
+# Unreleased
 
-* AZ-47: First release
+Added
+  * AZ-78: Windows support
+
+# v1.0.0 - 2019-04-23
+
+Added
+  * AZ-47: First release

@@ -9,3 +9,4 @@ function_language="python"
 extra_tags = {
   foo = "bar"
 }
+app_service_plan_os="Windows"

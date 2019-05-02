@@ -1,6 +1,6 @@
 # App Service Plan
 module "app_service_plan" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=v1.1.0"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=AZ-78-windows-compatibility"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
@@ -12,13 +12,14 @@ module "app_service_plan" {
 
   sku = "${var.app_service_plan_sku}"
 
-  kind = "${lookup(var.app_service_plan_sku, "tier") == "Dynamic" ? "FunctionApp" : var.app_service_plan_os}"
+  kind     = "${lookup(var.app_service_plan_sku, "tier") == "Dynamic" ? "FunctionApp" : var.app_service_plan_os}"
+  reserved = "${var.app_service_plan_os == "Linux" ? "true" : var.app_service_plan_reserved}"
 
   extra_tags = "${merge(var.extra_tags, var.app_service_plan_extra_tags, local.default_tags)}"
 }
 
 module "function_app" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=v1.0.0"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=AZ-78-windows-compatibility"
 
   client_name         = "${var.client_name}"
   environment         = "${var.environment}"
@@ -33,7 +34,7 @@ module "function_app" {
   function_app_name_prefix         = "${var.function_app_name_prefix}"
 
   app_service_plan_id               = "${module.app_service_plan.app_service_plan_id}"
-  function_language                 = "${var.function_language}"
+  function_language_for_linux       = "${var.function_language_for_linux}"
   function_app_application_settings = "${var.function_app_application_settings}"
 
   create_application_insights_resource     = "${var.create_application_insights_resource}"

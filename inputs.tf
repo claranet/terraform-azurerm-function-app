@@ -67,7 +67,12 @@ variable "app_service_plan_sku" {
 variable "app_service_plan_os" {
   description = "App Service Plan OS for dedicated plans, can be \"Linux\" or \"Windows\""
   type        = "string"
-  default     = "Linux"
+}
+
+variable "app_service_plan_reserved" {
+  description = "Flag indicating if dedicated App Service Plan should be reserved"
+  type        = "string"
+  default     = "false"
 }
 
 variable "extra_tags" {
@@ -100,9 +105,10 @@ variable "function_app_extra_tags" {
   default     = {}
 }
 
-variable "function_language" {
-  description = "Language of the Function App, can be \"dotnet\", \"node\" or \"python\""
+variable "function_language_for_linux" {
+  description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
   type        = "string"
+  default     = "dotnet"
 }
 
 # TODO Remove me in Terraform 0.12
