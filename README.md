@@ -1,6 +1,6 @@
-# Azure Function App V2
+# Azure Function App
 
-This Terraform feature creates an [Azure Function App](https://github.com/Azure/Azure-Functions/wiki/Azure-Functions-on-Linux-Preview).
+This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided. An [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
 must be provided for hosting.
