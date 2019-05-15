@@ -34,8 +34,8 @@ module "rg" {
 module "function1" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -59,8 +59,8 @@ module "function1" {
 module "function2" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -103,8 +103,8 @@ module "rg" {
 module "function1" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -129,8 +129,8 @@ module "function1" {
 module "function2" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
