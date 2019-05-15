@@ -1,4 +1,4 @@
-# Unreleased
+# v1.1.0 - 2019-05-15
 
 Added
   * AZ-78: Windows support
