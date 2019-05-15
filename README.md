@@ -6,14 +6,23 @@ a consumption plan by default.
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided.
 
-## Requirements and limitations
- * Azure provider >= 1.22
+## Requirements
+
+ * AzureRM terraform provider >= 1.22
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
+## Limitations
+
+Based on a current limitation, you cannot mix Windows and Linux apps in the same resource group.
+
+Limitations documentation: [https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations]
+
 ## Usage
+
 You can use this module by including it this way:
 
 ### Windows
+
 ```hcl
 module "az-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
@@ -40,12 +49,13 @@ module "function_app" {
   location            = "${module.az-region.location}"
   location_short      = "${module.az-region.location-short}"
 
-  name_prefix       = "hello"
+  name_prefix = "hello"
   
   app_service_plan_os = "Windows"
 
   function_app_application_settings = {
-    setting_name = "setting_value"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 
   extra_tags = {
@@ -55,6 +65,7 @@ module "function_app" {
 ```
 
 ### Linux
+
 ```hcl
 module "az-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
@@ -81,13 +92,14 @@ module "function_app" {
   location            = "${module.az-region.location}"
   location_short      = "${module.az-region.location-short}"
 
-  name_prefix       = "hello"
+  name_prefix = "hello"
   
   app_service_plan_os         = "Linux"
   function_language_for_linux = "python"
 
   function_app_application_settings = {
-    setting_name = "setting_value"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 
   extra_tags = {
@@ -149,4 +161,5 @@ module "function_app" {
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
 
 ## Related documentation
+
 Microsoft Azure Functions documentation: [https://github.com/Azure/Azure-Functions#documentation-1]
