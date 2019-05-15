@@ -7,7 +7,7 @@ must be provided for hosting.
 
 
 ## Requirements and limitations
- * Azure provider >= 1.22
+ * AzureRM terraform provider >= 1.22
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
 ## Usage
@@ -52,7 +52,8 @@ module "function1" {
   }
 
   function_app_application_settings = {
-    "app_setting1" = "value1"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 
@@ -78,7 +79,8 @@ module "function2" {
   application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
 
   function_app_application_settings = {
-    "app_setting2" = "value2"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 ```
@@ -122,7 +124,8 @@ module "function1" {
   }
 
   function_app_application_settings = {
-    "app_setting1" = "value1"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 
@@ -150,7 +153,8 @@ module "function2" {
   application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
 
   function_app_application_settings = {
-    "app_setting2" = "value2"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 ```
