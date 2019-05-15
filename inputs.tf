@@ -30,12 +30,6 @@ variable "name_prefix" {
   default     = ""
 }
 
-variable "app_service_plan_name_prefix" {
-  description = "App Service Plan name prefix"
-  type        = "string"
-  default     = ""
-}
-
 variable "function_app_name_prefix" {
   description = "Function App name prefix"
   type        = "string"
@@ -83,9 +77,10 @@ variable "function_app_extra_tags" {
   default     = {}
 }
 
-variable "function_language" {
-  description = "Language of the function, can be \"dotnet\", \"node\" or \"python\""
+variable "function_language_for_linux" {
+  description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
   type        = "string"
+  default     = "dotnet"
 }
 
 # TODO Remove me in Terraform 0.12

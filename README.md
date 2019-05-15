@@ -1,18 +1,21 @@
-# Azure Function App V2
+# Azure Function App
 
-## Purpose
+This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
+A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
+are required and are created if not provided. An [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
+must be provided for hosting.
 
-This Terraform feature creates an [Azure Function App V2](https://github.com/Azure/Azure-Functions/wiki/Azure-Functions-on-Linux-Preview).
-A Storage Account and an Application Insights are required and are created if not provided.
-An App Service Plan must be provided for hosting.
 
-**This module requires the version 1.22+ of the AzureRM provider**
+## Requirements and limitations
+ * AzureRM terraform provider >= 1.22
+ * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
 ## Usage
 
-Here's an example combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
+Here's 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
 
-```shell
+### Windows
+```hcl
 module "az-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
@@ -31,16 +34,17 @@ module "rg" {
 module "function1" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
 
-  function_app_name_suffix = "-function1"
-
-  function_language   = "python"
   resource_group_name = "${module.rg.resource_group_name}"
+
+  function_app_name_prefix = "function1"
+
+  app_service_plan_os = "Windows"
 
   app_service_plan_sku = {
     size = "S1"
@@ -48,24 +52,23 @@ module "function1" {
   }
 
   function_app_application_settings = {
-    "app_setting1" = "value1"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 
 module "function2" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
 
-  location       = "${module.region.location}"
-  location_short = "${module.region.location-short}"
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
 
   resource_group_name = "${module.rg.resource_group_name}"
 
-  function_app_name_suffix = "-function2"
-
-  function_language   = "python"
+  function_app_name_prefix = "function2"
 
   app_service_plan_id = "${module.function1.app_service_plan_id}"
 
@@ -76,7 +79,82 @@ module "function2" {
   application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
 
   function_app_application_settings = {
-    "app_setting2" = "value2"
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
+  }
+}
+```
+
+### Linux
+```hcl
+module "az-region" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+
+  azure_region = "${var.azure_region}"
+}
+
+module "rg" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+
+  azure_region = "${module.az-region.location}"
+  client_name  = "${var.client_name}"
+  environment  = "${var.environment}"
+  stack        = "${var.stack}"
+}
+
+module "function1" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
+
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
+  client_name    = "${var.client_name}"
+  environment    = "${var.environment}"
+  stack          = "${var.stack}"
+
+  resource_group_name = "${module.rg.resource_group_name}"
+
+  function_app_name_prefix = "function1"
+
+  app_service_plan_os         = "Linux"
+  function_language_for_linux = "python"
+  
+  app_service_plan_sku = {
+    size = "S1"
+    tier = "Standard"
+  }
+
+  function_app_application_settings = {
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
+  }
+}
+
+module "function2" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
+
+  location       = "${module.az-region.location}"
+  location_short = "${module.az-region.location_short}"
+  client_name    = "${var.client_name}"
+  environment    = "${var.environment}"
+  stack          = "${var.stack}"
+
+  resource_group_name = "${module.rg.resource_group_name}"
+
+  function_app_name_suffix = "function2"
+
+  function_language_for_linux = "python"
+
+  app_service_plan_id = "${module.function1.app_service_plan_id}"
+
+  create_storage_account_resource   = "false"
+  storage_account_connection_string = "${module.function1.storage_account_primary_connection_string}"
+
+  create_application_insights_resource     = "false"
+  application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
+
+  function_app_application_settings = {
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
   }
 }
 ```
@@ -86,7 +164,6 @@ module "function2" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | string | n/a | yes |
-| app\_service\_plan\_name\_prefix | App Service Plan name prefix | string | `""` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | map | `<map>` | no |
 | application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | string | `""` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | string | `""` | no |
@@ -99,7 +176,7 @@ module "function2" {
 | function\_app\_application\_settings | Function App application settings | map | `<map>` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | map | `<map>` | no |
 | function\_app\_name\_prefix | Function App name prefix | string | `""` | no |
-| function\_language | Language of the function, can be "dotnet", "node" or "python" | string | n/a | yes |
+| function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | string | `"python"` | no |
 | location | Azure location for App Service Plan. | string | n/a | yes |
 | location\_short | Short string for Azure location. | string | n/a | yes |
 | name\_prefix | Name prefix for all resources generated name | string | `""` | no |
