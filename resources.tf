@@ -15,9 +15,9 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
 
   tags = merge(
-    var.extra_tags,
-    var.storage_account_extra_tags,
     local.default_tags,
+    var.storage_account_extra_tags,
+    var.extra_tags,
   )
 
   count = var.create_storage_account_resource == "true" ? 1 : 0
@@ -33,9 +33,9 @@ resource "azurerm_application_insights" "app_insights" {
   application_type = var.application_insights_type
 
   tags = merge(
-    var.extra_tags,
-    var.application_insights_extra_tags,
     local.default_tags,
+    var.application_insights_extra_tags,
+    var.extra_tags,
   )
 
   count = var.create_application_insights_resource == "true" ? 1 : 0
