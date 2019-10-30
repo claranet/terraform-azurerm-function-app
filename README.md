@@ -10,6 +10,11 @@ must be provided for hosting.
  * AzureRM terraform provider >= 1.22
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
+### Terraform version compatibility
+| Module version | Terraform version |
+|----------------|-------------------|
+| >= 2.x.x       | 0.12.x            |
+| < 2.x.x        | 0.11.x            |
 ## Usage
 
 Here's 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
