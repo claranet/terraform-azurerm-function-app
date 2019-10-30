@@ -10,9 +10,9 @@ locals {
     dotnet = "microsoft/azure-functions-dotnet-core2.0:2.0"
   }
 
-  name_prefix          = var.name_prefix != "" ? format("%s-", var.name_prefix) : ""
-  ai_name_prefix       = var.application_insights_name_prefix != "" ? format("%s-", var.application_insights_name_prefix) : local.name_prefix
-  function_name_prefix = var.function_app_name_prefix != "" ? format("%s-", var.function_app_name_prefix) : local.name_prefix
+  name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
+  ai_name_prefix       = var.application_insights_name_prefix != "" ? replace(var.application_insights_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
+  function_name_prefix = var.function_app_name_prefix != "" ? replace(var.function_app_name_prefix, "/[a-z0-9]$/", "$0-") : local.function_name_prefix
 
   storage_default_name_long = replace(
     format(
