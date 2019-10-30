@@ -56,12 +56,12 @@ resource "azurerm_function_app" "function_app" {
   )
 
   site_config {
-    always_on = replace(
-      jsonencode(data.azurerm_app_service_plan.plan.sku),
-      "/.*Dynamic.*/",
-      "dummy",
-    ) == "dummy" ? false : true
-    linux_fx_version = "DOCKER|${local.container_default_image[var.function_language_for_linux]}"
+
+    always_on = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
+
+    // Not sure it will work with other SKU than Premium.
+    // https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-linux-custom-image?tabs=nodejs
+    linux_fx_version = "%{ if data.azurerm_app_service_plan.plan.sku[0].tier != "Dynamic" }DOCKER|${local.container_default_image[var.function_language_for_linux]}%{else}%{ endif }"
   }
 
   lifecycle {
