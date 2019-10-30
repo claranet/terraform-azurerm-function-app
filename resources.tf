@@ -57,8 +57,8 @@ resource "azurerm_function_app" "function_app" {
 
   site_config {
 
-    always_on = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
-    linux_fx_version = "%{ if data.azurerm_app_service_plan.plan.kind == "linux" }DOCKER|${local.container_default_image[var.function_language_for_linux]}%{else}%{ endif }"
+    always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
+    linux_fx_version = "%{if data.azurerm_app_service_plan.plan.kind == "linux"}DOCKER|${local.container_default_image[var.function_language_for_linux]}%{else}%{endif}"
   }
 
   lifecycle {
