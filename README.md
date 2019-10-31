@@ -11,17 +11,19 @@ must be provided for hosting.
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
 ### Terraform version compatibility
+
 | Module version | Terraform version |
 |----------------|-------------------|
 | >= 2.x.x       | 0.12.x            |
 | < 2.x.x        | 0.11.x            |
+
 ## Usage
 
 Here's 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
 
 ### Windows
 ```hcl
-module "az-region" {
+module "azure-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
   azure_region = "${var.azure_region}"
@@ -30,7 +32,7 @@ module "az-region" {
 module "rg" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
 
-  azure_region = "${module.az-region.location}"
+  azure_region = "${module.azure-region.location}"
   client_name  = "${var.client_name}"
   environment  = "${var.environment}"
   stack        = "${var.stack}"
@@ -39,8 +41,8 @@ module "rg" {
 module "function1" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
 
-  location       = "${module.az-region.location}"
-  location_short = "${module.az-region.location_short}"
+  location       = "${module.azure-region.location}"
+  location_short = "${module.azure-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -65,8 +67,8 @@ module "function1" {
 module "function2" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
 
-  location       = "${module.az-region.location}"
-  location_short = "${module.az-region.location_short}"
+  location       = "${module.azure-region.location}"
+  location_short = "${module.azure-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -92,7 +94,7 @@ module "function2" {
 
 ### Linux
 ```hcl
-module "az-region" {
+module "azure-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
   azure_region = "${var.azure_region}"
@@ -101,7 +103,7 @@ module "az-region" {
 module "rg" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
 
-  azure_region = "${module.az-region.location}"
+  azure_region = "${module.azure-region.location}"
   client_name  = "${var.client_name}"
   environment  = "${var.environment}"
   stack        = "${var.stack}"
@@ -110,8 +112,8 @@ module "rg" {
 module "function1" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
 
-  location       = "${module.az-region.location}"
-  location_short = "${module.az-region.location_short}"
+  location       = "${module.azure-region.location}"
+  location_short = "${module.azure-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
@@ -137,8 +139,8 @@ module "function1" {
 module "function2" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
 
-  location       = "${module.az-region.location}"
-  location_short = "${module.az-region.location_short}"
+  location       = "${module.azure-region.location}"
+  location_short = "${module.azure-region.location_short}"
   client_name    = "${var.client_name}"
   environment    = "${var.environment}"
   stack          = "${var.stack}"
