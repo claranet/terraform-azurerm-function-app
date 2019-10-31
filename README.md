@@ -11,6 +11,13 @@ are required and are created if not provided.
  * AzureRM terraform provider >= 1.22
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
+## Terraform version compatibility
+
+| Module version | Terraform version |
+|----------------|-------------------|
+| >= 2.x.x       | 0.12.x            |
+| < 2.x.x        | 0.11.x            |
+
 ## Limitations
 
 Based on a current limitation, you cannot mix Windows and Linux apps in the same resource group.
@@ -24,7 +31,7 @@ You can use this module by including it this way:
 ### Windows
 
 ```hcl
-module "az-region" {
+module "azure-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
   azure_region = "${var.azure_region}"
@@ -67,7 +74,7 @@ module "function_app" {
 ### Linux
 
 ```hcl
-module "az-region" {
+module "azure-region" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
   azure_region = "${var.azure_region}"
