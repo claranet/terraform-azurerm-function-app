@@ -1,4 +1,5 @@
 # Azure Function App
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/rg/azurerm/)
 
 This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
@@ -19,35 +20,42 @@ must be provided for hosting.
 
 ## Usage
 
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
+ 
+More details about variables set by the terraform-wrapper available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
+
 Here's 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
 
 ### Windows
 ```hcl
 module "azure-region" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+  source  = "claranet/regions/azurerm"
+  version = "x.x.x"
 
-  azure_region = "${var.azure_region}"
+  azure_region = var.azure_region
 }
 
 module "rg" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+  source  = "claranet/rg/azurerm"
+  version = "x.x.x"
 
-  azure_region = "${module.azure-region.location}"
-  client_name  = "${var.client_name}"
-  environment  = "${var.environment}"
-  stack        = "${var.stack}"
+  azure_region = module.azure-region.location
+  client_name  = var.client_name
+  environment  = var.environment
+  stack        = var.stack
 }
 
 module "function1" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
+  source  = "claranet/function-app-single/azurerm"
+  version = "x.x.x"
 
-  location       = "${module.azure-region.location}"
-  location_short = "${module.azure-region.location_short}"
-  client_name    = "${var.client_name}"
-  environment    = "${var.environment}"
-  stack          = "${var.stack}"
+  location       = module.azure-region.location
+  location_short = module.azure-region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 
-  resource_group_name = "${module.rg.resource_group_name}"
+  resource_group_name = module.rg.resource_group_name
 
   function_app_name_prefix = "function1"
 
@@ -65,25 +73,26 @@ module "function1" {
 }
 
 module "function2" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
+  source  = "azurerm/function-app-single/azurerm"
+  version = "x.x.x"
 
-  location       = "${module.azure-region.location}"
-  location_short = "${module.azure-region.location_short}"
-  client_name    = "${var.client_name}"
-  environment    = "${var.environment}"
-  stack          = "${var.stack}"
+  location       = module.azure-region.location
+  location_short = module.azure-region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 
-  resource_group_name = "${module.rg.resource_group_name}"
+  resource_group_name = module.rg.resource_group_name
 
   function_app_name_prefix = "function2"
 
-  app_service_plan_id = "${module.function1.app_service_plan_id}"
+  app_service_plan_id = module.function1.app_service_plan_id
 
   create_storage_account_resource   = "false"
-  storage_account_connection_string = "${module.function1.storage_account_primary_connection_string}"
+  storage_account_connection_string = module.function1.storage_account_primary_connection_string
 
   create_application_insights_resource     = "false"
-  application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
+  application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -95,30 +104,34 @@ module "function2" {
 ### Linux
 ```hcl
 module "azure-region" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+  source  = "claranet/regions/azurem"
+  version = "x.x.x"
 
-  azure_region = "${var.azure_region}"
+  azure_region = var.azure_region
 }
 
 module "rg" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+  source = "claranet/rg/azurerm"
+  version = "x.x.x"
 
-  azure_region = "${module.azure-region.location}"
-  client_name  = "${var.client_name}"
-  environment  = "${var.environment}"
-  stack        = "${var.stack}"
+  azure_region = module.azure-region.location
+  client_name  = var.client_name
+  environment  = var.environment
+
+  stack        = var.stack
 }
 
 module "function1" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-with-plan.git?ref=vX.X.X"
+  source  = "claranet/function-app-single"
+  version = "x.x.x"
 
-  location       = "${module.azure-region.location}"
-  location_short = "${module.azure-region.location_short}"
-  client_name    = "${var.client_name}"
-  environment    = "${var.environment}"
-  stack          = "${var.stack}"
+  location       = module.azure-region.location
+  location_short = module.azure-region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 
-  resource_group_name = "${module.rg.resource_group_name}"
+  resource_group_name = module.rg.resource_group_name
 
   function_app_name_prefix = "function1"
 
@@ -137,27 +150,27 @@ module "function1" {
 }
 
 module "function2" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=vX.X.X"
+  source = "claranet/function-app-single/azurerm"
 
-  location       = "${module.azure-region.location}"
-  location_short = "${module.azure-region.location_short}"
-  client_name    = "${var.client_name}"
-  environment    = "${var.environment}"
-  stack          = "${var.stack}"
+  location       = module.azure-region.location
+  location_short = module.azure-region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 
-  resource_group_name = "${module.rg.resource_group_name}"
+  resource_group_name = module.rg.resource_group_name
 
   function_app_name_suffix = "function2"
 
   function_language_for_linux = "python"
 
-  app_service_plan_id = "${module.function1.app_service_plan_id}"
+  app_service_plan_id = module.function1.app_service_plan_id
 
   create_storage_account_resource   = "false"
-  storage_account_connection_string = "${module.function1.storage_account_primary_connection_string}"
+  storage_account_connection_string = module.function1.storage_account_primary_connection_string
 
   create_application_insights_resource     = "false"
-  application_insights_instrumentation_key = "${module.function1.application_insights_instrumentation_key}"
+  application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
