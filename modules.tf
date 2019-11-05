@@ -1,6 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/app-service-plan.git?ref=v2.0.0"
+  source  = "claranet/app-service-plan/azurerm"
+  version = "2.0.0"
 
   client_name         = var.client_name
   environment         = var.environment
