@@ -1,5 +1,5 @@
 # Azure Function App with plan
-[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/rg/azurerm/)
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/function-app-with-plan/azurerm/)
 
 This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/)
 with its [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans), 
@@ -46,7 +46,7 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location     = module.az-region.location
+  location     = module.azure-region.location
   client_name  = var.client_name
   environment  = var.environment
   stack        = var.stack
@@ -60,8 +60,8 @@ module "function_app" {
   environment         = var.environment
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
-  location            = module.az-region.location
-  location_short      = module.az-region.location-short
+  location            = module.azure-region.location
+  location_short      = module.azure-region.location-short
 
   name_prefix = "hello"
   
@@ -92,7 +92,7 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location     = module.az-region.location
+  location     = module.azure-region.location
   client_name  = var.client_name
   environment  = var.environment
   stack        = var.stack
@@ -106,8 +106,8 @@ module "function_app" {
   environment         = var.environment
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
-  location            = module.az-region.location
-  location_short      = module.az-region.location-short
+  location            = module.azure-region.location
+  location_short      = module.azure-region.location-short
 
   name_prefix = "hello"
   
