@@ -24,10 +24,7 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  /* TODO: Update version when MR https://git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single/merge_requests/4
-           will be approved
-  */
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=AZ-94-tf012"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=v2.0.0"
 
   client_name         = var.client_name
   environment         = var.environment
