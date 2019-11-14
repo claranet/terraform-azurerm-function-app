@@ -9,7 +9,7 @@ are required and are created if not provided.
 
 ## Requirements
 
- * AzureRM terraform provider >= 1.22
+ * AzureRM terraform provider >= 1.36
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
 ## Terraform version compatibility
@@ -179,4 +179,4 @@ module "function_app" {
 
 ## Related documentation
 
-Microsoft Azure Functions documentation: [https://github.com/Azure/Azure-Functions#documentation-1]
+Microsoft Azure Functions documentation: [github.com/Azure/Azure-Functions#documentation-1](https://github.com/Azure/Azure-Functions#documentation-1)
