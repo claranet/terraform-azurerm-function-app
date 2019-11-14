@@ -1,3 +1,8 @@
+# Unrelease
+
+Breaking
+  * AZ-94: Upgrade module to terraform 0.12 / HCL2
+
 # v1.1.0 - 2019-05-15
 
 Added
