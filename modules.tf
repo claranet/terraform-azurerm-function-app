@@ -24,7 +24,8 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/features/function-app-single.git?ref=v2.0.0"
+  source  = "claranet/function-app-single/azurerm"
+  version = "2.0.1"
 
   client_name         = var.client_name
   environment         = var.environment
