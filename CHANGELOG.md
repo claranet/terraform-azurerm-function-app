@@ -1,8 +1,8 @@
-# v2.0.1 - Unreleased
+# v2.0.1 - 2019-11-15
 
 Fixed
-  * AZ-118: Documentation update for public release 
-  
+  * AZ-118: Documentation update for public release
+
 # v2.0.0 - 2019-11-14
 
 Breaking
