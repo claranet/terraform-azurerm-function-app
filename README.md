@@ -203,7 +203,10 @@ module "function2" {
 | resource\_group\_name |  | string | n/a | yes |
 | stack |  | string | n/a | yes |
 | storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | string | `""` | no |
+| storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | bool | `false` | no |
+| storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | bool | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | map | `<map>` | no |
+| storage\_account\_kind | Storage account kind | string | `"StorageV2"` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | string | `""` | no |
 
 ## Outputs

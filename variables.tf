@@ -48,6 +48,24 @@ variable "storage_account_name_prefix" {
   default     = ""
 }
 
+variable "storage_account_kind" {
+  description = "Storage Account Kind"
+  type        = string
+  default     = "StorageV2"
+}
+
+variable "storage_account_enable_advanced_threat_protection" {
+  description = "Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
+  type        = bool
+  default     = false
+}
+
+variable "storage_account_enable_https_traffic_only" {
+  description = "Boolean flag which controls if https traffic only is enabled."
+  type        = bool
+  default     = true
+}
+
 variable "app_service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
