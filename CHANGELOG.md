@@ -1,4 +1,4 @@
-# Unreleased
+# v2.1.0 - 2020-02-17
 
 Added
   * AZ-169: Storage Account - allow to configure account\_kind (default to StorageV2), enable\_https\_traffic\_only (default to false) and enable\_advanced\_threat\_protection (default to false)
