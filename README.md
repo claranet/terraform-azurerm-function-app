@@ -8,7 +8,7 @@ must be provided for hosting.
 
 
 ## Requirements and limitations
- * AzureRM terraform provider >= 1.36
+ * AzureRM terraform provider < 2.0
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
 ## Terraform version compatibility
