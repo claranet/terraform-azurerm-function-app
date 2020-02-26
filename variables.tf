@@ -36,6 +36,12 @@ variable "function_app_name_prefix" {
   default     = ""
 }
 
+variable "function_app_version" {
+  description = "Version of function app to use"
+  type        = number
+  default     = 2
+}
+
 variable "application_insights_name_prefix" {
   description = "Application Insights name prefix"
   type        = string
@@ -104,8 +110,8 @@ variable "function_language_for_linux" {
 # TODO Remove me in Terraform 0.12
 variable "create_storage_account_resource" {
   description = "Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true`"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "storage_account_connection_string" {
@@ -117,8 +123,8 @@ variable "storage_account_connection_string" {
 # TODO Remove me in Terraform 0.12
 variable "create_application_insights_resource" {
   description = "Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true`"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "application_insights_instrumentation_key" {

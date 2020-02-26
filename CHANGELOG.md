@@ -1,3 +1,8 @@
+# v2.2.0 - Unreleased
+
+Added
+  * AZ-201: Allow to use function app v3
+   
 # v2.1.0 - 2020-02-17
 
 Added

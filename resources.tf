@@ -19,12 +19,12 @@ resource "azurerm_storage_account" "storage" {
   enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
 
   tags = merge(
-    local.default_tags,
-    var.storage_account_extra_tags,
-    var.extra_tags,
+  local.default_tags,
+  var.storage_account_extra_tags,
+  var.extra_tags,
   )
 
-  count = var.create_storage_account_resource == "true" ? 1 : 0
+  count = var.create_storage_account_resource ? 1 : 0
 }
 
 # Application Insights
@@ -37,12 +37,12 @@ resource "azurerm_application_insights" "app_insights" {
   application_type = var.application_insights_type
 
   tags = merge(
-    local.default_tags,
-    var.application_insights_extra_tags,
-    var.extra_tags,
+  local.default_tags,
+  var.application_insights_extra_tags,
+  var.extra_tags,
   )
 
-  count = var.create_application_insights_resource == "true" ? 1 : 0
+  count = var.create_application_insights_resource ? 1 : 0
 }
 
 # Function App
@@ -55,8 +55,8 @@ resource "azurerm_function_app" "function_app" {
   storage_connection_string = local.storage_account_connection_string
 
   app_settings = merge(
-    local.default_application_settings,
-    var.function_app_application_settings,
+  local.default_application_settings,
+  var.function_app_application_settings,
   )
 
   site_config {
@@ -73,6 +73,6 @@ resource "azurerm_function_app" "function_app" {
     ]
   }
 
-  version = "~2"
+  version = "~${var.function_app_version}"
 }
 

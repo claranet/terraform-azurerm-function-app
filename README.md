@@ -122,7 +122,7 @@ module "rg" {
 }
 
 module "function1" {
-  source  = "claranet/function-app-single"
+  source  = "claranet/function-app-single/azurerm"
   version = "x.x.x"
 
   location       = module.azure-region.location
@@ -182,32 +182,33 @@ module "function2" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | string | n/a | yes |
-| application\_insights\_extra\_tags | Extra tags to add to Application Insights | map | `<map>` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | string | `""` | no |
-| application\_insights\_name\_prefix | Application Insights name prefix | string | `""` | no |
-| application\_insights\_type | Application Insights type if need to be generated | string | `"Web"` | no |
-| client\_name |  | string | n/a | yes |
-| create\_application\_insights\_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | string | `"true"` | no |
-| create\_storage\_account\_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | string | `"true"` | no |
-| environment |  | string | n/a | yes |
-| extra\_tags | Extra tags to add | map | `<map>` | no |
-| function\_app\_application\_settings | Function App application settings | map | `<map>` | no |
-| function\_app\_extra\_tags | Extra tags to add to Function App | map | `<map>` | no |
-| function\_app\_name\_prefix | Function App name prefix | string | `""` | no |
-| function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | string | `"python"` | no |
-| location | Azure location for App Service Plan. | string | n/a | yes |
-| location\_short | Short string for Azure location. | string | n/a | yes |
-| name\_prefix | Name prefix for all resources generated name | string | `""` | no |
-| resource\_group\_name |  | string | n/a | yes |
-| stack |  | string | n/a | yes |
-| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | string | `""` | no |
-| storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | bool | `false` | no |
-| storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | bool | `true` | no |
-| storage\_account\_extra\_tags | Extra tags to add to Storage Account | map | `<map>` | no |
-| storage\_account\_kind | Storage account kind | string | `"StorageV2"` | no |
-| storage\_account\_name\_prefix | Storage Account name prefix | string | `""` | no |
+|------|-------------|------|---------|:-----:|
+| app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
+| application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | `""` | no |
+| application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
+| client\_name | n/a | `string` | n/a | yes |
+| create\_application\_insights\_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | `bool` | `true` | no |
+| create\_storage\_account\_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | `bool` | `true` | no |
+| environment | n/a | `string` | n/a | yes |
+| extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
+| function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
+| function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
+| function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_app\_version | Version of function app to use | `number` | `2` | no |
+| function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
+| location | Azure location for App Service Plan. | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
+| name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
+| resource\_group\_name | n/a | `string` | n/a | yes |
+| stack | n/a | `string` | n/a | yes |
+| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | `string` | `""` | no |
+| storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
+| storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
+| storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
+| storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
+| storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 
 ## Outputs
 
