@@ -1,3 +1,8 @@
+# v3.0.0 - Unreleased
+
+Breaking
+  * AZ-206: Provider Azure v2.x+ upgrade
+
 # v2.0.1 - 2019-11-15
 
 Fixed
