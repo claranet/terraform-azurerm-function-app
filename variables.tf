@@ -107,30 +107,16 @@ variable "function_language_for_linux" {
   default     = "dotnet"
 }
 
-# TODO Remove me in Terraform 0.12
-variable "create_storage_account_resource" {
-  description = "Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true`"
-  type        = bool
-  default     = true
-}
-
 variable "storage_account_connection_string" {
-  description = "Storage Account connection string for Function App associated storage, a Storage Account is created if empty"
+  description = "Storage Account connection string for Function App associated storage, a Storage Account is created if null"
   type        = string
-  default     = ""
-}
-
-# TODO Remove me in Terraform 0.12
-variable "create_application_insights_resource" {
-  description = "Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true`"
-  type        = bool
-  default     = true
+  default     = null
 }
 
 variable "application_insights_instrumentation_key" {
-  description = "Application Insights instrumentation key for function logs, generated if empty"
+  description = "Application Insights instrumentation key for function logs, generated if null"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "application_insights_type" {

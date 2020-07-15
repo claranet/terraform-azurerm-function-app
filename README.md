@@ -88,10 +88,8 @@ module "function2" {
 
   app_service_plan_id = module.function1.app_service_plan_id
 
-  create_storage_account_resource   = "false"
   storage_account_connection_string = module.function1.storage_account_primary_connection_string
 
-  create_application_insights_resource     = "false"
   application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
 
   function_app_application_settings = {
@@ -166,10 +164,8 @@ module "function2" {
 
   app_service_plan_id = module.function1.app_service_plan_id
 
-  create_storage_account_resource   = "false"
   storage_account_connection_string = module.function1.storage_account_primary_connection_string
 
-  create_application_insights_resource     = "false"
   application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
 
   function_app_application_settings = {
@@ -182,15 +178,13 @@ module "function2" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | `""` | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
-| create\_application\_insights\_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | `bool` | `true` | no |
-| create\_storage\_account\_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | `bool` | `true` | no |
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
@@ -203,7 +197,7 @@ module "function2" {
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
 | resource\_group\_name | n/a | `string` | n/a | yes |
 | stack | n/a | `string` | n/a | yes |
-| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | `string` | `""` | no |
+| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if null | `string` | `null` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
