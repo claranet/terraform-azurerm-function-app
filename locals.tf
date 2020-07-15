@@ -29,12 +29,12 @@ locals {
     0,
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   )
-  storage_account_connection_string = var.create_storage_account_resource ? join(
+  storage_account_connection_string = var.storage_account_connection_string != null ? join(
     "",
     azurerm_storage_account.storage[*].primary_connection_string,
   ) : var.storage_account_connection_string
 
-  app_insights_instrumentation_key = var.create_application_insights_resource ? join(
+  app_insights_instrumentation_key = var.application_insights_instrumentation_key != null ? join(
     "",
     azurerm_application_insights.app_insights[*].instrumentation_key,
   ) : var.application_insights_instrumentation_key
