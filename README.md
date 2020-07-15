@@ -45,8 +45,8 @@ module "rg" {
   stack        = var.stack
 }
 
-module "function1" {
-  source  = "claranet/function-app-single/azurerm"
+module "function-plan" {
+  source  = "claranet/app-service-plan/azurerm"
   version = "x.x.x"
 
   location       = module.azure-region.location
@@ -72,7 +72,7 @@ module "function1" {
   }
 }
 
-module "function2" {
+module "function1" {
   source  = "azurerm/function-app-single/azurerm"
   version = "x.x.x"
 
@@ -86,11 +86,7 @@ module "function2" {
 
   function_app_name_prefix = "function2"
 
-  app_service_plan_id = module.function1.app_service_plan_id
-
-  storage_account_connection_string = module.function1.storage_account_primary_connection_string
-
-  application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
+  app_service_plan_id = module.function-plan.app_service_plan_id
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -119,8 +115,8 @@ module "rg" {
   stack        = var.stack
 }
 
-module "function1" {
-  source  = "claranet/function-app-single/azurerm"
+module "function-plan" {
+  source  = "claranet/app-service-plan/azurerm"
   version = "x.x.x"
 
   location       = module.azure-region.location
@@ -147,7 +143,7 @@ module "function1" {
   }
 }
 
-module "function2" {
+module "function1" {
   source = "claranet/function-app-single/azurerm"
 
   location       = module.azure-region.location
@@ -162,11 +158,7 @@ module "function2" {
 
   function_language_for_linux = "python"
 
-  app_service_plan_id = module.function1.app_service_plan_id
-
-  storage_account_connection_string = module.function1.storage_account_primary_connection_string
-
-  application_insights_instrumentation_key = module.function1.application_insights_instrumentation_key
+  app_service_plan_id = module.function-plan.app_service_plan_id
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
