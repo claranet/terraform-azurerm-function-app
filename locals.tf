@@ -30,15 +30,9 @@ locals {
     0,
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   )
-  storage_account_connection_string = var.storage_account_connection_string == null ? join(
-    "",
-    azurerm_storage_account.storage[*].primary_connection_string,
-  ) : var.storage_account_connection_string
 
-  app_insights_instrumentation_key = var.application_insights_instrumentation_key == null ? join(
-    "",
-    azurerm_application_insights.app_insights[*].instrumentation_key,
-  ) : var.application_insights_instrumentation_key
+  storage_account_connection_string = coalesce(join("", azurerm_storage_account.storage[*].primary_connection_string), var.storage_account_connection_string)
+  app_insights_instrumentation_key  = coalesce(join("", azurerm_application_insights.app_insights[*].instrumentation_key), var.application_insights_instrumentation_key)
 
   default_application_settings = {
     FUNCTIONS_WORKER_RUNTIME       = var.function_language_for_linux
