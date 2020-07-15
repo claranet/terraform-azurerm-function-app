@@ -31,8 +31,8 @@ locals {
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   )
 
-  storage_account_connection_string = coalesce(azurerm_storage_account.storage[0].primary_connection_string, var.storage_account_connection_string)
-  app_insights_instrumentation_key  = coalesce(azurerm_application_insights.app_insights[0].instrumentation_key, var.application_insights_instrumentation_key)
+  storage_account_connection_string = coalesce(var.storage_account_connection_string, try(azurerm_storage_account.storage[0].primary_connection_string, ""))
+  app_insights_instrumentation_key  = coalesce(var.application_insights_instrumentation_key, try(azurerm_application_insights.app_insights[0].instrumentation_key, ""))
 
   default_application_settings = {
     FUNCTIONS_WORKER_RUNTIME       = var.function_language_for_linux
