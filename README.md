@@ -176,12 +176,19 @@ module "function-app" {
 
   app_service_plan_id = module.function-plan.app_service_plan_id
   identity_type = "UserAssigned"
-  identity_ids = ["/subscriptions/499bbc6c-d927-488d-8e6d-a463319d78fe/resourceGroups/jeremym.bkpnotifs/providers/Microsoft.ManagedIdentity/userAssignedIdentities/jeremym-sfxnotifs"]
+  identity_ids  = [azurerm_user_assigned_identity.myIdentity.id]
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
+
+resource "azurerm_user_assigned_identity" "myIdentity" {
+  resource_group_name = module.rg.resource_group_name
+  location            = module.azure-region.location
+  
+  name                = "MyManagedIdentity"
+}
 
 }
 ```
