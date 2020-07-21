@@ -48,6 +48,18 @@ variable "application_insights_name_prefix" {
   default     = ""
 }
 
+variable "storage_account_name" {
+  description = "Name of the Storage account to attach to function"
+  type        = string
+  default     = null
+}
+
+variable "storage_account_primary_access_key" {
+  description = "Primary access key the storage account to use. If null a new storage account is created"
+  type        = string
+  default     = null
+}
+
 variable "storage_account_name_prefix" {
   description = "Storage Account name prefix"
   type        = string
@@ -107,12 +119,6 @@ variable "function_language_for_linux" {
   default     = "dotnet"
 }
 
-variable "storage_account_connection_string" {
-  description = "Storage Account connection string for Function App associated storage, a Storage Account is created if null"
-  type        = string
-  default     = null
-}
-
 variable "application_insights_instrumentation_key" {
   description = "Application Insights instrumentation key for function logs, generated if null"
   type        = string
@@ -122,7 +128,7 @@ variable "application_insights_instrumentation_key" {
 variable "application_insights_type" {
   description = "Application Insights type if need to be generated"
   type        = string
-  default     = "Web"
+  default     = "web"
 }
 
 variable "function_app_application_settings" {
@@ -131,3 +137,14 @@ variable "function_app_application_settings" {
   default     = {}
 }
 
+variable "identity_type" {
+  description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
+  type        = string
+  default     = null
+}
+
+variable "identity_ids" {
+  description = "UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned"
+  type        = list(string)
+  default     = null
+}
