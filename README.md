@@ -163,20 +163,20 @@ module "function-app" {
   source  = "claranet/function-app-single/azurerm"
   version = "x.x.x"
 
-  location = module.azure-region.location
+  location       = module.azure-region.location
   location_short = module.azure-region.location_short
-  client_name = var.client_name
-  environment = var.environment
-  stack = var.stack
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
 
   function_app_name_prefix = "armv2"
-  storage_account_name = "MyStorageName"
+  storage_account_name     = "MyStorageName"
 
   app_service_plan_id = module.function-plan.app_service_plan_id
-  identity_type = "UserAssigned"
-  identity_ids  = [azurerm_user_assigned_identity.myIdentity.id]
+  identity_type       = "UserAssigned"
+  identity_ids        = [azurerm_user_assigned_identity.myIdentity.id]
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
