@@ -215,6 +215,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | location | Azure location for App Service Plan. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
+| os\_type | A string indicating the Operating System type for this function app. | `string` | `null` | no |
 | resource\_group\_name | n/a | `string` | n/a | yes |
 | stack | n/a | `string` | n/a | yes |
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |

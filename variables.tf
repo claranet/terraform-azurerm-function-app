@@ -148,3 +148,9 @@ variable "identity_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "os_type" {
+  description = "A string indicating the Operating System type for this function app."
+  type        = string
+  default     = null
+}
