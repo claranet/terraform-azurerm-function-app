@@ -44,12 +44,8 @@ module "function_app" {
   function_language_for_linux       = var.function_language_for_linux
   function_app_application_settings = var.function_app_application_settings
 
-  create_application_insights_resource     = var.create_application_insights_resource
   application_insights_instrumentation_key = var.application_insights_instrumentation_key
   application_insights_type                = var.application_insights_type
-
-  create_storage_account_resource   = var.create_storage_account_resource
-  storage_account_connection_string = var.storage_account_connection_string
 
   extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(

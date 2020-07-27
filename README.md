@@ -15,7 +15,7 @@ are required and are created if not provided.
 
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|
-| >= 3.x.x          | 0.12.x            | >= 2.0          |
+| >= 3.x.x          | 0.12.x            | >= 2.0, <=2.17.0|
 | >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
 | <  2.x.x          | 0.11.x            | <  2.0          |
 
@@ -24,6 +24,9 @@ are required and are created if not provided.
 Based on a current limitation, you cannot mix Windows and Linux apps in the same resource group.
 
 Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations)
+
+Due to a bug introduced in AzureRM v2.18.0, you need to force the version to 2.17.0 if you whant to create a Linux FunctionApp. [GitHub Issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/7759)
+
 
 ## Usage
 This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
@@ -61,7 +64,7 @@ module "function_app" {
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
-  location_short      = module.azure-region.location-short
+  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
   
@@ -107,7 +110,7 @@ module "function_app" {
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
-  location_short      = module.azure-region.location-short
+  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
   
@@ -139,8 +142,6 @@ module "function_app" {
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
-| create\_application\_insights\_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | `string` | `"true"` | no |
-| create\_storage\_account\_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | `string` | `"true"` | no |
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
@@ -152,7 +153,6 @@ module "function_app" {
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
 | resource\_group\_name | n/a | `string` | n/a | yes |
 | stack | n/a | `string` | n/a | yes |
-| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | `string` | `""` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 
