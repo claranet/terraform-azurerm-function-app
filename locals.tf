@@ -31,7 +31,7 @@ locals {
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   )
 
-  app_insights_instrumentation_key = coalesce(var.application_insights_instrumentation_key, try(azurerm_application_insights.app_insights[0].instrumentation_key, ""))
+  app_insights_instrumentation_key = var.application_insights_instrumentation_key != null ? var.application_insights_instrumentation_key : azurerm_application_insights.app_insights[0].instrumentation_key
 
   default_application_settings = {
     FUNCTIONS_WORKER_RUNTIME       = var.function_language_for_linux
