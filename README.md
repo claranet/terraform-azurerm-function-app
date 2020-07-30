@@ -9,21 +9,24 @@ are required and are created if not provided.
 
 ## Requirements
 
- * AzureRM terraform provider >= 1.36
  * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
 
-## Terraform version compatibility
+## Version compatibility
 
-| Module version | Terraform version |
-|----------------|-------------------|
-| >= 2.x.x       | 0.12.x            |
-| < 2.x.x        | 0.11.x            |
+| Module version    | Terraform version | AzureRM version |
+|-------------------|-------------------|-----------------|
+| >= 3.x.x          | 0.12.x            | >= 2.0, <=2.17.0|
+| >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
+| <  2.x.x          | 0.11.x            | <  2.0          |
 
 ## Limitations
 
 Based on a current limitation, you cannot mix Windows and Linux apps in the same resource group.
 
-Limitations documentation: [https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations]
+Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations)
+
+Due to a bug introduced in AzureRM v2.18.0, you need to force the version to 2.17.0 if you want to create a Linux FunctionApp. [GitHub Issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/7759)
+
 
 ## Usage
 This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
@@ -61,7 +64,7 @@ module "function_app" {
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
-  location_short      = module.azure-region.location-short
+  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
   
@@ -107,7 +110,7 @@ module "function_app" {
   stack               = var.stack
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
-  location_short      = module.azure-region.location-short
+  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
   
@@ -128,33 +131,30 @@ module "function_app" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| app\_service\_plan\_extra\_tags | Extra tags to add to App Service Plan | map | `<map>` | no |
-| app\_service\_plan\_name\_prefix | App Service Plan name prefix | string | `""` | no |
-| app\_service\_plan\_os | App Service Plan OS for dedicated plans, can be "Linux" or "Windows" | string | n/a | yes |
-| app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | string | `"false"` | no |
-| app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | map | `<map>` | no |
-| application\_insights\_extra\_tags | Extra tags to add to Application Insights | map | `<map>` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | string | `""` | no |
-| application\_insights\_name\_prefix | Application Insights name prefix | string | `""` | no |
-| application\_insights\_type | Application Insights type if need to be generated | string | `"Web"` | no |
-| client\_name |  | string | n/a | yes |
-| create\_application\_insights\_resource | Flag indicating if Application Insights resource should be automatically created (needed until Terraform 0.12), otherwise, variable `application_insights_instrumentation_key` must be set. Default to `true` | string | `"true"` | no |
-| create\_storage\_account\_resource | Flag indicating if Storage Account resource should be automatically created (needed until Terraform 0.12), otherwise, variable `storage_account_connection_string` must be set. Default to `true` | string | `"true"` | no |
-| environment |  | string | n/a | yes |
-| extra\_tags | Extra tags to add | map | `<map>` | no |
-| function\_app\_application\_settings | Function App application settings | map | `<map>` | no |
-| function\_app\_extra\_tags | Extra tags to add to Function App | map | `<map>` | no |
-| function\_app\_name\_prefix | Function App name prefix | string | `""` | no |
-| function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | string | `"dotnet"` | no |
-| location | Azure location for Function App and related resources | string | n/a | yes |
-| location\_short | Short string for Azure location | string | n/a | yes |
-| name\_prefix | Name prefix for all resources generated name | string | `""` | no |
-| resource\_group\_name |  | string | n/a | yes |
-| stack |  | string | n/a | yes |
-| storage\_account\_connection\_string | Storage Account connection string for Function App associated storage, a Storage Account is created if empty | string | `""` | no |
-| storage\_account\_extra\_tags | Extra tags to add to Storage Account | map | `<map>` | no |
-| storage\_account\_name\_prefix | Storage Account name prefix | string | `""` | no |
+|------|-------------|------|---------|:--------:|
+| app\_service\_plan\_extra\_tags | Extra tags to add to App Service Plan | `map(string)` | `{}` | no |
+| app\_service\_plan\_name\_prefix | App Service Plan name prefix | `string` | `""` | no |
+| app\_service\_plan\_os | App Service Plan OS for dedicated plans, can be "Linux" or "Windows" | `string` | n/a | yes |
+| app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
+| app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
+| application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | `""` | no |
+| application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
+| client\_name | n/a | `string` | n/a | yes |
+| environment | n/a | `string` | n/a | yes |
+| extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
+| function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
+| function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
+| function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
+| location | Azure location for Function App and related resources | `string` | n/a | yes |
+| location\_short | Short string for Azure location | `string` | n/a | yes |
+| name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
+| resource\_group\_name | n/a | `string` | n/a | yes |
+| stack | n/a | `string` | n/a | yes |
+| storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
+| storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 
 ## Outputs
 

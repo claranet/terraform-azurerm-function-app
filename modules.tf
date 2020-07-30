@@ -1,7 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "2.0.0"
+  version = "3.0.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -14,7 +14,7 @@ module "app_service_plan" {
   sku = var.app_service_plan_sku
 
   kind     = var.app_service_plan_sku["tier"] == "Dynamic" ? "FunctionApp" : var.app_service_plan_os
-  reserved = var.app_service_plan_os == "Linux" ? "true" : var.app_service_plan_reserved
+  reserved = var.app_service_plan_os == "Linux" ? true : var.app_service_plan_reserved
 
   extra_tags = merge(
     var.extra_tags,
@@ -25,7 +25,7 @@ module "app_service_plan" {
 
 module "function_app" {
   source  = "claranet/function-app-single/azurerm"
-  version = "2.0.1"
+  version = "3.0.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -43,12 +43,8 @@ module "function_app" {
   function_language_for_linux       = var.function_language_for_linux
   function_app_application_settings = var.function_app_application_settings
 
-  create_application_insights_resource     = var.create_application_insights_resource
   application_insights_instrumentation_key = var.application_insights_instrumentation_key
   application_insights_type                = var.application_insights_type
-
-  create_storage_account_resource   = var.create_storage_account_resource
-  storage_account_connection_string = var.storage_account_connection_string
 
   extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(
