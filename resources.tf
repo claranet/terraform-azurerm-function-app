@@ -24,7 +24,7 @@ resource "azurerm_storage_account" "storage" {
     var.extra_tags,
   )
 
-  count = var.create_storage_account_resource == "true" ? 1 : 0
+  count = var.storage_account_connection_string == null ? 1 : 0
 }
 
 # Application Insights
@@ -42,7 +42,7 @@ resource "azurerm_application_insights" "app_insights" {
     var.extra_tags,
   )
 
-  count = var.create_application_insights_resource == "true" ? 1 : 0
+  count = var.application_insights_instrumentation_key == null ? 1 : 0
 }
 
 # Function App
@@ -73,6 +73,6 @@ resource "azurerm_function_app" "function_app" {
     ]
   }
 
-  version = "~2"
+  version = "~${var.function_app_version}"
 }
 

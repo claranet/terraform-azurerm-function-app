@@ -5,26 +5,26 @@ output "app_service_plan_id" {
 
 output "storage_account_id" {
   description = "Id of the associated Storage Account, empty if connection string provided"
-  value       = join("", azurerm_storage_account.storage.*.id)
+  value       = join("", azurerm_storage_account.storage[*].id)
 }
 
 output "storage_account_name" {
   description = "Name of the associated Storage Account, empty if connection string provided"
-  value       = join("", azurerm_storage_account.storage.*.name)
+  value       = join("", azurerm_storage_account.storage[*].name)
 }
 
 output "storage_account_primary_connection_string" {
   description = "Primary connection string of the associated Storage Account, empty if connection string provided"
   value = join(
     "",
-    azurerm_storage_account.storage.*.primary_connection_string,
+    azurerm_storage_account.storage[*].primary_connection_string,
   )
   sensitive = true
 }
 
 output "storage_account_primary_access_key" {
   description = "Primary connection string of the associated Storage Account, empty if connection string provided"
-  value       = join("", azurerm_storage_account.storage.*.primary_access_key)
+  value       = join("", azurerm_storage_account.storage[*].primary_access_key)
   sensitive   = true
 }
 

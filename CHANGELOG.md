@@ -1,3 +1,11 @@
+# v2.2.0 - Unreleased
+
+Added
+  * AZ-201: Allow to use function app v3
+  
+Breaking
+  * AZ-238: Remove `create_storage_account_resource` and `create_application_insights_resource` variables. Now resources are created if `storage_account_connection_string` is `null` and `application_insights_instrumentation_key` is `null`. 
+   
 # v2.1.0 - 2020-02-17
 
 Added

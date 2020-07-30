@@ -1,5 +1,5 @@
 image:
-  name: hashicorp/terraform:0.12.12
+  name: hashicorp/terraform:0.12.20
 
 stages:
   - validate
