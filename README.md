@@ -53,23 +53,17 @@ module "function-plan" {
 
   resource_group_name = module.rg.resource_group_name
 
-  function_app_name_prefix = "function1"
+  kind = "Windows"
 
-  app_service_plan_os = "Windows"
-
-  app_service_plan_sku = {
+  sku = {
     size = "S1"
     tier = "Standard"
   }
 
-  function_app_application_settings = {
-    "tracker_id"      = "AJKGDFJKHFDS"
-    "backend_api_url" = "https://backend.domain.tld/api"
-  }
 }
 
 module "function1" {
-  source  = "azurerm/function-app-single/azurerm"
+  source  = "claranet/function-app-single/azurerm"
   version = "x.x.x"
 
   location       = module.azure-region.location
@@ -123,20 +117,13 @@ module "function-plan" {
 
   resource_group_name = module.rg.resource_group_name
 
-  function_app_name_prefix = "function1"
-
-  app_service_plan_os         = "Linux"
-  function_language_for_linux = "python"
+  kind         = "Linux"
   
-  app_service_plan_sku = {
+  sku = {
     size = "S1"
     tier = "Standard"
   }
 
-  function_app_application_settings = {
-    "tracker_id"      = "AJKGDFJKHFDS"
-    "backend_api_url" = "https://backend.domain.tld/api"
-  }
 }
 
 module "function1" {
