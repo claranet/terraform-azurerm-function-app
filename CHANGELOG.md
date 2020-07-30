@@ -1,4 +1,4 @@
-# v3.0.0 - Unreleased
+# v3.0.0 - 2020-07-30
 
 Breaking
   * AZ-206: Provider Azure v2.x+ upgrade
