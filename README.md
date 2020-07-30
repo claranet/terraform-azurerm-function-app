@@ -25,7 +25,7 @@ Based on a current limitation, you cannot mix Windows and Linux apps in the same
 
 Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations)
 
-Due to a bug introduced in AzureRM v2.18.0, you need to force the version to 2.17.0 if you whant to create a Linux FunctionApp. [GitHub Issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/7759)
+Due to a bug introduced in AzureRM v2.18.0, you need to force the version to 2.17.0 if you want to create a Linux FunctionApp. [GitHub Issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/7759)
 
 
 ## Usage
