@@ -85,3 +85,7 @@ output "function_app_connection_string" {
   sensitive   = true
 }
 
+output "function_app_identity" {
+  value       = azurerm_function_app.function_app.identity
+  description = "Identity block output of the Function App"
+}

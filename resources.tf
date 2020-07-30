@@ -6,7 +6,7 @@ data "azurerm_app_service_plan" "plan" {
 
 # Storage account
 resource "azurerm_storage_account" "storage" {
-  name = local.storage_default_name
+  name = coalesce(var.storage_account_name, local.storage_default_name)
 
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -15,8 +15,7 @@ resource "azurerm_storage_account" "storage" {
   account_tier             = "Standard"
   account_kind             = var.storage_account_kind
 
-  enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
-  enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
+  enable_https_traffic_only = var.storage_account_enable_https_traffic_only
 
   tags = merge(
     local.default_tags,
@@ -24,7 +23,13 @@ resource "azurerm_storage_account" "storage" {
     var.extra_tags,
   )
 
-  count = var.storage_account_connection_string == null ? 1 : 0
+  count = var.storage_account_primary_access_key == null ? 1 : 0
+}
+
+resource "azurerm_advanced_threat_protection" "threat_protection" {
+  count              = var.storage_account_primary_access_key == null ? 1 : 0
+  enabled            = var.storage_account_enable_advanced_threat_protection
+  target_resource_id = azurerm_storage_account.storage[0].id
 }
 
 # Application Insights
@@ -49,10 +54,12 @@ resource "azurerm_application_insights" "app_insights" {
 resource "azurerm_function_app" "function_app" {
   name = "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func"
 
-  app_service_plan_id       = var.app_service_plan_id
-  location                  = var.location
-  resource_group_name       = var.resource_group_name
-  storage_connection_string = local.storage_account_connection_string
+  app_service_plan_id        = var.app_service_plan_id
+  location                   = var.location
+  resource_group_name        = var.resource_group_name
+  storage_account_name       = var.storage_account_name == null ? local.storage_default_name : var.storage_account_name
+  storage_account_access_key = var.storage_account_primary_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_primary_access_key
+  os_type                    = var.os_type
 
   app_settings = merge(
     local.default_application_settings,
@@ -72,6 +79,17 @@ resource "azurerm_function_app" "function_app" {
       app_settings.MACHINEKEY_DecryptionKey,
     ]
   }
+
+  dynamic "identity" {
+    for_each = var.identity_type != null ? ["fake"] : []
+    content {
+      type = var.identity_type
+      # Avoid perpetual changes if SystemAssigned and identity_ids is not null
+      identity_ids = var.identity_type == "UserAssigned" ? var.identity_ids : null
+    }
+  }
+
+
 
   version = "~${var.function_app_version}"
 }

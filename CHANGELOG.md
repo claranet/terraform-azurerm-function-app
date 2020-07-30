@@ -1,3 +1,11 @@
+# v3.0.0 - Unreleased
+
+Breaking
+  * AZ-198: Upgrade to AzureRM >= v2.0
+ 
+Added
+  * AZ-242: Allow to manage MSI on the app function
+  
 # v2.2.0 - 2020-07-30
 
 Added
