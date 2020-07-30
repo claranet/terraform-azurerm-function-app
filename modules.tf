@@ -24,9 +24,8 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  # source  = "claranet/function-app-single/azurerm"
-  # version = "3.0.0"
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/function-app-single.git?ref=AZ-198-Upgrade-Azurerm-v2"
+  source  = "claranet/function-app-single/azurerm"
+  version = "3.0.0"
 
   client_name         = var.client_name
   environment         = var.environment
