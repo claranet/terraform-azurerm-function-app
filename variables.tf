@@ -132,5 +132,5 @@ variable "function_app_application_settings" {
 variable "function_app_version" {
   description = "Version of the function app runtime to use (Allowed values 2 or 3)"
   type = number
-  default = 2
+  default = 3
 }
