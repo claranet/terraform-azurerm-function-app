@@ -144,7 +144,7 @@ module "function_app" {
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
-| function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `2` | no |
+| function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | location | Azure location for Function App and related resources | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
