@@ -1,3 +1,9 @@
+# v3.0.1 - unreleased
+
+Fixed
+  * AZ-245: Force azurerm 2.21.0 to avoid bug with linux function app
+  * AZ-246: Add missing variable to pass runtime version to function-app-single module
+  
 # v3.0.0 - 2020-07-30
 
 Breaking

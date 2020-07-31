@@ -7,15 +7,11 @@ a consumption plan by default.
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided.
 
-## Requirements
-
- * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
-
 ## Version compatibility
 
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|
-| >= 3.x.x          | 0.12.x            | >= 2.0, <=2.17.0|
+| >= 3.x.x          | 0.12.x            | >= 2.21.0       |
 | >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
 | <  2.x.x          | 0.11.x            | <  2.0          |
 
@@ -116,6 +112,7 @@ module "function_app" {
   
   app_service_plan_os         = "Linux"
   function_language_for_linux = "python"
+  function_app_version        = 3
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -147,6 +144,7 @@ module "function_app" {
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `2` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | location | Azure location for Function App and related resources | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |

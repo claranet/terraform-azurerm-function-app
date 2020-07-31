@@ -42,6 +42,7 @@ module "function_app" {
   app_service_plan_id               = module.app_service_plan.app_service_plan_id
   function_language_for_linux       = var.function_language_for_linux
   function_app_application_settings = var.function_app_application_settings
+  function_app_version              = var.function_app_version
 
   application_insights_instrumentation_key = var.application_insights_instrumentation_key
   application_insights_type                = var.application_insights_type
