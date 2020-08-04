@@ -135,9 +135,9 @@ module "function_app" {
 | app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
 | app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | `""` | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | n/a | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
-| application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
+| application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |

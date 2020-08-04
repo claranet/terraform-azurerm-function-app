@@ -112,15 +112,15 @@ variable "function_language_for_linux" {
 }
 
 variable "application_insights_instrumentation_key" {
-  description = "Application Insights instrumentation key for function logs, generated if empty"
+  description = "Application Insights instrumentation key for function logs, generated if null"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "application_insights_type" {
   description = "Application Insights type if need to be generated"
   type        = string
-  default     = "Web"
+  default     = "web"
 }
 
 variable "function_app_application_settings" {
