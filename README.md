@@ -146,6 +146,8 @@ module "function_app" {
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
+| identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
+| identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `null` | no |
 | location | Azure location for Function App and related resources | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |

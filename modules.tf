@@ -47,7 +47,9 @@ module "function_app" {
   application_insights_instrumentation_key = var.application_insights_instrumentation_key
   application_insights_type                = var.application_insights_type
 
-  extra_tags = merge(var.extra_tags, local.default_tags)
+  identity_type = var.identity_type
+  identity_ids  = var.identity_ids
+  extra_tags    = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(
     var.extra_tags,
     var.application_insights_extra_tags,

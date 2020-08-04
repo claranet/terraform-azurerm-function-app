@@ -134,3 +134,15 @@ variable "function_app_version" {
   type        = number
   default     = 3
 }
+
+variable "identity_type" {
+  description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
+  type        = string
+  default     = null
+}
+
+variable "identity_ids" {
+  description = "UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned"
+  type        = list(string)
+  default     = null
+}
