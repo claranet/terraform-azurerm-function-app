@@ -49,7 +49,10 @@ module "function_app" {
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
-  extra_tags    = merge(var.extra_tags, local.default_tags)
+
+  os_type = var.function_app_os_type
+
+  extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(
     var.extra_tags,
     var.application_insights_extra_tags,
