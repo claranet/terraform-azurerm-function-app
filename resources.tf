@@ -52,7 +52,7 @@ resource "azurerm_application_insights" "app_insights" {
 
 # Function App
 resource "azurerm_function_app" "function_app" {
-  name = coalesce(var.function_app_custom_name, "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func")
+  name = coalesce(var.function_app_custom_name, local.function_default_name)
 
   app_service_plan_id        = var.app_service_plan_id
   location                   = var.location
@@ -89,7 +89,7 @@ resource "azurerm_function_app" "function_app" {
     }
   }
 
-
-
   version = "~${var.function_app_version}"
+
+  tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
 }
