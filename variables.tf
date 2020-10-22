@@ -152,3 +152,27 @@ variable "function_app_os_type" {
   type        = string
   default     = null
 }
+
+variable "app_service_plan_custom_name" {
+  description = "Custom name for app service plan"
+  type        = string
+  default     = ""
+}
+
+variable "function_app_custom_name" {
+  description = "Custom name for function app"
+  type        = string
+  default     = ""
+}
+
+variable "application_insights_custom_name" {
+  description = "Custom name for application insights deployed with function app"
+  type        = string
+  default     = ""
+}
+
+variable "storage_account_name" {
+  description = "Name of the storage account to create with FunctionApp"
+  type        = string
+  default     = ""
+}
