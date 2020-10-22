@@ -34,7 +34,7 @@ resource "azurerm_advanced_threat_protection" "threat_protection" {
 
 # Application Insights
 resource "azurerm_application_insights" "app_insights" {
-  name = "${local.ai_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai"
+  name = coalesce(var.application_insights_custom_name, "${local.ai_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai")
 
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -52,7 +52,7 @@ resource "azurerm_application_insights" "app_insights" {
 
 # Function App
 resource "azurerm_function_app" "function_app" {
-  name = "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func"
+  name = coalesce(var.function_app_custom_name, "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func")
 
   app_service_plan_id        = var.app_service_plan_id
   location                   = var.location
@@ -93,4 +93,3 @@ resource "azurerm_function_app" "function_app" {
 
   version = "~${var.function_app_version}"
 }
-

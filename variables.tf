@@ -42,8 +42,20 @@ variable "function_app_version" {
   default     = 2
 }
 
+variable "function_app_custom_name" {
+  description = "Custom name for function app"
+  type        = string
+  default     = ""
+}
+
 variable "application_insights_name_prefix" {
   description = "Application Insights name prefix"
+  type        = string
+  default     = ""
+}
+
+variable "application_insights_custom_name" {
+  description = "Custom name for application insights"
   type        = string
   default     = ""
 }
