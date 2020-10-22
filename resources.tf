@@ -34,7 +34,7 @@ resource "azurerm_advanced_threat_protection" "threat_protection" {
 
 # Application Insights
 resource "azurerm_application_insights" "app_insights" {
-  name = coalesce(var.application_insights_custom_name, "${local.ai_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai")
+  name = coalesce(var.application_insights_custom_name, local.application_insights_default_name)
 
   location            = var.location
   resource_group_name = var.resource_group_name
