@@ -5,9 +5,18 @@ locals {
   }
 
   container_default_image = {
-    python = "microsoft/azure-functions-python3.6:2.0"
-    node   = "microsoft/azure-functions-node8:2.0"
-    dotnet = "microsoft/azure-functions-dotnet-core2.0:2.0"
+    // https://mcrflowprodcentralus.data.mcr.microsoft.com/mcrprod/azure-functions/base?P1=1603698941&P2=1&P3=1&P4=RkO8EgqoJ3TP7GjdC3jEm%2BmsXSK5kw1n0Q0UvWqRxAY%3D&se=2020-10-26T07%3A55%3A41Z&sig=pysHMJ9vr8bRk6DhWXdFHaZbxAxkVr8%2FzT2m%2Fu4YJ7I%3D&sp=r&sr=b&sv=2015-02-21
+    2 = {
+      python = "mcr.microsoft.com/azure-functions/python:2.0-python3.6"
+      node   = "mcr.microsoft.com/azure-functions/node:2.0-node8"
+      dotnet = "mcr.microsoft.com/azure-functions/dotnet:2.0"
+    },
+    3 = {
+      python = "mcr.microsoft.com/azure-functions/python:3.0-python3.8"
+      node   = "mcr.microsoft.com/azure-functions/node:3.0-node12"
+      dotnet = "mcr.microsoft.com/azure-functions/dotnet:3.0"
+
+    }
   }
 
   name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
