@@ -185,6 +185,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
+| application\_insights\_custom\_name | Custom name for application insights | `string` | `""` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
 | application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
@@ -193,6 +194,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
+| function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_version | Version of function app to use | `number` | `2` | no |
@@ -233,6 +235,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
+
 
 ## Related documentation
 

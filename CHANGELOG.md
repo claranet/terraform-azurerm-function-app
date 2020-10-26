@@ -1,3 +1,8 @@
+# v3.1.0 - Unreleased
+
+Added
+  * AZ-347: Add application_insight_custom_name and function_app_custom_name variables
+  
 # v3.0.0 - 2020-07-30
 
 Breaking
