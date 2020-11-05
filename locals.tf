@@ -5,7 +5,6 @@ locals {
   }
 
   container_default_image = {
-    // https://mcrflowprodcentralus.data.mcr.microsoft.com/mcrprod/azure-functions/base?P1=1603698941&P2=1&P3=1&P4=RkO8EgqoJ3TP7GjdC3jEm%2BmsXSK5kw1n0Q0UvWqRxAY%3D&se=2020-10-26T07%3A55%3A41Z&sig=pysHMJ9vr8bRk6DhWXdFHaZbxAxkVr8%2FzT2m%2Fu4YJ7I%3D&sp=r&sr=b&sv=2015-02-21
     2 = {
       python = "mcr.microsoft.com/azure-functions/python:2.0-python3.6"
       node   = "mcr.microsoft.com/azure-functions/node:2.0-node8"
