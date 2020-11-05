@@ -7,6 +7,8 @@ a consumption plan by default.
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided.
 
+Azure Functions v3 are now supported by this module and is the default one.
+
 ## Version compatibility
 
 | Module version    | Terraform version | AzureRM version |
