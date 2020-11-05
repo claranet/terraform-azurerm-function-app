@@ -166,3 +166,15 @@ variable "os_type" {
   type        = string
   default     = null
 }
+variable "authorized_ips" {
+  description = "IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "authorized_subnet_ids" {
+  description = "Subnets restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  type        = list(string)
+  default     = []
+}
+

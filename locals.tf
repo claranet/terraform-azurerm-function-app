@@ -48,5 +48,24 @@ locals {
     FUNCTIONS_WORKER_RUNTIME       = var.function_language_for_linux
     APPINSIGHTS_INSTRUMENTATIONKEY = local.app_insights_instrumentation_key
   }
+
+  cidrs = [for cidr in var.authorized_ips : {
+    name                      = "ip_restriction_cidr_${join("", [1, index(var.authorized_ips, cidr)])}"
+    ip_address                = cidr
+    virtual_network_subnet_id = null
+    subnet_id                 = null
+    priority                  = join("", [1, index(var.authorized_ips, cidr)])
+    action                    = "Allow"
+  }]
+
+  subnets = [for subnet in var.authorized_subnet_ids : {
+    name                      = "ip_restriction_subnet_${join("", [1, index(var.authorized_subnet_ids, subnet)])}"
+    ip_address                = null
+    virtual_network_subnet_id = subnet
+    subnet_id                 = subnet
+    priority                  = join("", [1, index(var.authorized_subnet_ids, subnet)])
+    action                    = "Allow"
+  }]
+
 }
 
