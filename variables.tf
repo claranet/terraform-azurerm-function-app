@@ -206,3 +206,9 @@ variable "log_retention_days" {
   description = "Number of days to keep logs"
   default     = 31
 }
+
+variable "site_config" {
+  description = "Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
+  type        = any
+  default     = {}
+}

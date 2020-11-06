@@ -11,6 +11,7 @@ Fixed
   
 Changed
   * AZ-350: Upgrade Docker images from DockerHub to Official Microsoft Docker images repository
+  * AZ-367: Adding site_config variable to adjust its values
   
 # v3.0.0 - 2020-07-30
 
