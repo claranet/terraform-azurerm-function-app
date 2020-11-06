@@ -212,3 +212,9 @@ variable "site_config" {
   type        = any
   default     = {}
 }
+
+variable "https_only" {
+  description = "Disable http procotol and keep only https"
+  type        = bool
+  default     = true
+}
