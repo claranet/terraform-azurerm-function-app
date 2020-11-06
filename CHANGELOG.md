@@ -1,5 +1,8 @@
-# v3.1.0 - Unreleased
+# v4.0.0 - Unreleased
 
+Breaking
+  * AZ-366 Add diagnostics logs. Compatible only with TF 0.13
+  
 Added
   * AZ-347: Add application_insight_custom_name and function_app_custom_name variables
   * AZ-364: Add network rules parameters

@@ -4,12 +4,13 @@
 This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided. An [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
-must be provided for hosting.
+must be provided for hosting. This module also support Diagnostics Settings activation.
 
 ## Version compatibility
 
 | Module version | Terraform version | AzureRM version |
 |----------------|-------------------|-----------------|
+| >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | < 2.x.x        | 0.11.x            | < 2.0           |
@@ -169,6 +170,11 @@ module "function-app" {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
+  logs_destinations_ids = [
+    data.terraform_remote_state.run.outputs.logs_storage_account_id,
+    data.terraform_remote_state.run.outputs.log_analytics_workspace_id
+  ]
+}
 
 resource "azurerm_user_assigned_identity" "myIdentity" {
   resource_group_name = module.rg.resource_group_name
@@ -205,6 +211,10 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `null` | no |
 | location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
+| log\_retention\_days | Number of days to keep logs | `number` | `31` | no |
+| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | `[]` | no |
+| logs\_logs\_categories | Logs categories to send to destinations | `list(string)` | <pre>[<br>  "FunctionAppLogs"<br>]</pre> | no |
+| logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | <pre>[<br>  "AllMetrics"<br>]</pre> | no |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
 | os\_type | A string indicating the Operating System type for this function app. | `string` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
@@ -240,6 +250,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 ## Related documentation
 
-Microsoft Azure Functions documentation: [github.com/Azure/Azure-Functions#documentation-1](https://github.com/Azure/Azure-Functions#documentation-1)
-
-Microsoft Managed Identities documentation: [docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)
+  * Microsoft Azure Functions documentation: [github.com/Azure/Azure-Functions#documentation-1](https://github.com/Azure/Azure-Functions#documentation-1)
+  * Microsoft Managed Identities documentation: [docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)
+  * Microsoft Azure Diagnostics Settings documentation [docs.microsoft.com/en-us/azure/azure-monitor/platform/diagnostic-settings](https://docs.microsoft.com/en-us/azure/azure-monitor/platform/diagnostic-settings)
+  
