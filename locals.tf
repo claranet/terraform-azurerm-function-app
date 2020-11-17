@@ -5,9 +5,17 @@ locals {
   }
 
   container_default_image = {
-    python = "microsoft/azure-functions-python3.6:2.0"
-    node   = "microsoft/azure-functions-node8:2.0"
-    dotnet = "microsoft/azure-functions-dotnet-core2.0:2.0"
+    2 = {
+      python = "mcr.microsoft.com/azure-functions/python:2.0-python3.6"
+      node   = "mcr.microsoft.com/azure-functions/node:2.0-node8"
+      dotnet = "mcr.microsoft.com/azure-functions/dotnet:2.0"
+    },
+    3 = {
+      python = "mcr.microsoft.com/azure-functions/python:3.0-python3.8"
+      node   = "mcr.microsoft.com/azure-functions/node:3.0-node12"
+      dotnet = "mcr.microsoft.com/azure-functions/dotnet:3.0"
+
+    }
   }
 
   name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""

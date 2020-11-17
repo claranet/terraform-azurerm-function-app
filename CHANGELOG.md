@@ -3,6 +3,12 @@
 Added
   * AZ-347: Add application_insight_custom_name and function_app_custom_name variables
   
+Fixed
+  * AZ-349: Fix Docker images versions for v3 function apps
+  
+Changed
+  * AZ-350: Upgrade Docker images from DockerHub to Official Microsoft Docker images repository
+  
 # v3.0.0 - 2020-07-30
 
 Breaking
