@@ -21,6 +21,7 @@ locals {
   default_site_config = {
     always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
     linux_fx_version = "%{if data.azurerm_app_service_plan.plan.kind == "linux"}DOCKER|${local.container_default_image[var.function_app_version][var.function_language_for_linux]}%{else}%{endif}"
+    ip_restriction   = concat(local.subnets, local.cidrs)
   }
 
   name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
