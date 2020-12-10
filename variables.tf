@@ -112,15 +112,15 @@ variable "function_language_for_linux" {
 }
 
 variable "application_insights_instrumentation_key" {
-  description = "Application Insights instrumentation key for function logs, generated if empty"
+  description = "Application Insights instrumentation key for function logs, generated if null"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "application_insights_type" {
   description = "Application Insights type if need to be generated"
   type        = string
-  default     = "Web"
+  default     = "web"
 }
 
 variable "function_app_application_settings" {
@@ -129,3 +129,26 @@ variable "function_app_application_settings" {
   default     = {}
 }
 
+variable "function_app_version" {
+  description = "Version of the function app runtime to use (Allowed values 2 or 3)"
+  type        = number
+  default     = 3
+}
+
+variable "identity_type" {
+  description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
+  type        = string
+  default     = null
+}
+
+variable "identity_ids" {
+  description = "UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned"
+  type        = list(string)
+  default     = null
+}
+
+variable "function_app_os_type" {
+  description = "A string indicating the Operating System type for this function app."
+  type        = string
+  default     = null
+}

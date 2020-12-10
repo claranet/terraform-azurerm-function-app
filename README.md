@@ -7,15 +7,13 @@ a consumption plan by default.
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided.
 
-## Requirements
-
- * Only [V2 runtime](https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions) is supported
+Azure Functions v3 are now supported by this module and is the default one.
 
 ## Version compatibility
 
 | Module version    | Terraform version | AzureRM version |
 |-------------------|-------------------|-----------------|
-| >= 3.x.x          | 0.12.x            | >= 2.0, <=2.17.0|
+| >= 3.x.x          | 0.12.x            | >= 2.21.0       |
 | >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
 | <  2.x.x          | 0.11.x            | <  2.0          |
 
@@ -116,6 +114,7 @@ module "function_app" {
   
   app_service_plan_os         = "Linux"
   function_language_for_linux = "python"
+  function_app_version        = 3
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -138,16 +137,19 @@ module "function_app" {
 | app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
 | app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | `""` | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | n/a | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
-| application\_insights\_type | Application Insights type if need to be generated | `string` | `"Web"` | no |
+| application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
+| identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
+| identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `null` | no |
 | location | Azure location for Function App and related resources | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
