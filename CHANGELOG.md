@@ -1,4 +1,4 @@
-# v3.1.0 - unreleased
+# v3.1.0 - 2020-12-10
 
 Fixed
   * AZ-245: Force azurerm 2.21.0 to avoid bug with linux function app
