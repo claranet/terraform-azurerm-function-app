@@ -43,7 +43,6 @@ module "function_app" {
   application_insights_name_prefix = var.application_insights_name_prefix
   function_app_name_prefix         = var.function_app_name_prefix
   function_app_custom_name         = var.function_app_custom_name
-  function_app_version             = var.function_app_version
 
   app_service_plan_id               = module.app_service_plan.app_service_plan_id
   function_language_for_linux       = var.function_language_for_linux
