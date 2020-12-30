@@ -16,6 +16,9 @@ Breaking
 Breaking
   * AZ-206: Provider Azure v2.x+ upgrade
 
+Added
+  * AZ-347 Allow to use custom name
+
 # v2.0.1 - 2019-11-15
 
 Fixed
