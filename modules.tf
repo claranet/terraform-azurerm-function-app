@@ -29,7 +29,7 @@ module "function_app" {
   version = "4.0.0"
 
   // TODO: Wait for  https://git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/function-app-single/-/merge_requests/9
-  source              = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/function-app-single.git?ref=AZ-347-custom-name"
+  source              = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/function-app-single.git?ref=master"
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
