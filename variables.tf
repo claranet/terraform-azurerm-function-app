@@ -1,26 +1,30 @@
-variable "client_name" {
-  type = string
-}
-
-variable "environment" {
-  type = string
-}
-
-variable "stack" {
-  type = string
-}
-
-variable "resource_group_name" {
-  type = string
-}
-
 variable "location" {
-  description = "Azure location for App Service Plan."
+  description = "Azure location."
   type        = string
 }
 
 variable "location_short" {
   description = "Short string for Azure location."
+  type        = string
+}
+
+variable "client_name" {
+  description = "Client name/account used in naming"
+  type        = string
+}
+
+variable "environment" {
+  description = "Project environment"
+  type        = string
+}
+
+variable "stack" {
+  description = "Project stack name"
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Resource group name"
   type        = string
 }
 
@@ -165,4 +169,16 @@ variable "os_type" {
   description = "A string indicating the Operating System type for this function app."
   type        = string
   default     = null
+}
+
+variable "authorized_ips" {
+  description = "IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "authorized_subnet_ids" {
+  description = "Subnets restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  type        = list(string)
+  default     = []
 }

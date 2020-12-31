@@ -190,8 +190,10 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
-| client\_name | n/a | `string` | n/a | yes |
-| environment | n/a | `string` | n/a | yes |
+| authorized\_ips | IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction | `list(string)` | `[]` | no |
+| authorized\_subnet\_ids | Subnets restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction | `list(string)` | `[]` | no |
+| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
 | function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
@@ -201,12 +203,12 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
 | identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `null` | no |
-| location | Azure location for App Service Plan. | `string` | n/a | yes |
+| location | Azure location. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
 | os\_type | A string indicating the Operating System type for this function app. | `string` | `null` | no |
-| resource\_group\_name | n/a | `string` | n/a | yes |
-| stack | n/a | `string` | n/a | yes |
+| resource\_group\_name | Resource group name | `string` | n/a | yes |
+| stack | Project stack name | `string` | n/a | yes |
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
@@ -235,7 +237,6 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
-
 
 ## Related documentation
 
