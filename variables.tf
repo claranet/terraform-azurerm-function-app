@@ -174,5 +174,5 @@ variable "application_insights_custom_name" {
 variable "storage_account_name" {
   description = "Name of the storage account to create with FunctionApp"
   type        = string
-  default     = ""
+  default     = null
 }
