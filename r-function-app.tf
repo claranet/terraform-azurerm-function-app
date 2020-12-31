@@ -66,12 +66,33 @@ resource "azurerm_function_app" "function_app" {
     var.function_app_application_settings,
   )
 
-  site_config {
+  dynamic "site_config" {
+    for_each = [merge(local.default_site_config, var.site_config)]
+    content {
+      always_on                   = lookup(site_config.value, "always_on", null)
+      ftps_state                  = lookup(site_config.value, "ftps_state", null)
+      http2_enabled               = lookup(site_config.value, "http2_enabled", null)
+      ip_restriction              = lookup(site_config.value, "ip_restriction", null)
+      linux_fx_version            = lookup(site_config.value, "linux_fx_version", null)
+      min_tls_version             = lookup(site_config.value, "min_tls_version", null)
+      pre_warmed_instance_count   = lookup(site_config.value, "pre_warmed_instance_count", null)
+      scm_ip_restriction          = lookup(site_config.value, "scm_ip_restriction", null)
+      scm_type                    = lookup(site_config.value, "scm_type", null)
+      scm_use_main_ip_restriction = lookup(site_config.value, "scm_use_main_ip_restriction", null)
+      use_32_bit_worker_process   = lookup(site_config.value, "use_32_bit_worker_process", null)
+      websockets_enabled          = lookup(site_config.value, "websockets_enabled", null)
 
-    always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
-    linux_fx_version = "%{if data.azurerm_app_service_plan.plan.kind == "linux"}DOCKER|${local.container_default_image[var.function_app_version][var.function_language_for_linux]}%{else}%{endif}"
-    ip_restriction   = concat(local.subnets, local.cidrs)
+      dynamic "cors" {
+        for_each = lookup(site_config.value, "cors", [])
+        content {
+          allowed_origins     = cors.value.allowed_origins
+          support_credentials = lookup(cors.value, "support_credentials", null)
+        }
+      }
+    }
   }
+
+  https_only = var.https_only
 
   lifecycle {
     ignore_changes = [

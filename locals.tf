@@ -18,6 +18,12 @@ locals {
     }
   }
 
+  default_site_config = {
+    always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
+    linux_fx_version = "%{if data.azurerm_app_service_plan.plan.kind == "linux"}DOCKER|${local.container_default_image[var.function_app_version][var.function_language_for_linux]}%{else}%{endif}"
+    ip_restriction   = concat(local.subnets, local.cidrs)
+  }
+
   name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
   ai_name_prefix       = var.application_insights_name_prefix != "" ? replace(var.application_insights_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
   function_name_prefix = var.function_app_name_prefix != "" ? replace(var.function_app_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
