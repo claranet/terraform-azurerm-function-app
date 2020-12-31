@@ -1,4 +1,4 @@
-# v4.0.0 - Unreleased
+# v3.1.0/v4.0.0 - 2020-12-30
 
 Breaking
   * AZ-368: Force HTTPS
