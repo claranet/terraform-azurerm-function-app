@@ -182,3 +182,27 @@ variable "authorized_subnet_ids" {
   type        = list(string)
   default     = []
 }
+
+variable "logs_destinations_ids" {
+  type        = list(string)
+  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
+  default     = []
+}
+
+variable "logs_logs_categories" {
+  type        = list(string)
+  description = "Logs categories to send to destinations"
+  default     = ["FunctionAppLogs"]
+}
+
+variable "logs_metrics_categories" {
+  type        = list(string)
+  description = "Metrics categories to send to destinations."
+  default     = ["AllMetrics"]
+}
+
+variable "log_retention_days" {
+  type        = number
+  description = "Number of days to keep logs"
+  default     = 31
+}

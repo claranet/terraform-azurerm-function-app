@@ -1,8 +1,10 @@
-# v3.1.0 - Unreleased
-
+# v4.0.0 - Unreleased
+ 
 Added
   * AZ-347: Add application_insight_custom_name and function_app_custom_name variables
   * AZ-364: Add network rules parameters
+  * AZ-366 Add diagnostics logs.
+
   
 Fixed
   * AZ-349: Fix Docker images versions for v3 function apps
