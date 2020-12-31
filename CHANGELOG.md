@@ -1,11 +1,11 @@
-# v4.0.0 - Unreleased
+# v3.2.0/v4.0.0 - Unreleased
 
 Updated
   * AZ-273: Module now compatible terraform `v0.13+`
 
 Added
-  * AZ-347 Allow to use custom name
- 
+  * AZ-347: Allow to use custom name
+
 # v3.1.0 - 2020-12-10
 
 Fixed
