@@ -2,7 +2,10 @@
 
 Updated
   * AZ-273: Module now compatible terraform `v0.13+`
-  
+
+Added
+  * AZ-347 Allow to use custom name
+ 
 # v3.1.0 - 2020-12-10
 
 Fixed
@@ -15,9 +18,6 @@ Breaking
 
 Breaking
   * AZ-206: Provider Azure v2.x+ upgrade
-
-Added
-  * AZ-347 Allow to use custom name
 
 # v2.0.1 - 2019-11-15
 

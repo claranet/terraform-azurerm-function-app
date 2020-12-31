@@ -132,21 +132,25 @@ module "function_app" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| app\_service\_plan\_custom\_name | Custom name for app service plan | `string` | `""` | no |
 | app\_service\_plan\_extra\_tags | Extra tags to add to App Service Plan | `map(string)` | `{}` | no |
 | app\_service\_plan\_name\_prefix | App Service Plan name prefix | `string` | `""` | no |
 | app\_service\_plan\_os | App Service Plan OS for dedicated plans, can be "Linux" or "Windows" | `string` | n/a | yes |
 | app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
 | app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
+| application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if empty | `string` | n/a | no |
+| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
 | environment | n/a | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
+| function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_app\_os\_type | A string indicating the Operating System type for this function app. | `string` | `null` | no |
 | function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
@@ -157,6 +161,7 @@ module "function_app" {
 | resource\_group\_name | n/a | `string` | n/a | yes |
 | stack | n/a | `string` | n/a | yes |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
+| storage\_account\_name | Name of the storage account to create with FunctionApp | `string` | `null` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 
 ## Outputs
