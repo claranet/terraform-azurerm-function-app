@@ -99,6 +99,8 @@ resource "azurerm_function_app" "function_app" {
       app_settings.WEBSITE_RUN_FROM_ZIP,
       app_settings.WEBSITE_RUN_FROM_PACKAGE,
       app_settings.MACHINEKEY_DecryptionKey,
+      app_settings.WEBSITE_CONTENTAZUREFILECONNECTIONSTRING,
+      app_settings.WEBSITE_CONTENTSHARE
     ]
   }
 
