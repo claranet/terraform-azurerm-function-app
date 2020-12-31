@@ -170,6 +170,7 @@ module "function-app" {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
+  
   logs_destinations_ids = [
     data.terraform_remote_state.run.outputs.logs_storage_account_id,
     data.terraform_remote_state.run.outputs.log_analytics_workspace_id
