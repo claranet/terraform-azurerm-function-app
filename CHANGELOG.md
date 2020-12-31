@@ -4,7 +4,7 @@ Breaking
   * AZ-368: Force HTTPS
   
 Added
-  * AZ-347: Add application_insight_custom_name and function_app_custom_name variables
+  * AZ-347: Add `application_insight_custom_name` and `function_app_custom_name` variables
   * AZ-364: Add network rules parameters
   * AZ-366: Add diagnostics logs.
 
@@ -13,8 +13,8 @@ Fixed
   
 Changed
   * AZ-350: Upgrade Docker images from DockerHub to Official Microsoft Docker images repository
-  * AZ-367: Adding site_config variable to adjust its values
-  
+  * AZ-367: Adding `site_config` variable to adjust its values
+
 # v3.0.0 - 2020-07-30
 
 Breaking
