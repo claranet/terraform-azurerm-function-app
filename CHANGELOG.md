@@ -1,7 +1,7 @@
-# v3.1.1/v4.0.1 - Unreleased
+# v3.1.1/v4.0.1 - 2020-12-31
 
 Fixed
-  * AZ-415 Perpetual changes due to WEBSITE_CONTENTSHARE and WEBSITE_CONTENTAZUREFILECONNECTIONSTRING app settings.
+  * AZ-415: Perpetual changes due to `WEBSITE_CONTENTSHARE` and `WEBSITE_CONTENTAZUREFILECONNECTIONSTRING` app settings.
 
 # v3.1.0/v4.0.0 - 2020-12-30
 
