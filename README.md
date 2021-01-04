@@ -176,6 +176,7 @@ module "function_app" {
 | application\_insights\_name | Name of the associated Application Insights, empty if instrumentation key is provided |
 | function\_app\_connection\_string | Connection string of the created Function App |
 | function\_app\_id | Id of the created Function App |
+| function\_app\_identity | Identity block output of the Function App |
 | function\_app\_name | Name of the created Function App |
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
 | storage\_account\_id | Id of the associated Storage Account, empty if connection string provided |

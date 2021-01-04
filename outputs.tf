@@ -84,3 +84,8 @@ output "function_app_connection_string" {
   sensitive   = true
 }
 
+output "function_app_identity" {
+  value       = module.function_app.function_app_identity
+  description = "Identity block output of the Function App"
+}
+
