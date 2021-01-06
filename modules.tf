@@ -25,8 +25,9 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  source  = "claranet/function-app-single/azurerm"
-  version = "4.0.0"
+  //  source  = "claranet/function-app-single/azurerm"
+  //  version = "4.0.2"
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/function-app-single.git?ref=AZ-420-fix-linux-fx-version"
 
   client_name         = var.client_name
   environment         = var.environment

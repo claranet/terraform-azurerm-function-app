@@ -1,7 +1,10 @@
 # v3.2.1/v4.0.1 - Unreleased
 
-Added
+Add
   * AZ-418: Add Identity block as output
+
+Fixed
+  * AZ-420: Fix linux_fx_version not used with serverless functions
 
 # v3.2.0/v4.0.0 - 2020-12-31
 
