@@ -18,9 +18,26 @@ locals {
     }
   }
 
+  // See https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions
+  serverless_default_runtinme_version = {
+    2 = {
+      python = "3.7"
+      node   = "10"
+      dotnet = "2.2"
+    },
+    3 = {
+      python = "3.8"
+      node   = "12"
+      dotnet = "3.1"
+    }
+  }
+
+  plan_kind        = data.azurerm_app_service_plan.plan.kind
+  linux_fx_version = local.plan_kind == "linux" ? format("DOCKER|%s", local.container_default_image[var.function_app_version][var.function_language_for_linux]) : local.plan_kind == "functionapp" ? format("%s|%s", upper(var.function_language_for_linux), local.serverless_default_runtinme_version[var.function_app_version][var.function_language_for_linux]) : ""
+
   default_site_config = {
     always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
-    linux_fx_version = "%{if data.azurerm_app_service_plan.plan.kind == "linux"}DOCKER|${local.container_default_image[var.function_app_version][var.function_language_for_linux]}%{else}%{endif}"
+    linux_fx_version = local.linux_fx_version
     ip_restriction   = concat(local.subnets, local.cidrs)
   }
 
