@@ -162,7 +162,7 @@ variable "function_app_application_settings" {
 variable "identity_type" {
   description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
   type        = string
-  default     = null
+  default     = "SystemAssigned"
 }
 
 variable "identity_ids" {

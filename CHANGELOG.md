@@ -4,6 +4,9 @@ Added
  * AZ-374: Allow disabling application insight deployment.
  * AZ-423: Use connection string for Application Insights integration
 
+Changed
+  * AZ-245: Assign a "SystemAssigned" identity by default
+
 # v3.1.1/v4.0.1 - 2020-12-31
 
 Fixed
