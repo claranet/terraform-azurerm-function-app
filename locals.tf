@@ -48,12 +48,16 @@ locals {
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   )
 
-  app_insights_instrumentation_key = var.application_insights_instrumentation_key != null ? var.application_insights_instrumentation_key : azurerm_application_insights.app_insights[0].instrumentation_key
+  app_insights = try(data.azurerm_application_insights.app_insights.0, try(azurerm_application_insights.app_insights.0, {}))
 
-  default_application_settings = {
-    FUNCTIONS_WORKER_RUNTIME       = var.function_language_for_linux
-    APPINSIGHTS_INSTRUMENTATIONKEY = local.app_insights_instrumentation_key
-  }
+  default_application_settings = merge({
+    FUNCTIONS_WORKER_RUNTIME = var.function_language_for_linux
+    }, var.application_insights_enabled ? {
+    APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
+    APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
+    APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
+    } : {}
+  )
 
   cidrs = [for cidr in var.authorized_ips : {
     name                      = "ip_restriction_cidr_${join("", [1, index(var.authorized_ips, cidr)])}"
@@ -72,6 +76,4 @@ locals {
     priority                  = join("", [1, index(var.authorized_subnet_ids, subnet)])
     action                    = "Allow"
   }]
-
 }
-

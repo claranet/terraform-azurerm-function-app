@@ -135,8 +135,14 @@ variable "function_language_for_linux" {
   default     = "dotnet"
 }
 
-variable "application_insights_instrumentation_key" {
-  description = "Application Insights instrumentation key for function logs, generated if null"
+variable "application_insights_enabled" {
+  description = "Enable or disable the Application Insights deployment"
+  type        = bool
+  default     = true
+}
+
+variable "application_insights_id" {
+  description = "ID of the existing Application Insights to use instead of deploying a new one."
   type        = string
   default     = null
 }
