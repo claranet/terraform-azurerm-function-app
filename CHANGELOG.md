@@ -1,7 +1,12 @@
-# v3.2.1/v4.0.1 - Unreleased
+# Unreleased
 
-Add
+Added
   * AZ-418: Add Identity block as output
+  * AZ-374: Allow disabling application insight deployment.
+  * AZ-423: Use connection string for Application Insights integration
+
+Changed
+  * AZ-245: Assign a "SystemAssigned" identity by default
 
 Fixed
   * AZ-420: Fix linux_fx_version not used with serverless functions

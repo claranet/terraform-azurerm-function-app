@@ -139,8 +139,9 @@ module "function_app" {
 | app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
 | app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
+| application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
+| application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | client\_name | n/a | `string` | n/a | yes |
@@ -170,10 +171,11 @@ module "function_app" {
 |------|-------------|
 | app\_service\_plan\_id | Id of the created App Service Plan |
 | app\_service\_plan\_name | Name of the created App Service Plan |
-| application\_insights\_app\_id | App id of the associated Application Insights, empty if instrumentation key is provided |
-| application\_insights\_id | Id of the associated Application Insights, empty if instrumentation key is provided |
+| application\_insights\_app\_id | App id of the associated Application Insights |
+| application\_insights\_application\_type | Application Type of the associated Application Insights |
+| application\_insights\_id | Id of the associated Application Insights |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
-| application\_insights\_name | Name of the associated Application Insights, empty if instrumentation key is provided |
+| application\_insights\_name | Name of the associated Application Insights |
 | function\_app\_connection\_string | Connection string of the created Function App |
 | function\_app\_id | Id of the created Function App |
 | function\_app\_identity | Identity block output of the Function App |
