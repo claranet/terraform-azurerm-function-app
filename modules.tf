@@ -26,7 +26,7 @@ module "app_service_plan" {
 
 module "function_app" {
   source  = "claranet/function-app-single/azurerm"
-  version = "4.0.0"
+  version = "4.1.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -47,9 +47,10 @@ module "function_app" {
   function_app_application_settings = var.function_app_application_settings
   function_app_version              = var.function_app_version
 
-  application_insights_instrumentation_key = var.application_insights_instrumentation_key
-  application_insights_type                = var.application_insights_type
-  application_insights_custom_name         = var.application_insights_custom_name
+  application_insights_enabled     = var.application_insights_enabled
+  application_insights_id          = var.application_insights_id
+  application_insights_type        = var.application_insights_type
+  application_insights_custom_name = var.application_insights_custom_name
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids

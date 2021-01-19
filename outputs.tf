@@ -43,17 +43,17 @@ output "storage_account_secondary_access_key" {
 }
 
 output "application_insights_id" {
-  description = "Id of the associated Application Insights, empty if instrumentation key is provided"
+  description = "Id of the associated Application Insights"
   value       = module.function_app.application_insights_id
 }
 
 output "application_insights_name" {
-  description = "Name of the associated Application Insights, empty if instrumentation key is provided"
+  description = "Name of the associated Application Insights"
   value       = module.function_app.application_insights_name
 }
 
 output "application_insights_app_id" {
-  description = "App id of the associated Application Insights, empty if instrumentation key is provided"
+  description = "App id of the associated Application Insights"
   value       = module.function_app.application_insights_app_id
 }
 
@@ -61,6 +61,11 @@ output "application_insights_instrumentation_key" {
   description = "Instrumentation key of the associated Application Insights"
   value       = module.function_app.application_insights_instrumentation_key
   sensitive   = true
+}
+
+output "application_insights_application_type" {
+  description = "Application Type of the associated Application Insights"
+  value       = module.function_app.app_insights_application_type
 }
 
 output "function_app_id" {
@@ -82,5 +87,10 @@ output "function_app_connection_string" {
   description = "Connection string of the created Function App"
   value       = module.function_app.function_app_connection_string
   sensitive   = true
+}
+
+output "function_app_identity" {
+  value       = module.function_app.function_app_identity
+  description = "Identity block output of the Function App"
 }
 
