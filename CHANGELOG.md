@@ -1,4 +1,4 @@
-# Unreleased
+# v3.2.0/v4.1.0 - 2021-01-19
 
 Added
  * AZ-374: Allow disabling application insight deployment.
