@@ -4,36 +4,36 @@ locals {
     stack = var.stack
   }
 
-  container_default_image = {
-    2 = {
-      python = "mcr.microsoft.com/azure-functions/python:2.0-python3.6"
-      node   = "mcr.microsoft.com/azure-functions/node:2.0-node8"
-      dotnet = "mcr.microsoft.com/azure-functions/dotnet:2.0"
-    },
-    3 = {
-      python = "mcr.microsoft.com/azure-functions/python:3.0-python3.8"
-      node   = "mcr.microsoft.com/azure-functions/node:3.0-node12"
-      dotnet = "mcr.microsoft.com/azure-functions/dotnet:3.0"
+  linux_version_map = {
+    "linux" = {
+      "v2" = {
+        python = "DOCKER|mcr.microsoft.com/azure-functions/python:2.0-python3.6"
+        node   = "DOCKER|mcr.microsoft.com/azure-functions/node:2.0-node8"
+        dotnet = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:2.0"
+      },
+      "v3" = {
+        python = "DOCKER|mcr.microsoft.com/azure-functions/python:3.0-python3.8"
+        node   = "DOCKER|mcr.microsoft.com/azure-functions/node:3.0-node12"
+        dotnet = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:3.0"
 
-    }
-  }
-
-  // See https://docs.microsoft.com/en-us/azure/azure-functions/functions-versions
-  serverless_default_runtinme_version = {
-    2 = {
-      python = "3.7"
-      node   = "10"
-      dotnet = "2.2"
+      }
     },
-    3 = {
-      python = "3.8"
-      node   = "12"
-      dotnet = "3.1"
+    "functionapp" = {
+      "v2" = {
+        python = "PYTHON|3.7"
+        node   = "NODE|10"
+        dotnet = "DOTNET|2.2"
+      },
+      "v3" = {
+        python = "PYTHON|3.8"
+        node   = "NODE|12"
+        dotnet = "DOTNET|3.1"
+      }
     }
   }
 
   plan_kind        = data.azurerm_app_service_plan.plan.kind
-  linux_fx_version = local.plan_kind == "linux" ? format("DOCKER|%s", local.container_default_image[var.function_app_version][var.function_language_for_linux]) : local.plan_kind == "functionapp" ? format("%s|%s", upper(var.function_language_for_linux), local.serverless_default_runtinme_version[var.function_app_version][var.function_language_for_linux]) : ""
+  linux_fx_version = try(local.linux_version_map[data.azurerm_app_service_plan.plan.kind]["v${var.function_app_version}"][var.function_language_for_linux], "")
 
   default_site_config = {
     always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
