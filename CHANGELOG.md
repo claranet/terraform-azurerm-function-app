@@ -1,4 +1,4 @@
-# Unreleased
+# v3.3.0/v4.1.0 - 2021-01-19
 
 Added
   * AZ-418: Add Identity block as output
