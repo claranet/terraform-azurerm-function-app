@@ -1,3 +1,9 @@
+# Unreleased
+
+Added
+ * AZ-374: Allow disabling application insight deployment.
+ * AZ-423: Use connection string for Application Insights integration
+
 # v3.1.1/v4.0.1 - 2020-12-31
 
 Fixed

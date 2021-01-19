@@ -32,24 +32,6 @@ resource "azurerm_advanced_threat_protection" "threat_protection" {
   target_resource_id = azurerm_storage_account.storage[0].id
 }
 
-# Application Insights
-resource "azurerm_application_insights" "app_insights" {
-  name = coalesce(var.application_insights_custom_name, local.application_insights_default_name)
-
-  location            = var.location
-  resource_group_name = var.resource_group_name
-
-  application_type = var.application_insights_type
-
-  tags = merge(
-    local.default_tags,
-    var.application_insights_extra_tags,
-    var.extra_tags,
-  )
-
-  count = var.application_insights_instrumentation_key == null ? 1 : 0
-}
-
 # Function App
 resource "azurerm_function_app" "function_app" {
   name = coalesce(var.function_app_custom_name, local.function_default_name)

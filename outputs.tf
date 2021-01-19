@@ -44,24 +44,29 @@ output "storage_account_secondary_access_key" {
 }
 
 output "application_insights_id" {
-  description = "Id of the associated Application Insights, empty if instrumentation key is provided"
-  value       = join("", azurerm_application_insights.app_insights.*.id)
+  description = "Id of the associated Application Insights"
+  value       = try(local.app_insights.id, null)
 }
 
 output "application_insights_name" {
-  description = "Name of the associated Application Insights, empty if instrumentation key is provided"
-  value       = join("", azurerm_application_insights.app_insights.*.name)
+  description = "Name of the associated Application Insights"
+  value       = try(local.app_insights.name, null)
 }
 
 output "application_insights_app_id" {
-  description = "App id of the associated Application Insights, empty if instrumentation key is provided"
-  value       = join("", azurerm_application_insights.app_insights.*.app_id)
+  description = "App id of the associated Application Insights"
+  value       = try(local.app_insights.app_id, null)
 }
 
 output "application_insights_instrumentation_key" {
   description = "Instrumentation key of the associated Application Insights"
-  value       = local.app_insights_instrumentation_key
+  value       = try(local.app_insights.instrumentation_key, null)
   sensitive   = true
+}
+
+output "app_insights_application_type" {
+  description = "Application Type of the associated Application Insights"
+  value       = try(local.app_insights.application_type, null)
 }
 
 output "function_app_id" {

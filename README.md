@@ -193,8 +193,9 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 |------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
 | application\_insights\_custom\_name | Custom name for application insights | `string` | `""` | no |
+| application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
-| application\_insights\_instrumentation\_key | Application Insights instrumentation key for function logs, generated if null | `string` | `null` | no |
+| application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | authorized\_ips | IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction | `list(string)` | `[]` | no |
@@ -234,11 +235,12 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Description |
 |------|-------------|
+| app\_insights\_application\_type | Application Type of the associated Application Insights |
 | app\_service\_plan\_id | Id of the created App Service Plan |
-| application\_insights\_app\_id | App id of the associated Application Insights, empty if instrumentation key is provided |
-| application\_insights\_id | Id of the associated Application Insights, empty if instrumentation key is provided |
+| application\_insights\_app\_id | App id of the associated Application Insights |
+| application\_insights\_id | Id of the associated Application Insights |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
-| application\_insights\_name | Name of the associated Application Insights, empty if instrumentation key is provided |
+| application\_insights\_name | Name of the associated Application Insights |
 | function\_app\_connection\_string | Connection string of the created Function App |
 | function\_app\_id | Id of the created Function App |
 | function\_app\_identity | Identity block output of the Function App |
