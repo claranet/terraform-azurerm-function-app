@@ -196,8 +196,9 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
-| authorized\_ips | IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction | `list(string)` | `[]` | no |
-| authorized\_subnet\_ids | Subnets restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction | `list(string)` | `[]` | no |
+| authorized\_ips | IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
+| authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
+| authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
