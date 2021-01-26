@@ -152,6 +152,7 @@ module "function_app" {
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_os\_type | A string indicating the Operating System type for this function app. | `string` | `null` | no |
+| function\_app\_site\_config | Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
