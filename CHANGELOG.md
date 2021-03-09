@@ -1,4 +1,4 @@
-# Unreleased
+# v4.2.0 - 2021-03-09
 
 Added
  * AZ-424: Add Service Tags (AzureRM 2.42+)
@@ -13,7 +13,7 @@ Changed
   * AZ-245: Assign a "SystemAssigned" identity by default
 
 Fixed
-  * AZ-420: Fix linux_fx_version not used with serverless functionapps
+  * AZ-420: Fix `linux_fx_version` not used with serverless functionapps
 
 # v3.1.1/v4.0.1 - 2020-12-31
 
