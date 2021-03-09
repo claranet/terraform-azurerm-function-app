@@ -178,13 +178,19 @@ variable "os_type" {
 }
 
 variable "authorized_ips" {
-  description = "IPs restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  description = "IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
   type        = list(string)
   default     = []
 }
 
 variable "authorized_subnet_ids" {
-  description = "Subnets restriction for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#ip_restriction"
+  description = "Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "authorized_service_tags" {
+  description = "Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
   type        = list(string)
   default     = []
 }

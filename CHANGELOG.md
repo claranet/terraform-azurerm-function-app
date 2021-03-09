@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+ * AZ-424: Add Service Tags (AzureRM 2.42+)
+
 # v3.2.0/v4.1.0 - 2021-01-19
 
 Added
