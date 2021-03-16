@@ -65,10 +65,10 @@ resource "azurerm_function_app" "function_app" {
       websockets_enabled          = lookup(site_config.value, "websockets_enabled", null)
 
       dynamic "cors" {
-        for_each = lookup(site_config.value, "cors", [])
+        for_each = lookup(site_config.value, "cors", []) != [] ? ["fake"] : []
         content {
-          allowed_origins     = cors.value.allowed_origins
-          support_credentials = lookup(cors.value, "support_credentials", null)
+          allowed_origins     = lookup(site_config.value.cors, "allowed_origins", [])
+          support_credentials = lookup(site_config.value.cors, "support_credentials", false)
         }
       }
     }
