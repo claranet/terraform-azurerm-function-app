@@ -1,7 +1,7 @@
-# Unreleased
+# v4.2.1 - 2021-03-31
 
 Fixed
-  * AZ-465: Fix CORS block in site_config
+  * AZ-465: Fix CORS block in `site_config`
 
 # v4.2.0 - 2021-03-09
 
