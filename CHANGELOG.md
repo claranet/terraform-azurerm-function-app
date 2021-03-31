@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-465: Fix CORS block in site_config
+
 # v4.2.0 - 2021-03-09
 
 Added
