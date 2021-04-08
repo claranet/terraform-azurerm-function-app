@@ -1,4 +1,4 @@
-# v3.4.0/v4.2.0 - Unreleased
+# v3.4.0/v4.2.0 - 2021-04-08
 
 Added
   * AZ-430: Add function_app_site_config parameter
