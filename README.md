@@ -226,6 +226,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
 | storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
+| storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |
 | storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 | storage\_account\_primary\_access\_key | Primary access key the storage account to use. If null a new storage account is created | `string` | `null` | no |
