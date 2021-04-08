@@ -182,3 +182,9 @@ variable "storage_account_name" {
   type        = string
   default     = null
 }
+
+variable "function_app_site_config" {
+  description = "Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
+  type        = any
+  default     = {}
+}

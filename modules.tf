@@ -51,6 +51,7 @@ module "function_app" {
   application_insights_id          = var.application_insights_id
   application_insights_type        = var.application_insights_type
   application_insights_custom_name = var.application_insights_custom_name
+  site_config                      = var.function_app_site_config
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
