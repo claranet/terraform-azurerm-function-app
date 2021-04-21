@@ -246,6 +246,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_identity | Identity block output of the Function App |
 | function\_app\_name | Name of the created Function App |
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
+| function\_app\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App |
 | storage\_account\_id | Id of the associated Storage Account, empty if connection string provided |
 | storage\_account\_name | Name of the associated Storage Account, empty if connection string provided |
 | storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, empty if connection string provided |

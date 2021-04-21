@@ -84,6 +84,11 @@ output "function_app_outbound_ip_addresses" {
   value       = azurerm_function_app.function_app.outbound_ip_addresses
 }
 
+output "function_app_possible_outbound_ip_addresses" {
+  description = "All possible outbound IP adresses of the created Function App"
+  value       = azurerm_function_app.function_app.possible_outbound_ip_addresses
+}
+
 output "function_app_connection_string" {
   description = "Connection string of the created Function App"
   value       = azurerm_function_app.function_app.connection_string
