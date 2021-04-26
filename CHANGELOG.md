@@ -1,4 +1,4 @@
-# Unreleased
+# v4.3.0 - 2021-04-26
 
 Added
   * AZ-479: Added a variable to enable the choice a TLS version for the function storage account (Default version is set to TLS1_2)
