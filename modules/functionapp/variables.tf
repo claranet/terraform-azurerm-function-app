@@ -43,7 +43,7 @@ variable "function_app_name_prefix" {
 variable "function_app_version" {
   description = "Version of function app to use"
   type        = number
-  default     = 2
+  default     = 3
 }
 
 variable "function_app_custom_name" {

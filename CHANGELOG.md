@@ -5,3 +5,6 @@ Added
 
 Changed
   * AZ-489: Reuse existing variable for `function_app_os_type`
+
+Fixed
+* AZ-489: Fix submodule default value for `function_app_version`

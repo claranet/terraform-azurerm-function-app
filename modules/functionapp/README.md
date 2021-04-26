@@ -202,7 +202,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
-| function\_app\_version | Version of function app to use | `number` | `2` | no |
+| function\_app\_version | Version of function app to use | `number` | `3` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | https\_only | Disable http procotol and keep only https | `bool` | `true` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
