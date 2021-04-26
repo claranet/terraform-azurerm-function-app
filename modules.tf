@@ -55,7 +55,7 @@ module "function_app" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  os_type = var.function_app_os_type
+  os_type = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
 
   extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(

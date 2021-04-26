@@ -153,12 +153,6 @@ variable "identity_ids" {
   default     = null
 }
 
-variable "function_app_os_type" {
-  description = "A string indicating the Operating System type for this function app."
-  type        = string
-  default     = null
-}
-
 variable "app_service_plan_custom_name" {
   description = "Custom name for app service plan"
   type        = string
