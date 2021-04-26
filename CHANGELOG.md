@@ -1,3 +1,8 @@
+# Unreleased
+
+Breaking
+  * AZ-488: Rename module to `functionapp` and set `function-app-single` module as submodule
+
 # v3.4.0/v4.2.0 - 2021-04-08
 
 Added

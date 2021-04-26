@@ -64,7 +64,7 @@ module "function-plan" {
 }
 
 module "function1" {
-  source  = "claranet/function-app-single/azurerm"
+  source  = "claranet/function-app/azurerm//modules/functionapp"
   version = "x.x.x"
 
   location       = module.azure-region.location
@@ -128,7 +128,7 @@ module "function-plan" {
 }
 
 module "function1" {
-  source = "claranet/function-app-single/azurerm"
+  source  = "claranet/function-app/azurerm//modules/functionapp"
 
   location       = module.azure-region.location
   location_short = module.azure-region.location_short
@@ -148,7 +148,7 @@ module "function1" {
 }
 
 module "function-app" {
-  source  = "claranet/function-app-single/azurerm"
+  source  = "claranet/function-app/azurerm//modules/functionapp"
   version = "x.x.x"
 
   location       = module.azure-region.location

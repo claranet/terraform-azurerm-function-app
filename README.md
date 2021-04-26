@@ -1,4 +1,4 @@
-# Azure Function App with plan
+# Azure Function App
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/function-app-with-plan/azurerm/)
 
 This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/)
@@ -6,6 +6,8 @@ with its [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/o
 a consumption plan by default.
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided.
+
+You can create an Azure Function without lan by using the submodule `modules/functionapp`.
 
 Azure Functions v3 are now supported by this module and is the default one.
 
@@ -101,7 +103,7 @@ module "rg" {
 }
 
 module "function_app" {
-  source  = "claranet/function-app-with-plan/azurerm"
+  source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
