@@ -88,6 +88,13 @@ variable "storage_account_kind" {
   default     = "StorageV2"
 }
 
+variable "storage_account_min_tls_version" {
+  description = "Storage Account minimal TLS version"
+  type        = string
+  default     = "TLS1_2"
+}
+
+
 variable "storage_account_enable_advanced_threat_protection" {
   description = "Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
   type        = bool

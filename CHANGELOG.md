@@ -1,3 +1,9 @@
+# Unreleased
+
+Added
+  * AZ-479: Added a variable to enable the choice a TLS version for the function storage account (Default version is set to TLS1_2)
+  * AZ-479: Added output for all possibles IPs of the function app
+
 # v4.2.1 - 2021-03-31
 
 Fixed
