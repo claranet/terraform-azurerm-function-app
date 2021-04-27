@@ -59,11 +59,12 @@ locals {
     "/[._-]/",
     "",
   )
-  storage_default_name = substr(
+  # Force user to set storage name if key is set
+  storage_default_name = var.storage_account_access_key == null ? substr(
     local.storage_default_name_long,
     0,
     length(local.storage_default_name_long) > 24 ? 23 : -1,
-  )
+  ) : null
 
   app_insights = try(data.azurerm_application_insights.app_insights.0, try(azurerm_application_insights.app_insights.0, {}))
 

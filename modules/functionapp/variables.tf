@@ -1,13 +1,3 @@
-variable "location" {
-  description = "Azure location."
-  type        = string
-}
-
-variable "location_short" {
-  description = "Short string for Azure location."
-  type        = string
-}
-
 variable "client_name" {
   description = "Client name/account used in naming"
   type        = string
@@ -28,6 +18,16 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "location" {
+  description = "Azure location."
+  type        = string
+}
+
+variable "location_short" {
+  description = "Short string for Azure location."
+  type        = string
+}
+
 variable "name_prefix" {
   description = "Name prefix for all resources generated name"
   type        = string
@@ -41,7 +41,7 @@ variable "function_app_name_prefix" {
 }
 
 variable "function_app_version" {
-  description = "Version of function app to use"
+  description = "Version of the function app runtime to use (Allowed values 2 or 3)"
   type        = number
   default     = 3
 }
@@ -59,7 +59,7 @@ variable "application_insights_name_prefix" {
 }
 
 variable "application_insights_custom_name" {
-  description = "Custom name for application insights"
+  description = "Custom name for application insights deployed with function app"
   type        = string
   default     = ""
 }
@@ -70,8 +70,8 @@ variable "storage_account_name" {
   default     = null
 }
 
-variable "storage_account_primary_access_key" {
-  description = "Primary access key the storage account to use. If null a new storage account is created"
+variable "storage_account_access_key" {
+  description = "Access key the storage account to use. If null a new storage account is created"
   type        = string
   default     = null
 }
@@ -93,7 +93,6 @@ variable "storage_account_min_tls_version" {
   type        = string
   default     = "TLS1_2"
 }
-
 
 variable "storage_account_enable_advanced_threat_protection" {
   description = "Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
@@ -205,25 +204,25 @@ variable "authorized_service_tags" {
 variable "logs_destinations_ids" {
   type        = list(string)
   description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
-  default     = []
+  default     = null
 }
 
-variable "logs_logs_categories" {
+variable "logs_categories" {
   type        = list(string)
-  description = "Logs categories to send to destinations"
-  default     = ["FunctionAppLogs"]
+  description = "Log categories to send to destinations."
+  default     = null
 }
 
 variable "logs_metrics_categories" {
   type        = list(string)
   description = "Metrics categories to send to destinations."
-  default     = ["AllMetrics"]
+  default     = null
 }
 
-variable "log_retention_days" {
+variable "logs_retention_days" {
   type        = number
-  description = "Number of days to keep logs"
-  default     = 31
+  description = "Number of days to keep logs on storage account"
+  default     = 30
 }
 
 variable "site_config" {
