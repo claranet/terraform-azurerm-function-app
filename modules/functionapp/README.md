@@ -193,6 +193,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
+| application\_zip\_package\_path | Path of a zip package to deploy on the Function App | `string` | `null` | no |
 | authorized\_ips | IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |

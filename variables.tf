@@ -263,3 +263,9 @@ variable "https_only" {
   type        = bool
   default     = true
 }
+
+variable "application_zip_package_path" {
+  description = "Path of a zip package to deploy on the Function App"
+  type        = string
+  default     = null
+}

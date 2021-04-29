@@ -78,6 +78,8 @@ module "function_app" {
 
   os_type = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
 
+  application_zip_package_path = var.application_zip_package_path
+
   extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(
     var.extra_tags,
