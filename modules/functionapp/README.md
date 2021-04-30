@@ -1,7 +1,6 @@
 # Azure Function App
-[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/function-app-single/azurerm/)
 
-This Terraform feature creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
+This Terraform submodule creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/).
 A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
 are required and are created if not provided. An [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
 must be provided for hosting. This module also support Diagnostics Settings activation.
@@ -21,7 +20,7 @@ This module is optimized to work with the [Claranet terraform-wrapper](https://g
  
 More details about variables set by the terraform-wrapper available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
-Here's 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
+Here are 2 examples combined with the `function-app-with-plan` feature in order to have 2 functions on a dedicated App Service Plan.
 
 ### Windows
 ```hcl
@@ -75,7 +74,7 @@ module "function1" {
 
   resource_group_name = module.rg.resource_group_name
 
-  function_app_name_prefix = "function2"
+  function_app_name_prefix = "function1"
 
   app_service_plan_id = module.function-plan.app_service_plan_id
 
@@ -118,13 +117,12 @@ module "function-plan" {
 
   resource_group_name = module.rg.resource_group_name
 
-  kind         = "Linux"
+  kind = "Linux"
   
   sku = {
     size = "S1"
     tier = "Standard"
   }
-
 }
 
 module "function1" {
@@ -138,16 +136,14 @@ module "function1" {
 
   resource_group_name = module.rg.resource_group_name
 
-  function_app_name_suffix = "function2"
+  function_app_name_prefix = "function1"
 
   function_language_for_linux = "python"
 
   app_service_plan_id = module.function-plan.app_service_plan_id
-
-
 }
 
-module "function-app" {
+module "function2" {
   source  = "claranet/function-app/azurerm//modules/functionapp"
   version = "x.x.x"
 
@@ -181,7 +177,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
   
-  name                = "MyManagedIdentity"
+  name = "MyManagedIdentity"
 }
 ```
 
