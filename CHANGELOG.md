@@ -11,3 +11,4 @@ Changed
 Fixed
   * AZ-489: Fix submodule default value for `function_app_version`
   * AZ-489: Force user to define `storage_account_name` if `storage_account_primary_access_key` is set
+  * AZ-489: Set setting `WEBSITES_ENABLE_APP_SERVICE_STORAGE` to false when using custom Docker image (Azure issue)

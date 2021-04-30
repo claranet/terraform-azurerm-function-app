@@ -50,7 +50,7 @@ resource "azurerm_function_app" "function_app" {
   )
 
   dynamic "site_config" {
-    for_each = [merge(local.default_site_config, var.site_config)]
+    for_each = [local.site_config]
     content {
       always_on                   = lookup(site_config.value, "always_on", null)
       ftps_state                  = lookup(site_config.value, "ftps_state", null)
