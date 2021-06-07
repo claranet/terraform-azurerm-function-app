@@ -1,8 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
-  #source  = "claranet/app-service-plan/azurerm"
-  #version = "4.0.0"
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=az-160-unify-diagnostics"
+  source  = "claranet/app-service-plan/azurerm"
+  version = "4.1.0"
 
   client_name         = var.client_name
   environment         = var.environment
