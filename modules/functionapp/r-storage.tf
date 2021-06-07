@@ -50,6 +50,7 @@ resource "azurerm_storage_blob" "package_blob" {
   storage_container_name = azurerm_storage_container.package_container[0].name
   type                   = "Block"
   source                 = var.application_zip_package_path
+  content_md5            = filemd5(var.application_zip_package_path)
 }
 
 data "azurerm_storage_account_sas" "package_sas" {
