@@ -4,35 +4,6 @@ data "azurerm_app_service_plan" "plan" {
   resource_group_name = var.resource_group_name
 }
 
-# Storage account
-resource "azurerm_storage_account" "storage" {
-  name = coalesce(var.storage_account_name, local.storage_default_name)
-
-  location            = var.location
-  resource_group_name = var.resource_group_name
-
-  account_replication_type = "LRS"
-  account_tier             = "Standard"
-  account_kind             = var.storage_account_kind
-  min_tls_version          = var.storage_account_min_tls_version
-
-  enable_https_traffic_only = var.storage_account_enable_https_traffic_only
-
-  tags = merge(
-    local.default_tags,
-    var.storage_account_extra_tags,
-    var.extra_tags,
-  )
-
-  count = var.storage_account_access_key == null ? 1 : 0
-}
-
-resource "azurerm_advanced_threat_protection" "threat_protection" {
-  count              = var.storage_account_access_key == null ? 1 : 0
-  enabled            = var.storage_account_enable_advanced_threat_protection
-  target_resource_id = azurerm_storage_account.storage[0].id
-}
-
 # Function App
 resource "azurerm_function_app" "function_app" {
   name = coalesce(var.function_app_custom_name, local.function_default_name)

@@ -71,14 +71,19 @@ locals {
 
   default_application_settings = merge({
     FUNCTIONS_WORKER_RUNTIME = var.function_language_for_linux
-    }, var.application_insights_enabled ? {
-    APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
-    APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
-    APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
+    },
+    var.application_insights_enabled ? {
+      APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
+      APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
+      APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
     } : {},
     substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
       FUNCTIONS_WORKER_RUNTIME            = null
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
+    } : {},
+    var.application_zip_package_path != null ? {
+      # MD5 as query to force function restart on change
+      WEBSITE_RUN_FROM_PACKAGE : local.zip_package_url
     } : {}
   )
 
@@ -111,4 +116,7 @@ locals {
     priority                  = join("", [1, index(var.authorized_service_tags, service_tag)])
     action                    = "Allow"
   }]
+
+  is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path)) == 0
+  zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, data.azurerm_storage_account_sas.package_sas.sas, filemd5(var.application_zip_package_path)) : var.application_zip_package_path
 }
