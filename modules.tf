@@ -25,8 +25,7 @@ module "app_service_plan" {
 }
 
 module "function_app" {
-  source  = "claranet/function-app-single/azurerm"
-  version = "4.1.0"
+  source = "./modules/functionapp"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -75,4 +74,3 @@ module "function_app" {
     local.default_tags,
   )
 }
-
