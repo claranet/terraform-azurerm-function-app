@@ -24,11 +24,11 @@ resource "azurerm_storage_account" "storage" {
     var.extra_tags,
   )
 
-  count = var.storage_account_primary_access_key == null ? 1 : 0
+  count = var.storage_account_access_key == null ? 1 : 0
 }
 
 resource "azurerm_advanced_threat_protection" "threat_protection" {
-  count              = var.storage_account_primary_access_key == null ? 1 : 0
+  count              = var.storage_account_access_key == null ? 1 : 0
   enabled            = var.storage_account_enable_advanced_threat_protection
   target_resource_id = azurerm_storage_account.storage[0].id
 }
@@ -41,7 +41,7 @@ resource "azurerm_function_app" "function_app" {
   location                   = var.location
   resource_group_name        = var.resource_group_name
   storage_account_name       = var.storage_account_name == null ? local.storage_default_name : var.storage_account_name
-  storage_account_access_key = var.storage_account_primary_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_primary_access_key
+  storage_account_access_key = var.storage_account_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_access_key
   os_type                    = var.os_type
 
   app_settings = merge(
@@ -50,7 +50,7 @@ resource "azurerm_function_app" "function_app" {
   )
 
   dynamic "site_config" {
-    for_each = [merge(local.default_site_config, var.site_config)]
+    for_each = [local.site_config]
     content {
       always_on                   = lookup(site_config.value, "always_on", null)
       ftps_state                  = lookup(site_config.value, "ftps_state", null)

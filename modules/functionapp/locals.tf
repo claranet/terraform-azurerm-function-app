@@ -40,6 +40,7 @@ locals {
     linux_fx_version = local.linux_fx_version
     ip_restriction   = concat(local.subnets, local.cidrs, local.service_tags)
   }
+  site_config = merge(local.default_site_config, var.site_config)
 
   name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
   ai_name_prefix       = var.application_insights_name_prefix != "" ? replace(var.application_insights_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
@@ -59,11 +60,12 @@ locals {
     "/[._-]/",
     "",
   )
-  storage_default_name = substr(
+  # Force user to set storage name if key is set
+  storage_default_name = var.storage_account_access_key == null ? substr(
     local.storage_default_name_long,
     0,
     length(local.storage_default_name_long) > 24 ? 23 : -1,
-  )
+  ) : null
 
   app_insights = try(data.azurerm_application_insights.app_insights.0, try(azurerm_application_insights.app_insights.0, {}))
 
@@ -73,6 +75,10 @@ locals {
     APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
     APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
     APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
+    } : {},
+    substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
+      FUNCTIONS_WORKER_RUNTIME            = null
+      WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     } : {}
   )
 
