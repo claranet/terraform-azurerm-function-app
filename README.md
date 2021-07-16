@@ -130,6 +130,30 @@ module "function_app" {
 }
 ```
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | > 0.12.26 |
+| azurerm | >= 2.42.0 |
+
+## Providers
+
+| Name     | Version |
+| -------- | ------- |
+| azurerm | >= 2.42.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| app_service_plan | claranet/app-service-plan/azurerm | 4.1.0 |
+| function_app | ./modules/functionapp |  |
+
+## Resources
+
+No resources.
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -165,7 +189,7 @@ module "function_app" {
 | location | Azure location for Function App and related resources | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | `null` | no |
+| logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
 | name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
