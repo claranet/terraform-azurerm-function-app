@@ -1,9 +1,7 @@
-# Unreleased
+# v4.0.0 - 2021-07-16
 
 Added
   * AZ-488: Merge `function-app-with-plan`  `function-app-single` modules with the second as submodule.
-
-Added
   * AZ-486: Allow deploying ZIP packages
 
 Changed
