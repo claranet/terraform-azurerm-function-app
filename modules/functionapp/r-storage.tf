@@ -35,7 +35,7 @@ data "azurerm_storage_account" "storage" {
 }
 
 resource "azurerm_storage_container" "package_container" {
-  count = var.application_zip_package_path != null  && local.is_local_zip ? 1 : 0
+  count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                  = "functions-packages"
   storage_account_name  = data.azurerm_storage_account.storage.name
