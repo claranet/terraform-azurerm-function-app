@@ -1,4 +1,5 @@
-# UNREALEASED
+# v4.0.1 - 2021-07-21
+
 Fixed
   * AZ-534: Fix `is-local-zip` for default value of `application_zip_package_path` at `null`
 
