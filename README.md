@@ -59,7 +59,7 @@ module "rg" {
 }
 
 module "function_app" {
-  source  = "claranet/function-app-with-plan/azurerm"
+  source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
