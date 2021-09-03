@@ -76,7 +76,8 @@ module "function_app" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
-  os_type = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
+  os_type    = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
+  https_only = var.https_only
 
   application_zip_package_path = var.application_zip_package_path
 

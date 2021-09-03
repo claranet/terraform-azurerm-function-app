@@ -1,3 +1,11 @@
+# Unreleased
+
+Fixed
+  * AZ-530: Fix unused `https_only` variable
+
+Changed
+  * AZ-532: Revamp README with latest `terraform-docs` tool
+
 # v4.0.1 - 2021-07-21
 
 Fixed

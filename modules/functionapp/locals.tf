@@ -32,7 +32,6 @@ locals {
     }
   }
 
-  plan_kind        = data.azurerm_app_service_plan.plan.kind
   linux_fx_version = try(local.linux_version_map[lower(data.azurerm_app_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
 
   default_site_config = {
@@ -67,7 +66,7 @@ locals {
     length(local.storage_default_name_long) > 24 ? 23 : -1,
   ) : null
 
-  app_insights = try(data.azurerm_application_insights.app_insights.0, try(azurerm_application_insights.app_insights.0, {}))
+  app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
 
   default_application_settings = merge({
     FUNCTIONS_WORKER_RUNTIME = var.function_language_for_linux
