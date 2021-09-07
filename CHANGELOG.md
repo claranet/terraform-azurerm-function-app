@@ -1,6 +1,7 @@
 # Unreleased
 
 Fixed
+  * AZ-565: Add `client_name` to default storage account name
   * AZ-530: Fix unused `https_only` variable
 
 Changed
