@@ -132,25 +132,17 @@ module "function_app" {
 }
 ```
 
-## Requirements
-
-| Name | Version |
-|------|---------|
-| terraform | > 0.12.26 |
-| azurerm | >= 2.42.0 |
-
+<!-- BEGIN_TF_DOCS -->
 ## Providers
 
-| Name     | Version |
-| -------- | ------- |
-| azurerm | >= 2.42.0 |
+No providers.
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| app_service_plan | claranet/app-service-plan/azurerm | 4.1.0 |
-| function_app | ./modules/functionapp |  |
+| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.0 |
+| function\_app | ./modules/functionapp | n/a |
 
 ## Resources
 
@@ -229,6 +221,7 @@ No resources.
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
+<!-- END_TF_DOCS -->
 
 ## Related documentation
 
