@@ -51,10 +51,11 @@ locals {
 
   storage_default_name_long = replace(
     format(
-      "%s%s%s",
+      "%s%s%s%s",
       local.sa_name_prefix,
       var.stack,
       var.environment,
+      var.client_name,
     ),
     "/[._-]/",
     "",
