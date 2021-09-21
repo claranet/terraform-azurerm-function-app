@@ -13,15 +13,6 @@ You can create an Azure Function without plan by using the submodule `modules/fu
 
 Azure Functions v3 are now supported by this module and is the default one.
 
-## Version compatibility
-
-| Module version | Terraform version | AzureRM version |
-|----------------|-------------------| --------------- |
-| >= 4.x.x       | 0.13.x            | >= 2.0          |
-| >= 3.x.x       | 0.12.x            | >= 2.0          |
-| >= 2.x.x       | 0.12.x            | < 2.0           |
-| <  2.x.x       | 0.11.x            | < 2.0           |
-
 ## Limitations
 
 Based on a current limitation, you cannot mix Windows and Linux apps in the same resource group.
@@ -30,18 +21,25 @@ Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/container
 
 Due to a bug introduced in AzureRM v2.18.0, you need to force the version to 2.17.0 if you want to create a Linux FunctionApp. [GitHub Issue](https://github.com/terraform-providers/terraform-provider-azurerm/issues/7759)
 
+<!-- BEGIN_TF_DOCS -->
+## Global versioning rule for Claranet Azure modules
+
+| Module version | Terraform version | AzureRM version |
+| -------------- | ----------------- | --------------- |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
+| >= 4.x.x       | 0.13.x            | >= 2.0          |
+| >= 3.x.x       | 0.12.x            | >= 2.0          |
+| >= 2.x.x       | 0.12.x            | < 2.0           |
+| <  2.x.x       | 0.11.x            | < 2.0           |
 
 ## Usage
-This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
- 
-More details about variables set by the terraform-wrapper available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
-You can use this module by including it this way:
-
-### Windows
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
+which set some terraform variables in the environment needed by this module.
+More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -52,25 +50,38 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location     = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-  stack        = var.stack
+  location    = module.azure_region.location
+  client_name = var.client_name
+  environment = var.environment
+  stack       = var.stack
 }
 
-module "function_app" {
+module "logs" {
+  source  = "claranet/run-common/azurerm//modules/logs"
+  version = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  resource_group_name = module.rg.resource_group_name
+}
+
+### Windows
+module "function_app_windows" {
   source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
-  
+
   app_service_plan_os = "Windows"
 
   function_app_application_settings = {
@@ -78,45 +89,30 @@ module "function_app" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  logs_destinations_ids = [
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
+  ]
+
   extra_tags = {
     foo = "bar"
   }
 }
-```
 
 ### Linux
-
-```hcl
-module "azure-region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location     = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-  stack        = var.stack
-}
-
-module "function_app" {
+module "function_app_linux" {
   source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
 
   name_prefix = "hello"
-  
+
   app_service_plan_os         = "Linux"
   function_language_for_linux = "python"
   function_app_version        = 3
@@ -126,13 +122,18 @@ module "function_app" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  logs_destinations_ids = [
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
+  ]
+
   extra_tags = {
     foo = "bar"
   }
 }
+
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 No providers.
