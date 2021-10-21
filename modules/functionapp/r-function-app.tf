@@ -71,3 +71,11 @@ resource "azurerm_function_app" "function_app" {
 
   tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
 }
+
+resource "azurerm_app_service_virtual_network_swift_connection" "function_vnet_integration" {
+  depends_on = [azurerm_function_app.function_app]
+  count      = var.function_app_vnet_integration_subnet_id == null ? 0 : 1
+
+  app_service_id = azurerm_function_app.function_app.id
+  subnet_id      = var.function_app_vnet_integration_subnet_id
+}
