@@ -142,7 +142,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.0 |
+| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.1 |
 | function\_app | ./modules/functionapp | n/a |
 
 ## Resources
