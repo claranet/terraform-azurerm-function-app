@@ -75,6 +75,13 @@ variable "storage_account_identity_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "storage_account_network_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`."
+  type        = list(string)
+  default     = ["Logging", "Metrics", "AzureServices"]
+}
+
 variable "app_service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
