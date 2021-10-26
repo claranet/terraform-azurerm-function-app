@@ -24,6 +24,7 @@ Changed
 
 Added
   * AZ-588: VNet integration option
+  * AZ-588: Storage account network rules
   * AZ-592: Support for the `site_config.ip_restrictions.headers` property
   * AZ-595: SCM parameters now uses dedicated variables, like in `app-service-web` module
 

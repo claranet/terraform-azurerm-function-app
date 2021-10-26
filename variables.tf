@@ -76,6 +76,12 @@ variable "storage_account_identity_ids" {
   default     = null
 }
 
+variable "storage_account_network_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`."
+  type        = list(string)
+  default     = ["Logging", "Metrics", "AzureServices"]
+}
+
 variable "app_service_plan_sku" {
   description = "App Service Plan sku if created, consumption plan by default"
   type        = map(string)
