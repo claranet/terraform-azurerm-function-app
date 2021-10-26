@@ -29,10 +29,10 @@ resource "azurerm_storage_account" "storage" {
 }
 
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {
-  for_each = var.authorized_ips != null || var.authorized_subnet_ids != null ? ["enabled"] : []
+  for_each = toset(var.storage_account_access_key == null && (var.authorized_ips != null || var.authorized_subnet_ids != null) ? ["enabled"] : [])
 
   resource_group_name  = var.resource_group_name
-  storage_account_name = azurerm_storage_account.storage.name
+  storage_account_name = azurerm_storage_account.storage[0].name
 
   default_action             = "Deny"
   ip_rules                   = var.authorized_ips
