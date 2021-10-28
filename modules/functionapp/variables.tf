@@ -148,7 +148,7 @@ variable "os_type" {
 }
 
 variable "authorized_ips" {
-  description = "IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
+  description = "IPs restriction for Function in CIDR format. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
   type        = list(string)
   default     = []
 }

@@ -35,7 +35,7 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   storage_account_name = azurerm_storage_account.storage[0].name
 
   default_action             = "Deny"
-  ip_rules                   = var.authorized_ips
+  ip_rules                   = local.storage_ips
   virtual_network_subnet_ids = var.authorized_subnet_ids
   bypass                     = var.storage_account_network_bypass
 }
