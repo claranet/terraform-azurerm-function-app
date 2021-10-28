@@ -87,6 +87,15 @@ locals {
     } : {}
   )
 
+  default_ip_restrictions_headers = {
+    x_azure_fdid      = null
+    x_fd_health_probe = null
+    x_forwarded_for   = null
+    x_forwarded_host  = null
+  }
+
+  ip_restriction_headers = var.ip_restriction_headers != null ? [merge(local.default_ip_restrictions_headers, var.ip_restriction_headers)] : []
+
   cidrs = [for cidr in var.authorized_ips : {
     name                      = "ip_restriction_cidr_${join("", [1, index(var.authorized_ips, cidr)])}"
     ip_address                = cidr
@@ -95,7 +104,7 @@ locals {
     subnet_id                 = null
     priority                  = join("", [1, index(var.authorized_ips, cidr)])
     action                    = "Allow"
-    headers                   = null
+    headers                   = local.ip_restriction_headers
   }]
 
   subnets = [for subnet in var.authorized_subnet_ids : {
@@ -106,7 +115,7 @@ locals {
     subnet_id                 = subnet
     priority                  = join("", [1, index(var.authorized_subnet_ids, subnet)])
     action                    = "Allow"
-    headers                   = null
+    headers                   = local.ip_restriction_headers
   }]
 
   service_tags = [for service_tag in var.authorized_service_tags : {
@@ -117,7 +126,7 @@ locals {
     subnet_id                 = null
     priority                  = join("", [1, index(var.authorized_service_tags, service_tag)])
     action                    = "Allow"
-    headers                   = null
+    headers                   = local.ip_restriction_headers
   }]
 
   is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : 0)) == 0

@@ -201,6 +201,12 @@ variable "authorized_service_tags" {
   default     = []
 }
 
+variable "ip_restriction_headers" {
+  description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers"
+  type        = map(list(string))
+  default     = null
+}
+
 variable "function_app_vnet_integration_enabled" {
   description = "Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
   type        = bool

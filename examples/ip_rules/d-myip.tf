@@ -3,5 +3,6 @@ data "http" "myip" {
 }
 
 output "my_ip" {
-  value = "${data.http.myip.body}/32"
+  description = "Current IPv4"
+  value       = "${data.http.myip.body}/32"
 }
