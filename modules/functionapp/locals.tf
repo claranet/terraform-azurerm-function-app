@@ -129,6 +129,41 @@ locals {
     headers                   = local.ip_restriction_headers
   }]
 
+  scm_ip_restriction_headers = var.scm_ip_restriction_headers != null ? [merge(local.default_ip_restrictions_headers, var.scm_ip_restriction_headers)] : []
+
+  scm_cidrs = [for cidr in var.scm_authorized_ips : {
+    name                      = "scm_ip_restriction_cidr_${join("", [1, index(var.scm_authorized_ips, cidr)])}"
+    ip_address                = cidr
+    virtual_network_subnet_id = null
+    service_tag               = null
+    subnet_id                 = null
+    priority                  = join("", [1, index(var.scm_authorized_ips, cidr)])
+    action                    = "Allow"
+    headers                   = local.scm_ip_restriction_headers
+  }]
+
+  scm_subnets = [for subnet in var.scm_authorized_subnet_ids : {
+    name                      = "scm_ip_restriction_subnet_${join("", [1, index(var.scm_authorized_subnet_ids, subnet)])}"
+    ip_address                = null
+    virtual_network_subnet_id = subnet
+    service_tag               = null
+    subnet_id                 = subnet
+    priority                  = join("", [1, index(var.scm_authorized_subnet_ids, subnet)])
+    action                    = "Allow"
+    headers                   = local.scm_ip_restriction_headers
+  }]
+
+  scm_service_tags = [for service_tag in var.scm_authorized_service_tags : {
+    name                      = "scm_service_tag_restriction_${join("", [1, index(var.scm_authorized_service_tags, service_tag)])}"
+    ip_address                = null
+    virtual_network_subnet_id = null
+    service_tag               = service_tag
+    subnet_id                 = null
+    priority                  = join("", [1, index(var.scm_authorized_service_tags, service_tag)])
+    action                    = "Allow"
+    headers                   = local.scm_ip_restriction_headers
+  }]
+
   is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : 0)) == 0
   zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, data.azurerm_storage_account_sas.package_sas.sas, filemd5(var.application_zip_package_path)) : var.application_zip_package_path
 }

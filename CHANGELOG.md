@@ -1,5 +1,8 @@
 # Unreleased
 
+Breaking:
+  * AZ-595: SCM parameters now uses dedicated variables, like in `app-service-web` module
+
 Changed
   * AZ-572: Revamp examples and improve CI
   * AZ-592: Bump minimum AzureRM provider version to `v2.57`

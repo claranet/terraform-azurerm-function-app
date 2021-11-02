@@ -49,15 +49,15 @@ module "function_app" {
   storage_account_kind                              = var.storage_account_kind
   storage_account_min_tls_version                   = var.storage_account_min_tls_version
 
-  application_insights_name_prefix = var.application_insights_name_prefix
-  function_app_name_prefix         = var.function_app_name_prefix
-  function_app_custom_name         = var.function_app_custom_name
+  app_service_plan_id = module.app_service_plan.app_service_plan_id
 
-  app_service_plan_id               = module.app_service_plan.app_service_plan_id
+  function_app_name_prefix          = var.function_app_name_prefix
+  function_app_custom_name          = var.function_app_custom_name
   function_language_for_linux       = var.function_language_for_linux
   function_app_application_settings = var.function_app_application_settings
   function_app_version              = var.function_app_version
 
+  application_insights_name_prefix = var.application_insights_name_prefix
   application_insights_enabled     = var.application_insights_enabled
   application_insights_id          = var.application_insights_id
   application_insights_type        = var.application_insights_type
@@ -73,6 +73,11 @@ module "function_app" {
   ip_restriction_headers                  = var.ip_restriction_headers
   function_app_vnet_integration_enabled   = var.function_app_vnet_integration_enabled
   function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
+
+  scm_authorized_ips          = var.scm_authorized_ips
+  scm_authorized_subnet_ids   = var.scm_authorized_subnet_ids
+  scm_authorized_service_tags = var.scm_authorized_service_tags
+  scm_ip_restriction_headers  = var.scm_ip_restriction_headers
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_retention_days     = var.logs_retention_days
