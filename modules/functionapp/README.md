@@ -234,8 +234,8 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
-| function\_app\_vnet\_integration\_enabled | Enable VNET integration with the function app. `function_app_vnet_integration_subnet_id` is mandatory if enabled | `bool` | `false` | no |
-| function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the function app (VNet integration) | `string` | `null` | no |
+| function\_app\_vnet\_integration\_enabled | Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled | `bool` | `false` | no |
+| function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (VNet integration) | `string` | `null` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | https\_only | Disable http procotol and keep only https | `bool` | `true` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
