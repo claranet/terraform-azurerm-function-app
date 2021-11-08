@@ -230,13 +230,13 @@ variable "authorized_service_tags" {
 }
 
 variable "function_app_vnet_integration_enabled" {
-  description = "Enable VNET integration with the function app. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
+  description = "Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
   type        = bool
   default     = false
 }
 
 variable "function_app_vnet_integration_subnet_id" {
-  description = "ID of the subnet to associate with the function app (VNet integration)"
+  description = "ID of the subnet to associate with the Function App (VNet integration)"
   type        = string
   default     = null
 }
