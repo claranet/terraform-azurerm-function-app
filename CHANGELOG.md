@@ -3,6 +3,9 @@
 Changed
   * AZ-572: Revamp examples and improve CI
 
+Added
+  * AZ-588: VNet integration option
+
 # v4.1.0 - 2021-09-07
 
 Breaking

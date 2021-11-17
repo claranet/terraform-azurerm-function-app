@@ -201,6 +201,18 @@ variable "authorized_service_tags" {
   default     = []
 }
 
+variable "function_app_vnet_integration_enabled" {
+  description = "Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
+  type        = bool
+  default     = false
+}
+
+variable "function_app_vnet_integration_subnet_id" {
+  description = "ID of the subnet to associate with the Function App (VNet integration)"
+  type        = string
+  default     = null
+}
+
 variable "logs_destinations_ids" {
   type        = list(string)
   description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."

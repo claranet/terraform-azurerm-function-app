@@ -1,7 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "4.1.0"
+  version = "4.1.1"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -67,9 +67,11 @@ module "function_app" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  authorized_ips          = var.authorized_ips
-  authorized_service_tags = var.authorized_service_tags
-  authorized_subnet_ids   = var.authorized_subnet_ids
+  authorized_ips                          = var.authorized_ips
+  authorized_service_tags                 = var.authorized_service_tags
+  authorized_subnet_ids                   = var.authorized_subnet_ids
+  function_app_vnet_integration_enabled   = var.function_app_vnet_integration_enabled
+  function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_retention_days     = var.logs_retention_days

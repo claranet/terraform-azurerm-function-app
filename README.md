@@ -142,7 +142,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.0 |
+| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.1 |
 | function\_app | ./modules/functionapp | n/a |
 
 ## Resources
@@ -178,6 +178,8 @@ No resources.
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_site\_config | Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | function\_app\_version | Version of the function app runtime to use (Allowed values 2 or 3) | `number` | `3` | no |
+| function\_app\_vnet\_integration\_enabled | Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled | `bool` | `false` | no |
+| function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (VNet integration) | `string` | `null` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | https\_only | Disable http procotol and keep only https | `bool` | `true` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
