@@ -7,6 +7,7 @@ Changed
 Added
   * AZ-588: VNet integration option
   * AZ-592: Support for the `site_config.ip_restrictions.headers` property
+  * AZ-595: SCM parameters now uses dedicated variables, like in `app-service-web` module
 
 Fixed
   * AZ-589: Avoid plan drift when specifying Diagnostic Settings categories

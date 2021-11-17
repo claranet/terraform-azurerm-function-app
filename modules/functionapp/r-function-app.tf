@@ -30,9 +30,9 @@ resource "azurerm_function_app" "function_app" {
       linux_fx_version            = lookup(site_config.value, "linux_fx_version", null)
       min_tls_version             = lookup(site_config.value, "min_tls_version", null)
       pre_warmed_instance_count   = lookup(site_config.value, "pre_warmed_instance_count", null)
-      scm_ip_restriction          = lookup(site_config.value, "scm_ip_restriction", null)
+      scm_use_main_ip_restriction = var.scm_authorized_ips != [] || var.scm_authorized_subnet_ids != null || lookup(site_config.value, "scm_ip_restriction", null) != null ? false : true
+      scm_ip_restriction          = concat(local.scm_subnets, local.scm_cidrs, local.scm_service_tags, lookup(site_config.value, "scm_ip_restriction", []))
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = lookup(site_config.value, "scm_use_main_ip_restriction", null)
       use_32_bit_worker_process   = lookup(site_config.value, "use_32_bit_worker_process", null)
       websockets_enabled          = lookup(site_config.value, "websockets_enabled", null)
 

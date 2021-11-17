@@ -219,6 +219,34 @@ variable "function_app_vnet_integration_subnet_id" {
   default     = null
 }
 
+# SCM parameters
+
+variable "scm_authorized_ips" {
+  description = "SCM IPs restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "scm_authorized_subnet_ids" {
+  description = "SCM subnets restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "scm_authorized_service_tags" {
+  description = "SCM Service Tags restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
+  type        = list(string)
+  default     = []
+}
+
+variable "scm_ip_restriction_headers" {
+  description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
+  type        = map(list(string))
+  default     = null
+}
+
+# Diag settings / logs parameters
+
 variable "logs_destinations_ids" {
   type        = list(string)
   description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
