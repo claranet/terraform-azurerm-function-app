@@ -1,5 +1,5 @@
 data "http" "myip" {
-  url = "http://ip.clara.net"
+  url = "http://ip4.clara.net"
 }
 
 output "my_ip" {
