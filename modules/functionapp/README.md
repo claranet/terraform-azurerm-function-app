@@ -193,7 +193,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 4.0.1 |
+| diagnostics | claranet/diagnostic-settings/azurerm | 4.0.3 |
 
 ## Resources
 

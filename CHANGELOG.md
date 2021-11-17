@@ -6,6 +6,9 @@ Changed
 Added
   * AZ-588: VNet integration option
 
+Fixed
+  * AZ-589: Avoid plan drift when specifying Diagnostic Settings categories
+
 # v4.1.0 - 2021-09-07
 
 Breaking
