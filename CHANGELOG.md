@@ -2,9 +2,11 @@
 
 Changed
   * AZ-572: Revamp examples and improve CI
+  * AZ-592: Bump minimum AzureRM provider version to `v2.57`
 
 Added
   * AZ-588: VNet integration option
+  * AZ-592: Support for the `site_config.ip_restrictions.headers` property
 
 Fixed
   * AZ-589: Avoid plan drift when specifying Diagnostic Settings categories
