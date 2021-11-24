@@ -133,9 +133,8 @@ locals {
     headers                   = local.scm_ip_restriction_headers
   }]
 
-  storage_ips = distinct(flatten([for cidr in var.authorized_ips :
-    length(regexall("/3[12]$", cidr)) > 0 ? [cidrhost(cidr, 0), cidrhost(cidr, -1)] : [cidr]
-  ]))
+  # If no subnets, allow function-app outbound IPs
+  storage_ips = length(var.authorized_subnet_ids) > 0 ? [] : distinct(concat(azurerm_function_app.function_app.possible_outbound_ip_addresses, azurerm_function_app.function_app.outbound_ip_addresses))
 
   is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : 0)) == 0
   zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, data.azurerm_storage_account_sas.package_sas.sas, filemd5(var.application_zip_package_path)) : var.application_zip_package_path
