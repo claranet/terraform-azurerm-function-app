@@ -44,6 +44,8 @@ module "function_app" {
 
   name_prefix = var.name_prefix
 
+  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
+
   storage_account_name_prefix                       = var.storage_account_name_prefix
   storage_account_name                              = var.storage_account_name
   storage_account_access_key                        = var.storage_account_access_key

@@ -18,6 +18,12 @@ variable "use_caf_naming" {
 }
 
 # Custom naming override
+variable "custom_diagnostic_settings_name" {
+  description = "Custom name of the diagnostics settings, name will be 'default' if not set."
+  type        = string
+  default     = "default"
+}
+
 variable "function_app_name_prefix" {
   description = "Function App name prefix"
   type        = string

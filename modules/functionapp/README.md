@@ -194,7 +194,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 4.0.3 |
+| diagnostics | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/diagnostic-settings.git | AZ-515_caf_naming |
 
 ## Resources
 
@@ -231,6 +231,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
+| custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
