@@ -140,7 +140,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | claranet/app-service-plan/azurerm | 4.1.1 |
+| app\_service\_plan | claranet/app-service-plan/azurerm | 5.0.0 |
 | function\_app | ./modules/functionapp | n/a |
 
 ## Resources
@@ -189,7 +189,8 @@ No resources.
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
-| name\_prefix | Name prefix for all resources generated name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | scm\_authorized\_ips | SCM IPs restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
 | scm\_authorized\_service\_tags | SCM Service Tags restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
@@ -204,6 +205,7 @@ No resources.
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |
 | storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
 
