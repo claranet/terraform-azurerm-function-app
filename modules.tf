@@ -1,7 +1,8 @@
 # App Service Plan
 module "app_service_plan" {
-  source  = "claranet/app-service-plan/azurerm"
-  version = "5.0.0"
+  # source  = "claranet/app-service-plan/azurerm"
+  # version = "5.0.0"
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-515_caf_naming"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -10,10 +11,11 @@ module "app_service_plan" {
   location            = var.location
   location_short      = var.location_short
 
-  use_caf_naming = var.use_caf_naming
-  name_prefix    = var.app_service_plan_name_prefix != "" ? var.app_service_plan_name_prefix : var.name_prefix
-  name_suffix    = var.name_suffix
-  custom_name    = var.app_service_plan_custom_name
+  use_caf_naming                  = var.use_caf_naming
+  name_prefix                     = var.app_service_plan_name_prefix != "" ? var.app_service_plan_name_prefix : var.name_prefix
+  name_suffix                     = var.name_suffix
+  custom_name                     = var.app_service_plan_custom_name
+  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
   sku = var.app_service_plan_sku
 
