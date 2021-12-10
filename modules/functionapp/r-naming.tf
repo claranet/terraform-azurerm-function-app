@@ -21,8 +21,8 @@ resource "azurecaf_name" "application_insights" {
 resource "azurecaf_name" "storage_account" {
   name          = var.stack
   resource_type = "azurerm_storage_account"
-  prefixes      = local.sa_name_prefix == "" ? null : [local.sa_name_prefix]
-  suffixes      = compact([var.client_name, var.location_short, var.environment, local.name_suffix, "func"])
+  prefixes      = null
+  suffixes      = compact([local.sa_name_prefix, var.location_short, var.environment, local.name_suffix, "func"])
   use_slug      = var.use_caf_naming
   clean_input   = true
   separator     = "-"
