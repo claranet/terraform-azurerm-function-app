@@ -1,8 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
-  # source  = "claranet/app-service-plan/azurerm"
-  # version = "5.0.0"
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-515_caf_naming"
+  source  = "claranet/app-service-plan/azurerm"
+  version = "5.0.1"
 
   client_name         = var.client_name
   environment         = var.environment

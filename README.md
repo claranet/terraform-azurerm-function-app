@@ -140,7 +140,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-515_caf_naming |
+| app\_service\_plan | claranet/app-service-plan/azurerm | 5.0.1 |
 | function\_app | ./modules/functionapp | n/a |
 
 ## Resources
