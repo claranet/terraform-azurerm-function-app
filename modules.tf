@@ -1,7 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "4.1.1"
+  version = "5.0.1"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -9,8 +9,12 @@ module "app_service_plan" {
   resource_group_name = var.resource_group_name
   location            = var.location
   location_short      = var.location_short
-  name_prefix         = var.app_service_plan_name_prefix != "" ? var.app_service_plan_name_prefix : var.name_prefix
-  custom_name         = var.app_service_plan_custom_name
+
+  use_caf_naming                  = var.use_caf_naming
+  name_prefix                     = var.app_service_plan_name_prefix != "" ? var.app_service_plan_name_prefix : var.name_prefix
+  name_suffix                     = var.name_suffix
+  custom_name                     = var.app_service_plan_custom_name
+  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
   sku = var.app_service_plan_sku
 
@@ -40,6 +44,8 @@ module "function_app" {
   location_short      = var.location_short
 
   name_prefix = var.name_prefix
+
+  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
   storage_account_name_prefix                       = var.storage_account_name_prefix
   storage_account_name                              = var.storage_account_name

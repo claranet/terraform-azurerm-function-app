@@ -6,12 +6,12 @@ data "azurerm_app_service_plan" "plan" {
 
 # Function App
 resource "azurerm_function_app" "function_app" {
-  name = coalesce(var.function_app_custom_name, local.function_default_name)
+  name = local.function_app_name
 
   app_service_plan_id        = var.app_service_plan_id
   location                   = var.location
   resource_group_name        = var.resource_group_name
-  storage_account_name       = var.storage_account_name == null ? local.storage_default_name : var.storage_account_name
+  storage_account_name       = local.storage_account_name
   storage_account_access_key = var.storage_account_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_access_key
   os_type                    = var.os_type
 

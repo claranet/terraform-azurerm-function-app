@@ -41,32 +41,6 @@ locals {
   }
   site_config = merge(local.default_site_config, var.site_config)
 
-  name_prefix          = var.name_prefix != "" ? replace(var.name_prefix, "/[a-z0-9]$/", "$0-") : ""
-  ai_name_prefix       = var.application_insights_name_prefix != "" ? replace(var.application_insights_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
-  function_name_prefix = var.function_app_name_prefix != "" ? replace(var.function_app_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
-  sa_name_prefix       = var.storage_account_name_prefix != "" ? replace(var.storage_account_name_prefix, "/[a-z0-9]$/", "$0-") : local.name_prefix
-
-  function_default_name             = "${local.function_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-func"
-  application_insights_default_name = "${local.ai_name_prefix}${var.stack}-${var.client_name}-${var.location_short}-${var.environment}-ai"
-
-  storage_default_name_long = replace(
-    format(
-      "%s%s%s%s",
-      local.sa_name_prefix,
-      var.stack,
-      var.environment,
-      var.client_name,
-    ),
-    "/[._-]/",
-    "",
-  )
-  # Force user to set storage name if key is set
-  storage_default_name = var.storage_account_access_key == null ? substr(
-    local.storage_default_name_long,
-    0,
-    length(local.storage_default_name_long) > 24 ? 23 : -1,
-  ) : null
-
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
 
   default_application_settings = merge({

@@ -28,58 +28,16 @@ variable "location_short" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Name prefix for all resources generated name"
-  type        = string
-  default     = ""
-}
-
-variable "function_app_name_prefix" {
-  description = "Function App name prefix"
-  type        = string
-  default     = ""
-}
-
 variable "function_app_version" {
   description = "Version of the function app runtime to use (Allowed values 2 or 3)"
   type        = number
   default     = 3
 }
 
-variable "function_app_custom_name" {
-  description = "Custom name for function app"
-  type        = string
-  default     = ""
-}
-
-variable "application_insights_name_prefix" {
-  description = "Application Insights name prefix"
-  type        = string
-  default     = ""
-}
-
-variable "application_insights_custom_name" {
-  description = "Custom name for application insights deployed with function app"
-  type        = string
-  default     = ""
-}
-
-variable "storage_account_name" {
-  description = "Name of the Storage account to attach to function"
-  type        = string
-  default     = null
-}
-
 variable "storage_account_access_key" {
   description = "Access key the storage account to use. If null a new storage account is created"
   type        = string
   default     = null
-}
-
-variable "storage_account_name_prefix" {
-  description = "Storage Account name prefix"
-  type        = string
-  default     = ""
 }
 
 variable "storage_account_kind" {
@@ -243,31 +201,6 @@ variable "scm_ip_restriction_headers" {
   description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
   type        = map(list(string))
   default     = null
-}
-
-# Diag settings / logs parameters
-
-variable "logs_destinations_ids" {
-  type        = list(string)
-  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
-}
-
-variable "logs_categories" {
-  type        = list(string)
-  description = "Log categories to send to destinations."
-  default     = null
-}
-
-variable "logs_metrics_categories" {
-  type        = list(string)
-  description = "Metrics categories to send to destinations."
-  default     = null
-}
-
-variable "logs_retention_days" {
-  type        = number
-  description = "Number of days to keep logs on storage account"
-  default     = 30
 }
 
 variable "site_config" {
