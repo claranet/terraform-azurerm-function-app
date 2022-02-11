@@ -1,9 +1,4 @@
 locals {
-  default_tags = {
-    env   = var.environment
-    stack = var.stack
-  }
-
   linux_version_map = {
     "linux" = {
       "v2" = {
