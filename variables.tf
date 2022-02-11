@@ -85,36 +85,6 @@ variable "app_service_plan_reserved" {
   default     = "false"
 }
 
-variable "extra_tags" {
-  description = "Extra tags to add"
-  type        = map(string)
-  default     = {}
-}
-
-variable "app_service_plan_extra_tags" {
-  description = "Extra tags to add to App Service Plan"
-  type        = map(string)
-  default     = {}
-}
-
-variable "storage_account_extra_tags" {
-  description = "Extra tags to add to Storage Account"
-  type        = map(string)
-  default     = {}
-}
-
-variable "application_insights_extra_tags" {
-  description = "Extra tags to add to Application Insights"
-  type        = map(string)
-  default     = {}
-}
-
-variable "function_app_extra_tags" {
-  description = "Extra tags to add to Function App"
-  type        = map(string)
-  default     = {}
-}
-
 variable "function_language_for_linux" {
   description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
   type        = string
@@ -169,12 +139,6 @@ variable "authorized_subnet_ids" {
   default     = []
 }
 
-variable "authorized_service_tags" {
-  description = "Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
-  type        = list(string)
-  default     = []
-}
-
 variable "ip_restriction_headers" {
   description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers"
   type        = map(list(string))
@@ -203,12 +167,6 @@ variable "scm_authorized_ips" {
 
 variable "scm_authorized_subnet_ids" {
   description = "SCM subnets restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
-  type        = list(string)
-  default     = []
-}
-
-variable "scm_authorized_service_tags" {
-  description = "SCM Service Tags restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
   type        = list(string)
   default     = []
 }

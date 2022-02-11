@@ -1,7 +1,7 @@
 # App Service Plan
 module "app_service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "5.0.1"
+  version = "5.1.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -25,6 +25,8 @@ module "app_service_plan" {
   logs_retention_days     = var.logs_retention_days
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
+
+  default_tags_enabled = var.default_tags_enabled
 
   extra_tags = merge(
     var.extra_tags,
@@ -94,6 +96,8 @@ module "function_app" {
   https_only = var.https_only
 
   application_zip_package_path = var.application_zip_package_path
+
+  default_tags_enabled = var.default_tags_enabled
 
   extra_tags = merge(var.extra_tags, local.default_tags)
   application_insights_extra_tags = merge(
