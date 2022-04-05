@@ -220,23 +220,23 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
-| application\_insight\_sampling\_percentage | Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry | `number` | `0` | no |
-| application\_insight\_workspace\_id | Specifies the id of a log analytics workspace resource | `string` | `null` | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
 | application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
+| application\_insights\_log\_analytics\_workspace\_id | ID of the Log Analytics Workspace to be used with Application Insights | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App | `string` | `null` | no |
 | authorized\_ips | IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
+| builtin\_logging\_enabled | Should the built-in logging of this Function App be enabled? | `bool` | `true` | no |
 | client\_cert\_mode | The mode of the Function App's client certificates requirement for incoming requests | `string` | `null` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
-| enable\_builtin\_logging | Should the built-in logging of this Function App be enabled? | `bool` | `true` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings | `map(string)` | `{}` | no |
@@ -248,7 +248,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (VNet integration) | `string` | `null` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | https\_only | Disable http procotol and keep only https | `bool` | `false` | no |
-| identity | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | n/a | yes |
+| identity | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `""` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
 | identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `"SystemAssigned"` | no |
 | ip\_restriction\_headers | IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers | `map(list(string))` | `null` | no |

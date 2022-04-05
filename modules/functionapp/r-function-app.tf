@@ -49,7 +49,7 @@ resource "azurerm_function_app" "function_app" {
 
   https_only             = var.https_only
   client_cert_mode       = var.client_cert_mode
-  enable_builtin_logging = var.enable_builtin_logging
+  enable_builtin_logging = var.builtin_logging_enabled
 
   lifecycle {
     ignore_changes = [

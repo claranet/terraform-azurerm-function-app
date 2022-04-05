@@ -64,9 +64,10 @@ variable "storage_account_enable_https_traffic_only" {
   default     = true
 }
 
-variable "storage_account_identity" {
-  description = "Storage account identity type"
+variable "storage_account_identity_type" {
+  description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
   type        = string
+  default     = ""
 }
 
 variable "app_service_plan_sku" {
@@ -120,16 +121,16 @@ variable "function_app_application_settings" {
   default     = {}
 }
 
-variable "application_insight_workspace_id" {
-  description = "Specifies the id of a log analytics workspace resource"
+variable "application_insights_log_analytics_workspace_id" {
+  description = "ID of the Log Analytics Workspace to be used with Application Insights"
   type        = string
   default     = null
 }
 
-variable "application_insight_sampling_percentage" {
+variable "application_insights_sampling_percentage" {
   description = "Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry"
   type        = number
-  default     = 0
+  default     = null
 }
 
 variable "identity_type" {
@@ -186,7 +187,7 @@ variable "https_only" {
   default     = false
 }
 
-variable "enable_builtin_logging" {
+variable "builtin_logging_enabled" {
   description = "Should the built-in logging of this Function App be enabled?"
   type        = bool
   default     = true

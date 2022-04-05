@@ -56,7 +56,7 @@ module "function_app" {
   storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
   storage_account_kind                              = var.storage_account_kind
   storage_account_min_tls_version                   = var.storage_account_min_tls_version
-  identity                                          = var.storage_account_identity
+  identity                                          = var.storage_account_identity_type
 
   app_service_plan_id = module.app_service_plan.app_service_plan_id
 
@@ -72,8 +72,8 @@ module "function_app" {
   application_insights_id                 = var.application_insights_id
   application_insights_type               = var.application_insights_type
   application_insights_custom_name        = var.application_insights_custom_name
-  application_insight_workspace_id        = var.application_insight_workspace_id
-  application_insight_sampling_percentage = var.application_insight_sampling_percentage
+  application_insight_workspace_id        = var.application_insights_log_analytics_workspace_id
+  application_insight_sampling_percentage = var.application_insights_sampling_percentage
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
@@ -95,10 +95,10 @@ module "function_app" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
-  os_type                = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
-  https_only             = var.https_only
-  client_cert_mode       = var.client_cert_mode
-  enable_builtin_logging = var.enable_builtin_logging
+  os_type                 = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
+  https_only              = var.https_only
+  client_cert_mode        = var.client_cert_mode
+  builtin_logging_enabled = var.builtin_logging_enabled
 
   application_zip_package_path = var.application_zip_package_path
 
