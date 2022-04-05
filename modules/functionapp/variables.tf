@@ -107,7 +107,7 @@ variable "function_app_application_settings" {
 variable "application_insight_workspace_id" {
   description = "Specifies the id of a log analytics workspace resource"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "application_insight_sampling_percentage" {
