@@ -188,7 +188,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.42 |
+| azurerm | >= 2.72 |
 
 ## Modules
 
@@ -221,7 +221,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 |------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
 | application\_insight\_sampling\_percentage | Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry | `number` | `0` | no |
-| application\_insight\_workspace\_id | Specifies the id of a log analytics workspace resource | `string` | `""` | no |
+| application\_insight\_workspace\_id | Specifies the id of a log analytics workspace resource | `string` | `null` | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
 | application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
