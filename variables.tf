@@ -64,6 +64,11 @@ variable "storage_account_enable_https_traffic_only" {
   default     = true
 }
 
+variable "storage_account_identity" {
+  description = "Storage account identity type"
+  type        = string
+}
+
 variable "app_service_plan_sku" {
   description = "App Service Plan sku if created, consumption plan by default"
   type        = map(string)
@@ -115,6 +120,18 @@ variable "function_app_application_settings" {
   default     = {}
 }
 
+variable "application_insight_workspace_id" {
+  description = "Specifies the id of a log analytics workspace resource"
+  type        = string
+  default     = ""
+}
+
+variable "application_insight_sampling_percentage" {
+  description = "Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry"
+  type        = number
+  default     = 0
+}
+
 variable "identity_type" {
   description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
   type        = string
@@ -157,6 +174,36 @@ variable "function_app_vnet_integration_subnet_id" {
   default     = null
 }
 
+variable "function_app_site_config" {
+  description = "Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
+  type        = any
+  default     = {}
+}
+
+variable "https_only" {
+  description = "Disable http procotol and keep only https"
+  type        = bool
+  default     = false
+}
+
+variable "enable_builtin_logging" {
+  description = "Should the built-in logging of this Function App be enabled?"
+  type        = bool
+  default     = true
+}
+
+variable "client_cert_mode" {
+  description = "The mode of the Function App's client certificates requirement for incoming requests"
+  type        = string
+  default     = null
+}
+
+variable "application_zip_package_path" {
+  description = "Local or remote path of a zip package to deploy on the Function App"
+  type        = string
+  default     = null
+}
+
 # SCM parameters
 
 variable "scm_authorized_ips" {
@@ -174,23 +221,5 @@ variable "scm_authorized_subnet_ids" {
 variable "scm_ip_restriction_headers" {
   description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction"
   type        = map(list(string))
-  default     = null
-}
-
-variable "function_app_site_config" {
-  description = "Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
-  type        = any
-  default     = {}
-}
-
-variable "https_only" {
-  description = "Disable http procotol and keep only https"
-  type        = bool
-  default     = true
-}
-
-variable "application_zip_package_path" {
-  description = "Local or remote path of a zip package to deploy on the Function App"
-  type        = string
   default     = null
 }

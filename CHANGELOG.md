@@ -1,3 +1,9 @@
+# Unreleased
+
+Added
+  * AZ-694: Add log analytics workspace parameter + site config parameter
+  * AZ-694: Add additional function-app options (certificat requierement + built-in login + https protocol)
+
 # v5.1.0 - 2022-02-11
 
 Added

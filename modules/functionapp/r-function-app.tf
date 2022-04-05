@@ -35,6 +35,7 @@ resource "azurerm_function_app" "function_app" {
       scm_type                    = lookup(site_config.value, "scm_type", null)
       use_32_bit_worker_process   = lookup(site_config.value, "use_32_bit_worker_process", null)
       websockets_enabled          = lookup(site_config.value, "websockets_enabled", null)
+      dotnet_framework_version    = lookup(site_config.value, "dotnet_framework_version", null)
 
       dynamic "cors" {
         for_each = lookup(site_config.value, "cors", []) != [] ? ["fake"] : []
@@ -46,7 +47,9 @@ resource "azurerm_function_app" "function_app" {
     }
   }
 
-  https_only = var.https_only
+  https_only             = var.https_only
+  client_cert_mode       = var.client_cert_mode
+  enable_builtin_logging = var.enable_builtin_logging
 
   lifecycle {
     ignore_changes = [
