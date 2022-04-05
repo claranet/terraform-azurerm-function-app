@@ -67,13 +67,13 @@ module "function_app" {
   function_app_version              = var.function_app_version
   site_config                       = var.function_app_site_config
 
-  application_insights_name_prefix        = var.application_insights_name_prefix
-  application_insights_enabled            = var.application_insights_enabled
-  application_insights_id                 = var.application_insights_id
-  application_insights_type               = var.application_insights_type
-  application_insights_custom_name        = var.application_insights_custom_name
-  application_insight_workspace_id        = var.application_insights_log_analytics_workspace_id
-  application_insight_sampling_percentage = var.application_insights_sampling_percentage
+  application_insights_name_prefix                = var.application_insights_name_prefix
+  application_insights_enabled                    = var.application_insights_enabled
+  application_insights_id                         = var.application_insights_id
+  application_insights_type                       = var.application_insights_type
+  application_insights_custom_name                = var.application_insights_custom_name
+  application_insights_log_analytics_workspace_id = var.application_insights_log_analytics_workspace_id
+  application_insights_sampling_percentage        = var.application_insights_sampling_percentage
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
