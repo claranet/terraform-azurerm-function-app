@@ -87,6 +87,8 @@ module "function_app_windows" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  storage_account_identity = "SystemAssigned"
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
@@ -119,6 +121,8 @@ module "function_app_linux" {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
+
+  storage_account_identity = "SystemAssigned"
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
