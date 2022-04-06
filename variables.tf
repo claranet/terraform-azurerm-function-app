@@ -67,7 +67,7 @@ variable "storage_account_enable_https_traffic_only" {
 variable "storage_account_identity_type" {
   description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "app_service_plan_sku" {
