@@ -1,7 +1,8 @@
 # App Service Plan
 module "app_service_plan" {
-  source  = "claranet/app-service-plan/azurerm"
-  version = "5.1.0"
+  # source  = "claranet/app-service-plan/azurerm"
+  # version = "5.1.0"
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-717_provider_azure_v3"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -11,15 +12,18 @@ module "app_service_plan" {
   location_short      = var.location_short
 
   use_caf_naming                  = var.use_caf_naming
-  name_prefix                     = var.app_service_plan_name_prefix != "" ? var.app_service_plan_name_prefix : var.name_prefix
+  name_prefix                     = var.name_prefix
   name_suffix                     = var.name_suffix
-  custom_name                     = var.app_service_plan_custom_name
+  custom_name                     = var.service_plan_custom_name
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
-  sku = var.app_service_plan_sku
+  os_type  = var.os_type
+  sku_name = var.sku_name
 
-  kind     = var.app_service_plan_sku["tier"] == "Dynamic" ? "FunctionApp" : var.app_service_plan_os
-  reserved = var.app_service_plan_os == "Linux" ? true : var.app_service_plan_reserved
+  app_service_environment_id   = var.app_service_environment_id
+  worker_count                 = var.worker_count
+  maximum_elastic_worker_count = var.maximum_elastic_worker_count
+  per_site_scaling_enabled     = var.per_site_scaling_enabled
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_retention_days     = var.logs_retention_days
@@ -30,7 +34,7 @@ module "app_service_plan" {
 
   extra_tags = merge(
     var.extra_tags,
-    var.app_service_plan_extra_tags,
+    var.service_plan_extra_tags,
     local.default_tags,
   )
 }
@@ -59,7 +63,7 @@ module "function_app" {
   storage_account_identity_type                     = var.storage_account_identity_type
   storage_account_identity_ids                      = var.storage_account_identity_ids
 
-  app_service_plan_id = module.app_service_plan.app_service_plan_id
+  app_service_plan_id = module.app_service_plan.service_plan_id
 
   function_app_name_prefix          = var.function_app_name_prefix
   function_app_custom_name          = var.function_app_custom_name
@@ -107,10 +111,8 @@ module "function_app" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
-  os_type                 = lower(var.app_service_plan_os) == "linux" ? "linux" : ""
-  https_only              = var.https_only
-  client_cert_mode        = var.client_cert_mode
-  builtin_logging_enabled = var.builtin_logging_enabled
+  os_type    = lower(var.os_type) == "linux" ? "linux" : ""
+  https_only = var.https_only
 
   application_zip_package_path = var.application_zip_package_path
 

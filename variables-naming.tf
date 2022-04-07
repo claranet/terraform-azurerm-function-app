@@ -54,14 +54,8 @@ variable "storage_account_name" {
   default     = null
 }
 
-variable "app_service_plan_name_prefix" {
-  description = "App Service Plan name prefix"
-  type        = string
-  default     = ""
-}
-
-variable "app_service_plan_custom_name" {
-  description = "Custom name for app service plan"
+variable "service_plan_custom_name" {
+  description = "Name of the App Service Plan, generated if not set."
   type        = string
   default     = ""
 }

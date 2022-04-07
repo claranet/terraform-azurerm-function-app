@@ -144,7 +144,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | claranet/app-service-plan/azurerm | 5.1.0 |
+| app\_service\_plan | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-717_provider_azure_v3 |
 | function\_app | ./modules/functionapp | n/a |
 
 ## Resources
@@ -155,9 +155,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| app\_service\_plan\_custom\_name | Custom name for app service plan | `string` | `""` | no |
-| app\_service\_plan\_extra\_tags | Extra tags to add to App Service Plan | `map(string)` | `{}` | no |
-| app\_service\_plan\_name\_prefix | App Service Plan name prefix | `string` | `""` | no |
+| app\_service\_environment\_id | The ID of the App Service Environment to create this Service Plan in. Requires an Isolated SKU. Use one of I1, I2, I3 for azurerm\_app\_service\_environment, or I1v2, I2v2, I3v2 for azurerm\_app\_service\_environment\_v3 | `string` | `null` | no |
 | app\_service\_plan\_os | App Service Plan OS for dedicated plans, can be "Linux" or "Windows" | `string` | n/a | yes |
 | app\_service\_plan\_reserved | Flag indicating if dedicated App Service Plan should be reserved | `string` | `"false"` | no |
 | app\_service\_plan\_sku | App Service Plan sku if created, consumption plan by default | `map(string)` | <pre>{<br>  "size": "Y1",<br>  "tier": "Dynamic"<br>}</pre> | no |
@@ -207,13 +205,19 @@ No resources.
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
+| maximum\_elastic\_worker\_count | The maximum number of workers to use in an Elastic SKU Plan. Cannot be set unless using an Elastic SKU. | `number` | `null` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| os\_type | The O/S type for the App Services to be hosted in this plan. Possible values include `Windows`, `Linux`, and `WindowsContainer`. | `string` | n/a | yes |
+| per\_site\_scaling\_enabled | Should Per Site Scaling be enabled. | `bool` | `false` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | scm\_authorized\_ips | SCM IPs restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
 | scm\_authorized\_service\_tags | SCM Service Tags restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
 | scm\_authorized\_subnet\_ids | SCM subnets restriction for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
 | scm\_ip\_restriction\_headers | IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `map(list(string))` | `null` | no |
+| service\_plan\_custom\_name | Name of the App Service Plan, generated if not set. | `string` | `""` | no |
+| service\_plan\_extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
+| sku\_name | The SKU for the plan. Possible values include B1, B2, B3, D1, F1, FREE, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, and WS3. | `string` | n/a | yes |
 | stack | Project stack name | `string` | n/a | yes |
 | storage\_account\_access\_key | Access key the storage account to use. If null a new storage account is created | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restriction for Function storage account in CIDR format | `list(string)` | `[]` | no |
@@ -229,13 +233,12 @@ No resources.
 | storage\_account\_network\_bypass | Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`. | `list(string)` | <pre>[<br>  "Logging",<br>  "Metrics",<br>  "AzureServices"<br>]</pre> | no |
 | storage\_account\_network\_rules\_enabled | Enable Storage account network default rules for functions | `bool` | `true` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
+| worker\_count | The number of Workers (instances) to be allocated. | `number` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| app\_service\_plan\_id | ID of the created App Service Plan |
-| app\_service\_plan\_name | Name of the created App Service Plan |
 | application\_insights\_app\_id | App ID of the associated Application Insights |
 | application\_insights\_application\_type | Application Type of the associated Application Insights |
 | application\_insights\_id | ID of the associated Application Insights |
@@ -246,6 +249,8 @@ No resources.
 | function\_app\_identity | Identity block output of the Function App |
 | function\_app\_name | Name of the created Function App |
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
+| service\_plan\_id | ID of the created Service Plan |
+| service\_plan\_name | Name of the created Service Plan |
 | storage\_account\_id | ID of the associated Storage Account, empty if connection string provided |
 | storage\_account\_name | Name of the associated Storage Account, empty if connection string provided |
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
