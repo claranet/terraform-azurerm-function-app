@@ -9,7 +9,8 @@ resource "azurerm_storage_account" "storage" {
   account_kind             = var.storage_account_kind
   min_tls_version          = var.storage_account_min_tls_version
 
-  enable_https_traffic_only = var.storage_account_enable_https_traffic_only
+  enable_https_traffic_only       = var.storage_account_enable_https_traffic_only
+  allow_nested_items_to_be_public = var.storage_account_allow_nested_items_to_be_public
 
   dynamic "identity" {
     for_each = var.identity == null ? [] : [1]
@@ -85,5 +86,7 @@ data "azurerm_storage_account_sas" "package_sas" {
     create  = false
     update  = false
     process = false
+    tag     = false
+    filter  = false
   }
 }
