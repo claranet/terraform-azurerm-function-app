@@ -54,7 +54,6 @@ module "function_app" {
   storage_account_access_key                        = var.storage_account_access_key
   storage_account_enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
   storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
-  storage_account_allow_nested_items_to_be_public   = var.storage_account_allow_nested_items_to_be_public
   storage_account_kind                              = var.storage_account_kind
   storage_account_min_tls_version                   = var.storage_account_min_tls_version
   identity                                          = var.storage_account_identity_type

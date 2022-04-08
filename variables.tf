@@ -64,12 +64,6 @@ variable "storage_account_enable_https_traffic_only" {
   default     = true
 }
 
-variable "storage_account_allow_nested_items_to_be_public" {
-  description = "Allow or disallow public access to all nested items in the storage account"
-  type        = bool
-  default     = true
-}
-
 variable "storage_account_identity_type" {
   description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
   type        = string
