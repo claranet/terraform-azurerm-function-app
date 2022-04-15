@@ -78,5 +78,7 @@ data "azurerm_storage_account_sas" "package_sas" {
     create  = false
     update  = false
     process = false
+    tag     = false
+    filter  = false
   }
 }
