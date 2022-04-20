@@ -116,6 +116,7 @@ variable "application_insights_sampling_percentage" {
   type        = number
   default     = null
 }
+
 variable "identity_type" {
   description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned"
   type        = string
