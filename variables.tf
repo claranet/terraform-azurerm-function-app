@@ -128,7 +128,7 @@ variable "application_insights_log_analytics_workspace_id" {
 }
 
 variable "application_insights_sampling_percentage" {
-  description = "Specifies the percentage of the data produced by the monitored application that is sampled for Application Insights telemetry"
+  description = "Percentage of data produced by the monitored application sampled for Application Insights telemetry"
   type        = number
   default     = null
 }
