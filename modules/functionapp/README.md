@@ -248,6 +248,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (VNet integration) | `string` | `null` | no |
 | function\_language\_for\_linux | Language of the Function App on Linux hosting, can be "dotnet", "node" or "python" | `string` | `"dotnet"` | no |
 | https\_only | Disable http procotol and keep only https | `bool` | `false` | no |
+| identity | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | identity\_ids | UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned | `list(string)` | `null` | no |
 | identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned | `string` | `"SystemAssigned"` | no |
 | ip\_restriction\_headers | IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers | `map(list(string))` | `null` | no |
@@ -271,7 +272,6 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
-| storage\_account\_identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |
 | storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
