@@ -56,7 +56,7 @@ module "function_app" {
   storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
   storage_account_kind                              = var.storage_account_kind
   storage_account_min_tls_version                   = var.storage_account_min_tls_version
-  identity                                          = var.storage_account_identity_type
+  storage_account_identity_type                     = var.storage_account_identity_type
 
   app_service_plan_id = module.app_service_plan.app_service_plan_id
 
