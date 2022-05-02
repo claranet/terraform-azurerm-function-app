@@ -184,7 +184,7 @@ variable "function_app_site_config" {
 variable "https_only" {
   description = "Disable http procotol and keep only https"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "builtin_logging_enabled" {

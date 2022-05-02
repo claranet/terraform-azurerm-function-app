@@ -3,7 +3,7 @@
 Added
   * AZ-694: Minimum AzureRM version required 2.72
   * AZ-694: Add log analytics workspace parameter + site config parameter
-  * AZ-694: Add additional function-app options (certificat requierement + built-in login + https protocol)
+  * AZ-694: Add additional function-app options (certificat requierement + built-in login)
 
 # v5.1.0 - 2022-02-11
 
