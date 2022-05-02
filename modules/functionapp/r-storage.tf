@@ -14,7 +14,8 @@ resource "azurerm_storage_account" "storage" {
   dynamic "identity" {
     for_each = var.storage_account_identity_type == null ? [] : [1]
     content {
-      type = var.storage_account_identity_type
+      type         = var.storage_account_identity_type
+      identity_ids = var.storage_account_identity_ids == "UserAssigned" ? var.storage_account_identity_ids : null
     }
   }
 

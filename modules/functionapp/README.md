@@ -271,6 +271,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
+| storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |

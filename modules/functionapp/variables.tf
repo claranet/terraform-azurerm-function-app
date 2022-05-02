@@ -70,6 +70,11 @@ variable "storage_account_identity_type" {
   default     = null
 }
 
+variable "storage_account_identity_ids" {
+  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account"
+  type        = list(string)
+  default     = null
+}
 variable "app_service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
