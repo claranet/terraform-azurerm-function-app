@@ -85,6 +85,7 @@ module "function_app" {
   ip_restriction_headers                  = var.ip_restriction_headers
   function_app_vnet_integration_enabled   = var.function_app_vnet_integration_enabled
   function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
+  storage_account_network_rules_enabled   = var.storage_account_network_rules_enabled
   storage_account_network_bypass          = var.storage_account_network_bypass
 
   scm_authorized_ips          = var.scm_authorized_ips

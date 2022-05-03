@@ -76,6 +76,12 @@ variable "storage_account_identity_ids" {
   default     = null
 }
 
+variable "storage_account_network_rules_enabled" {
+  description = "Enable Storage account network default rules for functions"
+  type        = bool
+  default     = true
+}
+
 variable "storage_account_network_bypass" {
   description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`."
   type        = list(string)
