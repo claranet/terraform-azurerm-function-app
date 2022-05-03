@@ -133,8 +133,13 @@ locals {
     headers                   = local.scm_ip_restriction_headers
   }]
 
-  # If no subnets, allow function-app outbound IPs
-  storage_ips = length(var.authorized_subnet_ids) > 0 ? [] : distinct(concat(azurerm_function_app.function_app.possible_outbound_ip_addresses, azurerm_function_app.function_app.outbound_ip_addresses))
+  # If no subnet integration, allow function-app outbound IPs
+  function_out_ips = var.function_app_vnet_integration_subnet_id == null ? [] : distinct(concat(azurerm_function_app.function_app.possible_outbound_ip_addresses, azurerm_function_app.function_app.outbound_ip_addresses))
+  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules#ip_rules
+  # > Small address ranges using "/31" or "/32" prefix sizes are not supported. These ranges should be configured using individual IP address rules without prefix specified.
+  storage_ips = distinct(flatten([for cidr in distinct(concat(local.function_out_ips, var.storage_account_authorized_ips)) :
+    length(regexall("/3[12]$", cidr)) > 0 ? [cidrhost(cidr, 0), cidrhost(cidr, -1)] : [cidr]
+  ]))
 
   is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : 0)) == 0
   zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, data.azurerm_storage_account_sas.package_sas.sas, filemd5(var.application_zip_package_path)) : var.application_zip_package_path

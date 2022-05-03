@@ -88,6 +88,12 @@ variable "storage_account_network_bypass" {
   default     = ["Logging", "Metrics", "AzureServices"]
 }
 
+variable "storage_account_authorized_ips" {
+  description = "IPs restriction for Function storage account in CIDR format"
+  type        = list(string)
+  default     = []
+}
+
 variable "app_service_plan_sku" {
   description = "App Service Plan sku if created, consumption plan by default"
   type        = map(string)
