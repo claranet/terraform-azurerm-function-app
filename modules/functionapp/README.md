@@ -230,7 +230,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App | `string` | `null` | no |
-| authorized\_ips | IPs restriction for Function in CIDR format. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
+| authorized\_ips | IPs restriction for Function in CIDR format. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | builtin\_logging\_enabled | Should the built-in logging of this Function App be enabled? | `bool` | `true` | no |
