@@ -4,10 +4,11 @@ resource "azurerm_storage_account" "storage" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  account_replication_type = "LRS"
-  account_tier             = "Standard"
-  account_kind             = var.storage_account_kind
-  min_tls_version          = var.storage_account_min_tls_version
+  account_replication_type        = "LRS"
+  account_tier                    = "Standard"
+  account_kind                    = var.storage_account_kind
+  min_tls_version                 = var.storage_account_min_tls_version
+  allow_nested_items_to_be_public = false
 
   enable_https_traffic_only = var.storage_account_enable_https_traffic_only
 
