@@ -75,6 +75,25 @@ variable "storage_account_identity_ids" {
   type        = list(string)
   default     = null
 }
+
+variable "storage_account_network_rules_enabled" {
+  description = "Enable Storage account network default rules for functions"
+  type        = bool
+  default     = true
+}
+
+variable "storage_account_network_bypass" {
+  description = "Specifies whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`."
+  type        = list(string)
+  default     = ["Logging", "Metrics", "AzureServices"]
+}
+
+variable "storage_account_authorized_ips" {
+  description = "IPs restriction for Function storage account in CIDR format"
+  type        = list(string)
+  default     = []
+}
+
 variable "app_service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
@@ -141,7 +160,7 @@ variable "os_type" {
 }
 
 variable "authorized_ips" {
-  description = "IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
+  description = "IPs restriction for Function in CIDR format. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction"
   type        = list(string)
   default     = []
 }

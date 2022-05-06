@@ -28,6 +28,18 @@ resource "azurerm_storage_account" "storage" {
   count = var.storage_account_access_key == null ? 1 : 0
 }
 
+resource "azurerm_storage_account_network_rules" "storage_network_rules" {
+  for_each = toset(var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? ["enabled"] : [])
+
+  resource_group_name  = var.resource_group_name
+  storage_account_name = azurerm_storage_account.storage[0].name
+
+  default_action             = "Deny"
+  ip_rules                   = local.storage_ips
+  virtual_network_subnet_ids = distinct(compact(concat(var.authorized_subnet_ids, var.function_app_vnet_integration_subnet_id)))
+  bypass                     = var.storage_account_network_bypass
+}
+
 resource "azurerm_advanced_threat_protection" "threat_protection" {
   count = var.storage_account_access_key == null ? 1 : 0
 
