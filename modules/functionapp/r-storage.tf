@@ -32,8 +32,7 @@ resource "azurerm_storage_account" "storage" {
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   for_each = toset(var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? ["enabled"] : [])
 
-  resource_group_name  = var.resource_group_name
-  storage_account_name = azurerm_storage_account.storage[0].name
+  storage_account_id = azurerm_storage_account.storage[0].id
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
