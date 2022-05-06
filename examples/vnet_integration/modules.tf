@@ -96,6 +96,8 @@ module "function_app_linux" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  storage_account_identity_type = "SystemAssigned"
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id

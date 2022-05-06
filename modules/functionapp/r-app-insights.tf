@@ -15,6 +15,9 @@ resource "azurerm_application_insights" "app_insights" {
 
   application_type = var.application_insights_type
 
+  workspace_id        = var.application_insights_log_analytics_workspace_id
+  sampling_percentage = var.application_insights_sampling_percentage
+
   tags = merge(
     local.default_tags,
     var.application_insights_extra_tags,

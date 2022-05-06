@@ -11,6 +11,14 @@ resource "azurerm_storage_account" "storage" {
 
   enable_https_traffic_only = var.storage_account_enable_https_traffic_only
 
+  dynamic "identity" {
+    for_each = var.storage_account_identity_type == null ? [] : [1]
+    content {
+      type         = var.storage_account_identity_type
+      identity_ids = var.storage_account_identity_ids == "UserAssigned" ? var.storage_account_identity_ids : null
+    }
+  }
+
   tags = merge(
     local.default_tags,
     var.storage_account_extra_tags,

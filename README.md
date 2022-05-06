@@ -24,8 +24,9 @@ Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/container
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
-| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
-| >= 4.x.x       | 0.13.x            | >= 2.0          |
+| >= 6.x.x       | 1.x               | >= 3.0          |
+| >= 5.x.x       | 0.15.x            | >= 2.0          |
+| >= 4.x.x       | 0.13.x / 0.14.x   | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
@@ -87,6 +88,8 @@ module "function_app_windows" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  storage_account_identity_type = "SystemAssigned"
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
@@ -120,6 +123,8 @@ module "function_app_linux" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  storage_account_identity_type = "SystemAssigned"
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
@@ -129,7 +134,6 @@ module "function_app_linux" {
     foo = "bar"
   }
 }
-
 ```
 
 ## Providers
@@ -161,12 +165,16 @@ No resources.
 | application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
+| application\_insights\_log\_analytics\_workspace\_id | ID of the Log Analytics Workspace to be used with Application Insights | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App | `string` | `null` | no |
 | authorized\_ips | IPs restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
+| builtin\_logging\_enabled | Should the built-in logging of this Function App be enabled? | `bool` | `true` | no |
+| client\_cert\_mode | The mode of the Function App's client certificates requirement for incoming requests | `string` | `null` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
@@ -203,6 +211,8 @@ No resources.
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Boolean flag which controls if https traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account | `map(string)` | `{}` | no |
+| storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account | `list(string)` | `null` | no |
+| storage\_account\_identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |
 | storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
