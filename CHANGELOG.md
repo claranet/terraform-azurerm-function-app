@@ -1,4 +1,4 @@
-# Unreleased
+# v5.2.0 - 2022-05-06
 
 Added
   * AZ-694: Minimum AzureRM version required 2.72
