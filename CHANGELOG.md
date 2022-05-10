@@ -1,4 +1,4 @@
-# Unreleased
+# v6.0.0 - 2022-05-10
 
 Breaking
   * AZ-717: Provider AzureRM v3 minimal support
