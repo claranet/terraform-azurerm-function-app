@@ -4,10 +4,11 @@ resource "azurerm_storage_account" "storage" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  account_replication_type = "LRS"
-  account_tier             = "Standard"
-  account_kind             = var.storage_account_kind
-  min_tls_version          = var.storage_account_min_tls_version
+  account_replication_type        = "LRS"
+  account_tier                    = "Standard"
+  account_kind                    = var.storage_account_kind
+  min_tls_version                 = var.storage_account_min_tls_version
+  allow_nested_items_to_be_public = false
 
   enable_https_traffic_only = var.storage_account_enable_https_traffic_only
 
@@ -31,8 +32,7 @@ resource "azurerm_storage_account" "storage" {
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   for_each = toset(var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? ["enabled"] : [])
 
-  resource_group_name  = var.resource_group_name
-  storage_account_name = azurerm_storage_account.storage[0].name
+  storage_account_id = azurerm_storage_account.storage[0].id
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
@@ -98,5 +98,7 @@ data "azurerm_storage_account_sas" "package_sas" {
     create  = false
     update  = false
     process = false
+    filter  = false
+    tag     = false
   }
 }
