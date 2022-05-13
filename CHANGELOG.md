@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-588: Fix optional `function_app_vnet_integration_subnet_id` in storage account network rules
+
 # v6.0.0 - 2022-05-10
 
 Breaking
