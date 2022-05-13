@@ -81,7 +81,7 @@ module "function_app_windows" {
 
   name_prefix = "hello"
 
-  app_service_plan_os = "Windows"
+  os_type = "Windows"
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -114,7 +114,7 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  app_service_plan_os         = "Linux"
+  os_type                     = "Linux"
   function_language_for_linux = "python"
   function_app_version        = 3
 
@@ -214,7 +214,7 @@ No resources.
 | scm\_ip\_restriction\_headers | IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `map(list(string))` | `null` | no |
 | service\_plan\_custom\_name | Name of the App Service Plan, generated if not set. | `string` | `""` | no |
 | service\_plan\_extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
-| sku\_name | The SKU for the plan. Possible values include B1, B2, B3, D1, F1, FREE, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, and WS3. | `string` | n/a | yes |
+| sku\_name | The SKU for the plan. Possible values include B1, B2, B3, D1, F1, FREE, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, and WS3. | `string` | `"Y1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | storage\_account\_access\_key | Access key the storage account to use. If null a new storage account is created | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restriction for Function storage account in CIDR format | `list(string)` | `[]` | no |

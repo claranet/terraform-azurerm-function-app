@@ -41,7 +41,7 @@ module "function_app_windows" {
 
   name_prefix = "hello"
 
-  app_service_plan_os = "Windows"
+  os_type = "Windows"
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
@@ -74,7 +74,7 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  app_service_plan_os         = "Linux"
+  os_type                     = "Linux"
   function_language_for_linux = "python"
   function_app_version        = 3
 

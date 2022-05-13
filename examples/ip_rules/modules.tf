@@ -89,7 +89,7 @@ module "function_app_linux" {
 
   function_app_vnet_integration_subnet_id = module.subnet["subnet-function-app"].subnet_id
 
-  app_service_plan_os         = "Linux"
+  os_type                     = "Linux"
   function_language_for_linux = "python"
   function_app_version        = 3
 
