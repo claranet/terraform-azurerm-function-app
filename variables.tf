@@ -94,27 +94,6 @@ variable "storage_account_authorized_ips" {
   default     = []
 }
 
-variable "app_service_plan_sku" {
-  description = "App Service Plan sku if created, consumption plan by default"
-  type        = map(string)
-
-  default = {
-    size = "Y1"
-    tier = "Dynamic"
-  }
-}
-
-variable "app_service_plan_os" {
-  description = "App Service Plan OS for dedicated plans, can be \"Linux\" or \"Windows\""
-  type        = string
-}
-
-variable "app_service_plan_reserved" {
-  description = "Flag indicating if dedicated App Service Plan should be reserved"
-  type        = string
-  default     = "false"
-}
-
 variable "function_language_for_linux" {
   description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
   type        = string

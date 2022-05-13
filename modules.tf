@@ -111,8 +111,10 @@ module "function_app" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
-  os_type    = lower(var.os_type) == "linux" ? "linux" : ""
-  https_only = var.https_only
+  os_type                 = var.os_type
+  https_only              = var.https_only
+  client_cert_mode        = var.client_cert_mode
+  builtin_logging_enabled = var.builtin_logging_enabled
 
   application_zip_package_path = var.application_zip_package_path
 

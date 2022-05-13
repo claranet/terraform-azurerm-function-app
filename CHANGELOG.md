@@ -1,5 +1,8 @@
 # v6.1.0 - 2022-05-20
 
+Breaking
+  * AZ-717: Provider AzureRM v3 new provider `function` resources
+
 Changed
   * AZ-717: Revamp `function-app` outputs
 
