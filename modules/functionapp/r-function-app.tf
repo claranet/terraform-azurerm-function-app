@@ -13,7 +13,7 @@ resource "azurerm_function_app" "function_app" {
   resource_group_name        = var.resource_group_name
   storage_account_name       = local.storage_account_name
   storage_account_access_key = var.storage_account_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_access_key
-  os_type                    = var.os_type
+  os_type                    = lower(var.os_type)
 
   app_settings = merge(
     local.default_application_settings,

@@ -21,5 +21,5 @@ output "application_insights_instrumentation_key" {
 
 output "application_insights_application_type" {
   description = "Application Type of the associated Application Insights"
-  value       = module.function_app.app_insights_application_type
+  value       = module.function_app.application_insights_application_type
 }
