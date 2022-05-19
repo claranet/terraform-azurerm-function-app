@@ -239,13 +239,19 @@ variable "https_only" {
 }
 
 variable "builtin_logging_enabled" {
-  description = "Should the built-in logging of this Function App be enabled?"
+  description = "Should built in logging be enabled"
   type        = bool
   default     = true
 }
 
-variable "client_cert_mode" {
-  description = "The mode of the Function App's client certificates requirement for incoming requests"
+variable "client_certificate_enabled" {
+  description = "Should the function app use Client Certificates"
+  type        = bool
+  default     = null
+}
+
+variable "client_certificate_mode" {
+  description = "(Optional) The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`."
   type        = string
   default     = null
 }

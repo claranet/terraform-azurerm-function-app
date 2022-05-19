@@ -144,8 +144,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| app\_service\_plan | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-717_provider_azure_v3 |
-| function\_app | ./modules/functionapp | n/a |
+| linux\_function | ./modules/linux-function | n/a |
+| service\_plan | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-717_provider_azure_v3 |
 
 ## Resources
 
@@ -176,8 +176,9 @@ No resources.
 | authorized\_ips | IPs restriction for Function in CIDR format. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_subnet\_ids | Subnets restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
-| builtin\_logging\_enabled | Should the built-in logging of this Function App be enabled? | `bool` | `true` | no |
-| client\_cert\_mode | The mode of the Function App's client certificates requirement for incoming requests | `string` | `null` | no |
+| builtin\_logging\_enabled | Should built in logging be enabled | `bool` | `true` | no |
+| client\_certificate\_enabled | Should the function app use Client Certificates | `bool` | `null` | no |
+| client\_certificate\_mode | (Optional) The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`. | `string` | `null` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |

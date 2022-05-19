@@ -1,5 +1,5 @@
-# App Service Plan
-module "app_service_plan" {
+# Service Plan
+module "service_plan" {
   # source  = "claranet/app-service-plan/azurerm"
   # version = "5.1.0"
   source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-717_provider_azure_v3"
@@ -39,8 +39,8 @@ module "app_service_plan" {
   )
 }
 
-module "function_app" {
-  source = "./modules/functionapp"
+module "linux_function" {
+  source = "./modules/linux-function"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -63,7 +63,7 @@ module "function_app" {
   storage_account_identity_type                     = var.storage_account_identity_type
   storage_account_identity_ids                      = var.storage_account_identity_ids
 
-  app_service_plan_id = module.app_service_plan.service_plan_id
+  service_plan_id = module.service_plan.service_plan_id
 
   function_app_name_prefix          = var.function_app_name_prefix
   function_app_custom_name          = var.function_app_custom_name
@@ -111,10 +111,10 @@ module "function_app" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
-  os_type                 = var.os_type
-  https_only              = var.https_only
-  client_cert_mode        = var.client_cert_mode
-  builtin_logging_enabled = var.builtin_logging_enabled
+  https_only                 = var.https_only
+  builtin_logging_enabled    = var.builtin_logging_enabled
+  client_certificate_enabled = var.client_certificate_enabled
+  client_certificate_mode    = var.client_certificate_mode
 
   application_zip_package_path = var.application_zip_package_path
 
