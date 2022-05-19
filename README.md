@@ -240,6 +240,7 @@ No resources.
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
 | storage\_account\_id | Id of the associated Storage Account, empty if connection string provided |
 | storage\_account\_name | Name of the associated Storage Account, empty if connection string provided |
+| storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
