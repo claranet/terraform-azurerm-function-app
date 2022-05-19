@@ -27,13 +27,14 @@ locals {
     }
   }
 
-  linux_fx_version = try(local.linux_version_map[lower(data.azurerm_app_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
+  linux_fx_version = try(local.linux_version_map[lower(data.azurerm_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
 
   default_site_config = {
-    always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
+    always_on        = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
     linux_fx_version = local.linux_fx_version
     ip_restriction   = concat(local.subnets, local.cidrs, local.service_tags)
   }
+
   site_config = merge(local.default_site_config, var.site_config)
 
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
