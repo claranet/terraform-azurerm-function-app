@@ -39,6 +39,11 @@ module "service_plan" {
   )
 }
 
+moved {
+  from = module.app_service_plan
+  to   = module.service_plan
+}
+
 module "linux_function" {
   source = "./modules/linux-function"
 
@@ -136,4 +141,9 @@ module "linux_function" {
     var.function_app_extra_tags,
     local.default_tags,
   )
+}
+
+moved {
+  from = module.function_app
+  to   = module.linux_function
 }
