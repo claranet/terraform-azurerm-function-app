@@ -222,13 +222,21 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 |------|-------------|------|---------|:--------:|
 | app\_service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
+| application\_insights\_daily\_data\_cap | Daily data volume cap (in GB) for Application Insights | `number` | `null` | no |
+| application\_insights\_daily\_data\_cap\_notifications\_disabled | Disable email notifications when data volume cap is met | `bool` | `null` | no |
 | application\_insights\_enabled | Enable or disable the Application Insights deployment | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights | `map(string)` | `{}` | no |
+| application\_insights\_force\_customer\_storage\_for\_profiler | Enable Application Insights component to force users to create their own storage account for profiling | `bool` | `false` | no |
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
+| application\_insights\_internet\_ingestion\_enabled | Enable ingestion support from Application Insights component over the Public Internet | `bool` | `true` | no |
+| application\_insights\_internet\_query\_enabled | Enable querying support from Application Insights component over the Public Internet | `bool` | `true` | no |
+| application\_insights\_ip\_masking\_disabled | Disable IP masking in logs | `bool` | `false` | no |
+| application\_insights\_local\_authentication\_disabled | Disable Non-Azure AD based Auth | `bool` | `false` | no |
 | application\_insights\_log\_analytics\_workspace\_id | ID of the Log Analytics Workspace to be used with Application Insights | `string` | `null` | no |
 | application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_retention | Specify retention period (in days) for logs | `number` | `90` | no |
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry | `number` | `null` | no |
-| application\_insights\_type | Application Insights type if need to be generated | `string` | `"web"` | no |
+| application\_insights\_type | Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type | `string` | `"web"` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App | `string` | `null` | no |
 | authorized\_ips | IPs restriction for Function in CIDR format. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction | `list(string)` | `[]` | no |
 | authorized\_service\_tags | Service Tags restriction for Function. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction | `list(string)` | `[]` | no |
