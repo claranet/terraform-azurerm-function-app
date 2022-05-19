@@ -27,8 +27,6 @@ resource "azurerm_linux_function_app" "linux_function" {
   dynamic "site_config" {
     for_each = [local.site_config]
     content {
-      linux_fx_version = lookup(site_config.value, "linux_fx_version", null)
-
       always_on                = lookup(site_config.value, "always_on", null)
       app_command_line         = lookup(site_config.value, "app_command_line", null)
       default_documents        = lookup(site_config.value, "default_documents", null)
