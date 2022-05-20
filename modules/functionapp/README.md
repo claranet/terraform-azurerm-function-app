@@ -287,19 +287,19 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Description |
 |------|-------------|
-| app\_service\_plan\_id | Id of the created App Service Plan |
-| application\_insights\_app\_id | App id of the associated Application Insights |
+| app\_service\_plan\_id | ID of the created App Service Plan |
+| application\_insights\_app\_id | App ID of the associated Application Insights |
 | application\_insights\_application\_type | Application Type of the associated Application Insights |
-| application\_insights\_id | Id of the associated Application Insights |
+| application\_insights\_id | ID of the associated Application Insights |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
 | application\_insights\_name | Name of the associated Application Insights |
 | function\_app\_connection\_string | Connection string of the created Function App |
-| function\_app\_id | Id of the created Function App |
+| function\_app\_id | ID of the created Function App |
 | function\_app\_identity | Identity block output of the Function App |
 | function\_app\_name | Name of the created Function App |
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
 | function\_app\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App |
-| storage\_account\_id | Id of the associated Storage Account, empty if connection string provided |
+| storage\_account\_id | ID of the associated Storage Account, empty if connection string provided |
 | storage\_account\_name | Name of the associated Storage Account, empty if connection string provided |
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, empty if connection string provided |

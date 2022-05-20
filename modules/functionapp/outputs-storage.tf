@@ -1,5 +1,5 @@
 output "storage_account_id" {
-  description = "Id of the associated Storage Account, empty if connection string provided"
+  description = "ID of the associated Storage Account, empty if connection string provided"
   value       = join("", azurerm_storage_account.storage[*].id)
 }
 

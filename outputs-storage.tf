@@ -1,5 +1,5 @@
 output "storage_account_id" {
-  description = "Id of the associated Storage Account, empty if connection string provided"
+  description = "ID of the associated Storage Account, empty if connection string provided"
   value       = module.function_app.storage_account_id
 }
 

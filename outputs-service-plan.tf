@@ -1,5 +1,5 @@
 output "app_service_plan_id" {
-  description = "Id of the created App Service Plan"
+  description = "ID of the created App Service Plan"
   value       = module.app_service_plan.app_service_plan_id
 }
 

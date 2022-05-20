@@ -1,5 +1,5 @@
 output "application_insights_id" {
-  description = "Id of the associated Application Insights"
+  description = "ID of the associated Application Insights"
   value       = try(local.app_insights.id, null)
 }
 
@@ -9,7 +9,7 @@ output "application_insights_name" {
 }
 
 output "application_insights_app_id" {
-  description = "App id of the associated Application Insights"
+  description = "App ID of the associated Application Insights"
   value       = try(local.app_insights.app_id, null)
 }
 

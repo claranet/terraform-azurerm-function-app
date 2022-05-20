@@ -1,5 +1,5 @@
 output "function_app_id" {
-  description = "Id of the created Function App"
+  description = "ID of the created Function App"
   value       = module.function_app.function_app_id
 }
 
