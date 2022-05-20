@@ -135,7 +135,7 @@ locals {
   }]
 
   # If no subnet integration, allow function-app outbound IPs
-  function_out_ips = var.function_app_vnet_integration_subnet_id == null ? [] : distinct(concat(azurerm_function_app.function_app.possible_outbound_ip_addresses, azurerm_function_app.function_app.outbound_ip_addresses))
+  function_out_ips = var.function_app_vnet_integration_subnet_id == null ? [] : distinct(concat(azurerm_windows_function_app.windows_function.possible_outbound_ip_addresses, azurerm_windows_function_app.windows_function.outbound_ip_addresses))
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules#ip_rules
   # > Small address ranges using "/31" or "/32" prefix sizes are not supported. These ranges should be configured using individual IP address rules without prefix specified.
   storage_ips = distinct(flatten([for cidr in distinct(concat(local.function_out_ips, var.storage_account_authorized_ips)) :

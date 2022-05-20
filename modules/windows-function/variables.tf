@@ -94,7 +94,7 @@ variable "storage_account_authorized_ips" {
   default     = []
 }
 
-variable "app_service_plan_id" {
+variable "service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
 }
@@ -118,9 +118,57 @@ variable "application_insights_id" {
 }
 
 variable "application_insights_type" {
-  description = "Application Insights type if need to be generated"
+  description = "Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type"
   type        = string
   default     = "web"
+}
+
+variable "application_insights_daily_data_cap" {
+  description = "Daily data volume cap (in GB) for Application Insights"
+  type        = number
+  default     = null
+}
+
+variable "application_insights_daily_data_cap_notifications_disabled" {
+  description = "Disable email notifications when data volume cap is met"
+  type        = bool
+  default     = null
+}
+
+variable "application_insights_retention" {
+  description = "Specify retention period (in days) for logs"
+  type        = number
+  default     = 90
+}
+
+variable "application_insights_internet_ingestion_enabled" {
+  description = "Enable ingestion support from Application Insights component over the Public Internet"
+  type        = bool
+  default     = true
+}
+
+variable "application_insights_internet_query_enabled" {
+  description = "Enable querying support from Application Insights component over the Public Internet"
+  type        = bool
+  default     = true
+}
+
+variable "application_insights_ip_masking_disabled" {
+  description = "Disable IP masking in logs"
+  type        = bool
+  default     = false
+}
+
+variable "application_insights_local_authentication_disabled" {
+  description = "Disable Non-Azure AD based Auth"
+  type        = bool
+  default     = false
+}
+
+variable "application_insights_force_customer_storage_for_profiler" {
+  description = "Enable Application Insights component to force users to create their own storage account for profiling"
+  type        = bool
+  default     = false
 }
 
 variable "function_app_application_settings" {
@@ -150,12 +198,6 @@ variable "identity_type" {
 variable "identity_ids" {
   description = "UserAssigned Identities ID to add to Function App. Mandatory if type is UserAssigned"
   type        = list(string)
-  default     = null
-}
-
-variable "os_type" {
-  description = "A string indicating the Operating System type for this function app."
-  type        = string
   default     = null
 }
 
@@ -202,13 +244,19 @@ variable "https_only" {
 }
 
 variable "builtin_logging_enabled" {
-  description = "Should the built-in logging of this Function App be enabled?"
+  description = "Should built in logging be enabled"
   type        = bool
   default     = true
 }
 
-variable "client_cert_mode" {
-  description = "The mode of the Function App's client certificates requirement for incoming requests"
+variable "client_certificate_enabled" {
+  description = "Should the function app use Client Certificates"
+  type        = bool
+  default     = null
+}
+
+variable "client_certificate_mode" {
+  description = "(Optional) The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`."
   type        = string
   default     = null
 }
