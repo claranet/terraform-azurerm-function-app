@@ -145,7 +145,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | linux\_function | ./modules/linux-function | n/a |
-| service\_plan | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-717_provider_azure_v3 |
+| service\_plan | claranet/app-service-plan/azurerm | 6.0.0 |
 
 ## Resources
 
