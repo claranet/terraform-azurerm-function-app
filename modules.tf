@@ -68,13 +68,21 @@ module "function_app" {
   function_app_version              = var.function_app_version
   site_config                       = var.function_app_site_config
 
-  application_insights_name_prefix                = var.application_insights_name_prefix
-  application_insights_enabled                    = var.application_insights_enabled
-  application_insights_id                         = var.application_insights_id
-  application_insights_type                       = var.application_insights_type
-  application_insights_custom_name                = var.application_insights_custom_name
-  application_insights_log_analytics_workspace_id = var.application_insights_log_analytics_workspace_id
-  application_insights_sampling_percentage        = var.application_insights_sampling_percentage
+  application_insights_name_prefix                           = var.application_insights_name_prefix
+  application_insights_enabled                               = var.application_insights_enabled
+  application_insights_id                                    = var.application_insights_id
+  application_insights_type                                  = var.application_insights_type
+  application_insights_custom_name                           = var.application_insights_custom_name
+  application_insights_daily_data_cap                        = var.application_insights_daily_data_cap
+  application_insights_daily_data_cap_notifications_disabled = var.application_insights_daily_data_cap_notifications_disabled
+  application_insights_sampling_percentage                   = var.application_insights_sampling_percentage
+  application_insights_retention                             = var.application_insights_retention
+  application_insights_internet_ingestion_enabled            = var.application_insights_internet_ingestion_enabled
+  application_insights_internet_query_enabled                = var.application_insights_internet_query_enabled
+  application_insights_ip_masking_disabled                   = var.application_insights_ip_masking_disabled
+  application_insights_local_authentication_disabled         = var.application_insights_local_authentication_disabled
+  application_insights_force_customer_storage_for_profiler   = var.application_insights_force_customer_storage_for_profiler
+  application_insights_log_analytics_workspace_id            = var.application_insights_log_analytics_workspace_id
 
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
