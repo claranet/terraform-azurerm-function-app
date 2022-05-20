@@ -1,8 +1,3 @@
-# Unreleased
-
-Added
-  * AZ-586: Added multiple options for Application Insights resource
-
 # v4.3.0 - 2021-04-26
 
 Added
