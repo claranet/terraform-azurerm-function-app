@@ -146,6 +146,7 @@ No providers.
 |------|--------|---------|
 | linux\_function | ./modules/linux-function | n/a |
 | service\_plan | claranet/app-service-plan/azurerm | 6.0.0 |
+| windows\_function | ./modules/windows-function | n/a |
 
 ## Resources
 
@@ -242,11 +243,7 @@ No resources.
 | application\_insights\_id | ID of the associated Application Insights |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
 | application\_insights\_name | Name of the associated Application Insights |
-| function\_app\_connection\_string | Connection string of the created Function App |
-| function\_app\_id | ID of the created Function App |
-| function\_app\_identity | Identity block output of the Function App |
-| function\_app\_name | Name of the created Function App |
-| function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
+| linux\_function\_app | Linux Function App output object if Linux is choosen. Please refer to `./modules/linux-function/README.md` |
 | service\_plan\_id | ID of the created Service Plan |
 | service\_plan\_name | Name of the created Service Plan |
 | storage\_account\_id | ID of the associated Storage Account, empty if connection string provided |
@@ -256,6 +253,7 @@ No resources.
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
+| windows\_function\_app | Windows Function App output object if Windows is choosen. Please refer to `./modules/windows-function/README.md` |
 <!-- END_TF_DOCS -->
 
 ## Related documentation
