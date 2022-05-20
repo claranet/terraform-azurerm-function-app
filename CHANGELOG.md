@@ -1,3 +1,8 @@
+# Unreleased
+
+Changed
+  * AZ-717: Revamp `function-app` outputs
+
 # v6.0.1 - 2022-05-13
 
 Fixed
