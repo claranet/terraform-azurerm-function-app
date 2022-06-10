@@ -19,12 +19,12 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "Azure location for Function App and related resources"
+  description = "Azure location."
   type        = string
 }
 
 variable "location_short" {
-  description = "Short string for Azure location"
+  description = "Short string for Azure location."
   type        = string
 }
 
@@ -92,6 +92,11 @@ variable "storage_account_authorized_ips" {
   description = "IPs restriction for Function storage account in CIDR format"
   type        = list(string)
   default     = []
+}
+
+variable "service_plan_id" {
+  description = "Id of the App Service Plan for Function App hosting"
+  type        = string
 }
 
 variable "function_language_for_linux" {
@@ -226,8 +231,8 @@ variable "function_app_vnet_integration_subnet_id" {
   default     = null
 }
 
-variable "function_app_site_config" {
-  description = "Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
+variable "site_config" {
+  description = "Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block."
   type        = any
   default     = {}
 }

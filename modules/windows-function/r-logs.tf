@@ -2,7 +2,7 @@ module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "5.0.0"
 
-  resource_id = azurerm_function_app.function_app.id
+  resource_id = azurerm_windows_function_app.windows_function.id
 
   logs_destinations_ids = var.logs_destinations_ids
   log_categories        = var.logs_categories

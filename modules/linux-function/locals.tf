@@ -27,13 +27,14 @@ locals {
     }
   }
 
-  linux_fx_version = try(local.linux_version_map[lower(data.azurerm_app_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
+  linux_fx_version = try(local.linux_version_map[lower(data.azurerm_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
 
   default_site_config = {
-    always_on        = data.azurerm_app_service_plan.plan.sku[0].tier == "Dynamic" ? false : true
+    always_on        = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
     linux_fx_version = local.linux_fx_version
     ip_restriction   = concat(local.subnets, local.cidrs, local.service_tags)
   }
+
   site_config = merge(local.default_site_config, var.site_config)
 
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
@@ -134,7 +135,7 @@ locals {
   }]
 
   # If no subnet integration, allow function-app outbound IPs
-  function_out_ips = var.function_app_vnet_integration_subnet_id == null ? [] : distinct(concat(azurerm_function_app.function_app.possible_outbound_ip_addresses, azurerm_function_app.function_app.outbound_ip_addresses))
+  function_out_ips = var.function_app_vnet_integration_subnet_id == null ? [] : distinct(concat(azurerm_linux_function_app.linux_function.possible_outbound_ip_addresses, azurerm_linux_function_app.linux_function.outbound_ip_addresses))
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules#ip_rules
   # > Small address ranges using "/31" or "/32" prefix sizes are not supported. These ranges should be configured using individual IP address rules without prefix specified.
   storage_ips = distinct(flatten([for cidr in distinct(concat(local.function_out_ips, var.storage_account_authorized_ips)) :

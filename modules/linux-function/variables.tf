@@ -94,7 +94,7 @@ variable "storage_account_authorized_ips" {
   default     = []
 }
 
-variable "app_service_plan_id" {
+variable "service_plan_id" {
   description = "Id of the App Service Plan for Function App hosting"
   type        = string
 }
@@ -201,12 +201,6 @@ variable "identity_ids" {
   default     = null
 }
 
-variable "os_type" {
-  description = "A string indicating the Operating System type for this function app."
-  type        = string
-  default     = null
-}
-
 variable "authorized_ips" {
   description = "IPs restriction for Function in CIDR format. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction"
   type        = list(string)
@@ -250,13 +244,19 @@ variable "https_only" {
 }
 
 variable "builtin_logging_enabled" {
-  description = "Should the built-in logging of this Function App be enabled?"
+  description = "Should built in logging be enabled"
   type        = bool
   default     = true
 }
 
-variable "client_cert_mode" {
-  description = "The mode of the Function App's client certificates requirement for incoming requests"
+variable "client_certificate_enabled" {
+  description = "Should the function app use Client Certificates"
+  type        = bool
+  default     = null
+}
+
+variable "client_certificate_mode" {
+  description = "(Optional) The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`."
   type        = string
   default     = null
 }

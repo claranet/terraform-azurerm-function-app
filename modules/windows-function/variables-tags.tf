@@ -1,9 +1,3 @@
-variable "service_plan_extra_tags" {
-  description = "Extra tags to add."
-  type        = map(string)
-  default     = {}
-}
-
 variable "application_insights_extra_tags" {
   description = "Extra tags to add to Application Insights"
   type        = map(string)
