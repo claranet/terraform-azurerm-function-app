@@ -5,6 +5,8 @@ Breaking
   * AZ-717: Use new `service-plan` module (instead of `app-service-plan`)
   * AZ-717: The `azurerm_function_app` resource has been superseded by the `azurerm_linux_function_app` and `azurerm_windows_function_app` resources
 
+# v6.1.0 - 2022-05-20
+
 Changed
   * AZ-717: Revamp `function-app` outputs
 
