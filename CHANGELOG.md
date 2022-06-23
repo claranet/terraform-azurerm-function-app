@@ -1,3 +1,8 @@
+# Unreleased
+ 
+Fixed
+  * AZ-776: Fix outputs reference for linux-function and windows-function
+
 # v6.2.0 - 2022-06-10
 
 Breaking
