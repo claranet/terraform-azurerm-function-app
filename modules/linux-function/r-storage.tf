@@ -1,38 +1,63 @@
-resource "azurerm_storage_account" "storage" {
-  name = local.storage_account_name
+module "storage" {
+  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=AZ-130-initiate-storage-account-module"
 
-  location            = var.location
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+  location       = var.location
+  location_short = var.location_short
+
   resource_group_name = var.resource_group_name
 
-  account_replication_type        = "LRS"
-  account_tier                    = "Standard"
-  account_kind                    = var.storage_account_kind
-  min_tls_version                 = var.storage_account_min_tls_version
-  allow_nested_items_to_be_public = false
+  storage_account_custom_name = local.storage_account_name
 
-  enable_https_traffic_only = var.storage_account_enable_https_traffic_only
+  # Storage account kind/SKU/tier
+  account_kind             = var.storage_account_kind
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
-  dynamic "identity" {
-    for_each = var.storage_account_identity_type == null ? [] : [1]
-    content {
-      type         = var.storage_account_identity_type
-      identity_ids = var.storage_account_identity_ids == "UserAssigned" ? var.storage_account_identity_ids : null
-    }
-  }
+  # Storage account options / security
+  min_tls_version                    = var.storage_account_min_tls_version
+  https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
+  allow_nested_items_to_be_public    = false
+  advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
 
-  tags = merge(
+  # Identity
+  identity_type = var.storage_account_identity_type
+  identity_ids  = var.storage_account_identity_ids
+
+  # Data protection - not needed for functions
+  storage_blob_data_protection = null
+
+  # Network rules
+  network_rules_enabled = false
+  # network_rules_enabled   = var.storage_account_access_key == null && var.storage_account_network_rules_enabled
+  # default_firewall_action = "Deny"
+  # ip_rules                = null #local.storage_ips
+  # subnet_ids              = distinct(compact(concat(var.authorized_subnet_ids, [var.function_app_vnet_integration_subnet_id])))
+  # network_bypass          = var.storage_account_network_bypass
+
+  # Diagnostics/logs
+  logs_destinations_ids   = var.logs_destinations_ids
+  logs_categories         = var.logs_categories
+  logs_metrics_categories = var.logs_metrics_categories
+  logs_retention_days     = var.logs_retention_days
+
+  # Tagging
+  default_tags_enabled = var.default_tags_enabled
+  extra_tags = merge(
     local.default_tags,
     var.storage_account_extra_tags,
     var.extra_tags,
   )
 
-  count = var.storage_account_access_key == null ? 1 : 0
+  for_each = toset(var.storage_account_access_key == null ? ["enabled"] : [])
 }
 
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   for_each = toset(var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? ["enabled"] : [])
 
-  storage_account_id = azurerm_storage_account.storage[0].id
+  storage_account_id = local.storage_account_output.id
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
@@ -40,18 +65,11 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   bypass                     = var.storage_account_network_bypass
 }
 
-resource "azurerm_advanced_threat_protection" "threat_protection" {
-  count = var.storage_account_access_key == null ? 1 : 0
-
-  enabled            = var.storage_account_enable_advanced_threat_protection
-  target_resource_id = azurerm_storage_account.storage[0].id
-}
-
 data "azurerm_storage_account" "storage" {
   name                = local.storage_account_name
   resource_group_name = var.resource_group_name
 
-  depends_on = [azurerm_storage_account.storage]
+  depends_on = [module.storage]
 }
 
 resource "azurerm_storage_container" "package_container" {
