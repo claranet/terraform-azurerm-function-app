@@ -29,13 +29,8 @@ module "storage" {
   # Data protection - not needed for functions
   storage_blob_data_protection = null
 
-  # Network rules
+  # Network rules - handle out of module to avoid Terraform cycle
   network_rules_enabled = false
-  # network_rules_enabled   = var.storage_account_access_key == null && var.storage_account_network_rules_enabled
-  # default_firewall_action = "Deny"
-  # ip_rules                = null #local.storage_ips
-  # subnet_ids              = distinct(compact(concat(var.authorized_subnet_ids, [var.function_app_vnet_integration_subnet_id])))
-  # network_bypass          = var.storage_account_network_bypass
 
   # Diagnostics/logs
   logs_destinations_ids   = var.logs_destinations_ids
