@@ -13,7 +13,7 @@ resource "azurerm_windows_function_app" "windows_function" {
   resource_group_name = var.resource_group_name
 
   storage_account_name       = local.storage_account_name
-  storage_account_access_key = var.storage_account_access_key == null ? azurerm_storage_account.storage[0].primary_access_key : var.storage_account_access_key
+  storage_account_access_key = var.storage_account_access_key == null ? local.storage_account_output.primary_access_key : var.storage_account_access_key
   # storage_uses_managed_identity = 
   # storage_key_vault_secret_id =
 

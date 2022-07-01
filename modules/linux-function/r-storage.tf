@@ -19,7 +19,7 @@ module "storage" {
   # Storage account options / security
   min_tls_version                    = var.storage_account_min_tls_version
   https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
-  allow_nested_items_to_be_public    = false
+  public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
 
   # Identity
