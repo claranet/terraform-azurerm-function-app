@@ -186,7 +186,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
-| storage | git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/storage-account.git | AZ-130-initiate-storage-account-module |
+| storage | claranet/storage-account/azurerm | 6.0.0 |
 
 ## Resources
 

@@ -1,5 +1,6 @@
 module "storage" {
-  source = "git::ssh://git@git.fr.clara.net/claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=AZ-130-initiate-storage-account-module"
+  source  = "claranet/storage-account/azurerm"
+  version = "6.0.0"
 
   client_name    = var.client_name
   environment    = var.environment
