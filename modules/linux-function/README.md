@@ -186,6 +186,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| storage | claranet/storage-account/azurerm | 6.1.0 |
 
 ## Resources
 
@@ -194,11 +195,9 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurecaf_name.storage_account](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
-| [azurerm_advanced_threat_protection.threat_protection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
 | [azurerm_app_service_virtual_network_swift_connection.function_vnet_integration](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_virtual_network_swift_connection) | resource |
 | [azurerm_application_insights.app_insights](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
 | [azurerm_linux_function_app.linux_function](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app) | resource |
-| [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_account_network_rules.storage_network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 | [azurerm_storage_blob.package_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
 | [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
@@ -298,13 +297,13 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
 | function\_app\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App |
 | service\_plan\_id | Id of the created App Service Plan |
-| storage\_account\_id | ID of the associated Storage Account, empty if connection string provided |
-| storage\_account\_name | Name of the associated Storage Account, empty if connection string provided |
+| storage\_account\_id | ID of the associated Storage Account, `null` if connection string provided |
+| storage\_account\_name | Name of the associated Storage Account, `null` if connection string provided |
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
-| storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, empty if connection string provided |
-| storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
-| storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
-| storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
+| storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, `null` if connection string provided |
+| storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, `null` if connection string provided |
+| storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, `null` if connection string provided |
+| storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, `null` if connection string provided |
 <!-- END_TF_DOCS -->
 
 ## Related documentation

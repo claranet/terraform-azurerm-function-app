@@ -99,12 +99,6 @@ variable "service_plan_id" {
   type        = string
 }
 
-variable "function_language_for_linux" {
-  description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
-  type        = string
-  default     = "dotnet"
-}
-
 variable "application_insights_enabled" {
   description = "Enable or disable the Application Insights deployment"
   type        = bool
