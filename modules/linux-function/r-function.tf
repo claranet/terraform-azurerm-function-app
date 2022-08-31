@@ -19,6 +19,8 @@ resource "azurerm_linux_function_app" "linux_function" {
 
   functions_extension_version = "~${var.function_app_version}"
 
+  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+
   app_settings = merge(
     local.default_application_settings,
     var.function_app_application_settings,
@@ -44,6 +46,9 @@ resource "azurerm_linux_function_app" "linux_function" {
       remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
       runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
+      
+      application_insights_connection_string  = lookup(site_config.value, "application_insights_connection_string", null)
+      application_insights_key                = lookup(site_config.value, "application_insights_key", false)
 
       pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
@@ -119,9 +124,9 @@ resource "azurerm_linux_function_app" "linux_function" {
   tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
 }
 
-resource "azurerm_app_service_virtual_network_swift_connection" "function_vnet_integration" {
-  count = var.function_app_vnet_integration_enabled ? 1 : 0
+# resource "azurerm_app_service_virtual_network_swift_connection" "function_vnet_integration" {
+#   count = var.function_app_vnet_integration_enabled ? 1 : 0
 
-  app_service_id = azurerm_linux_function_app.linux_function.id
-  subnet_id      = var.function_app_vnet_integration_subnet_id
-}
+#   app_service_id = azurerm_linux_function_app.linux_function.id
+#   subnet_id      = var.function_app_vnet_integration_subnet_id
+# }
