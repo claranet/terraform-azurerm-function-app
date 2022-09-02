@@ -1,38 +1,4 @@
 locals {
-  # linux_version_map = {
-  #   "linux" = {
-  #     "v2" = {
-  #       python = "DOCKER|mcr.microsoft.com/azure-functions/python:2.0-python3.6"
-  #       node   = "DOCKER|mcr.microsoft.com/azure-functions/node:2.0-node8"
-  #       dotnet = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:2.0"
-  #     },
-  #     "v3" = {
-  #       python = "DOCKER|mcr.microsoft.com/azure-functions/python:3.0-python3.8"
-  #       node   = "DOCKER|mcr.microsoft.com/azure-functions/node:3.0-node12"
-  #       dotnet = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:3.0"
-
-  #     },
-  #     "v4" = {
-  #       dotnet = "DOCKER|mcr.microsoft.com/azure-functions/dotnet:4"
-
-  #     }
-  #   },
-  #   "functionapp" = {
-  #     "v2" = {
-  #       python = "python|3.7"
-  #       node   = "node|10"
-  #       dotnet = "dotnet|2.2"
-  #     },
-  #     "v3" = {
-  #       python = "python|3.8"
-  #       node   = "node|12"
-  #       dotnet = "dotnet|3.1"
-  #     }
-  #   }
-  # }
-
-  # linux_fx_version = try(local.linux_version_map[lower(data.azurerm_service_plan.plan.kind)]["v${var.function_app_version}"][lower(var.function_language_for_linux)], "")
-
   default_site_config = {
     always_on                              = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
     application_insights_connection_string = var.application_insights_enabled ? local.app_insights.connection_string : null
@@ -44,17 +10,7 @@ locals {
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
 
   default_application_settings = merge({
-    # FUNCTIONS_WORKER_RUNTIME = var.function_language_for_linux
     },
-    # var.application_insights_enabled ? {
-    #   APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
-    #   APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
-    #   APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
-    # } : {},
-    # substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
-    #   FUNCTIONS_WORKER_RUNTIME            = null
-    #   WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-    # } : {},
     var.application_zip_package_path != null ? {
       # MD5 as query to force function restart on change
       WEBSITE_RUN_FROM_PACKAGE : local.zip_package_url
