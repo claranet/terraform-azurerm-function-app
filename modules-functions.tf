@@ -28,7 +28,6 @@ module "linux_function" {
 
   function_app_name_prefix          = var.function_app_name_prefix
   function_app_custom_name          = var.function_app_custom_name
-  function_language_for_linux       = var.function_language_for_linux
   function_app_application_settings = var.function_app_application_settings
   function_app_version              = var.function_app_version
   site_config                       = var.function_app_site_config
