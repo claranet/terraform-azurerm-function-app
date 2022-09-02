@@ -19,6 +19,8 @@ resource "azurerm_windows_function_app" "windows_function" {
 
   functions_extension_version = "~${var.function_app_version}"
 
+  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+
   app_settings = merge(
     local.default_application_settings,
     var.function_app_application_settings,
@@ -105,11 +107,4 @@ resource "azurerm_windows_function_app" "windows_function" {
   }
 
   tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
-}
-
-resource "azurerm_app_service_virtual_network_swift_connection" "function_vnet_integration" {
-  count = var.function_app_vnet_integration_enabled ? 1 : 0
-
-  app_service_id = azurerm_windows_function_app.windows_function.id
-  subnet_id      = var.function_app_vnet_integration_subnet_id
 }
