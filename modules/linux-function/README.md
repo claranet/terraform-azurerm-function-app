@@ -179,7 +179,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 3.1 |
+| azurerm | ~> 3.19 |
 
 ## Modules
 
