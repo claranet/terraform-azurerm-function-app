@@ -74,9 +74,13 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  os_type                     = "Linux"
-  function_language_for_linux = "python"
-  function_app_version        = 3
+  os_type              = "Linux"
+  function_app_version = 4
+  function_app_site_config = {
+    application_stack = {
+      python_version = "3.9"
+    }
+  }
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
