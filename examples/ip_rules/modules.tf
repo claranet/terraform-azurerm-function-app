@@ -84,7 +84,7 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  authorized_ips        = ["${local.my_ip}/32"]
+  authorized_ips        = ["${data.http.myip.body}/32"]
   authorized_subnet_ids = [module.subnet["subnet-function-app"].subnet_id]
 
   function_app_vnet_integration_subnet_id = module.subnet["subnet-function-app"].subnet_id
