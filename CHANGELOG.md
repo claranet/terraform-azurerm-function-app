@@ -2,6 +2,13 @@
 
 Breaking
   * AZ-840: Upgrade to Terraform 1.3+, bump inner modules
+  * AZ-835: Remove `function_app_vnet_integration_enabled` variable
+  * AZ-835: Remove `function_language_for_linux` variable
+
+Changed
+  * AZ-835: Code cleanup
+  * AZ-835: `azurerm_app_service_virtual_network_swift_connection` resource replaced by the default `virtual_network_subnet_id` parameter
+  * AZ-835: Minimal version of the Azurerm provider to `v3.22`
 
 # v6.3.0 - 2022-08-19
 
