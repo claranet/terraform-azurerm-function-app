@@ -84,7 +84,6 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  function_app_vnet_integration_enabled   = true
   function_app_vnet_integration_subnet_id = module.subnet["subnet-function-app"].subnet_id
 
   os_type              = "Linux"
