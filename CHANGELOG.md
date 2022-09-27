@@ -3,7 +3,7 @@
 Breaking
   * AZ-840: Upgrade to Terraform 1.3+, bump inner modules
   * AZ-835: Remove `function_app_vnet_integration_enabled` variable
-  * AZ-835: Remove `function_language_for_linux` variable
+  * AZ-835: Remove `function_language_for_linux` variable, use `site_config.application_stack` instead
 
 Changed
   * AZ-835: Code cleanup
