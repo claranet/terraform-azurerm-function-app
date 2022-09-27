@@ -9,10 +9,16 @@ locals {
 
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
 
-  default_application_settings = var.application_zip_package_path != null ? {
-    # MD5 as query to force function restart on change
-    WEBSITE_RUN_FROM_PACKAGE : local.zip_package_url
-  } : {}
+  default_application_settings = merge(
+    var.application_zip_package_path != null ? {
+      # MD5 as query to force function restart on change
+      WEBSITE_RUN_FROM_PACKAGE : local.zip_package_url
+    } : {},
+    substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
+      FUNCTIONS_WORKER_RUNTIME            = null
+      WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
+    } : {},
+  )
 
   default_ip_restrictions_headers = {
     x_azure_fdid      = null
