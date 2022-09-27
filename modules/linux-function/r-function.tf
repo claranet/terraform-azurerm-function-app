@@ -54,7 +54,7 @@ resource "azurerm_linux_function_app" "linux_function" {
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
       worker_count              = lookup(site_config.value, "worker_count", null)
 
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", null)
+      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.function_app_vnet_integration_subnet_id != null)
 
       ip_restriction              = concat(local.subnets, local.cidrs, local.service_tags)
       scm_type                    = lookup(site_config.value, "scm_type", null)
