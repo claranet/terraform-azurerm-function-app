@@ -1,4 +1,4 @@
-# Unreleased
+# v7.0.0 - 2022-09-30
 
 Breaking
   * AZ-840: Upgrade to Terraform 1.3+, bump inner modules
