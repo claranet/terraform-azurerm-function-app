@@ -1,24 +1,20 @@
 locals {
+
   default_site_config = {
-    always_on      = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
-    ip_restriction = concat(local.subnets, local.cidrs, local.service_tags)
+    always_on                              = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
+    ip_restriction                         = concat(local.subnets, local.cidrs, local.service_tags)
+    application_insights_connection_string = var.application_insights_enabled ? local.app_insights.connection_string : null
+    application_insights_key               = var.application_insights_enabled ? local.app_insights.instrumentation_key : null
   }
 
   site_config = merge(local.default_site_config, var.site_config)
 
   app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
 
-  default_application_settings = merge(
-    var.application_insights_enabled ? {
-      APPLICATION_INSIGHTS_IKEY             = try(local.app_insights.instrumentation_key, "")
-      APPINSIGHTS_INSTRUMENTATIONKEY        = try(local.app_insights.instrumentation_key, "")
-      APPLICATIONINSIGHTS_CONNECTION_STRING = try(local.app_insights.connection_string, "")
-    } : {},
-    var.application_zip_package_path != null ? {
-      # MD5 as query to force function restart on change
-      WEBSITE_RUN_FROM_PACKAGE : local.zip_package_url
-    } : {}
-  )
+  default_application_settings = var.application_zip_package_path != null ? {
+    # MD5 as query to force function restart on change
+    WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
+  } : {}
 
   default_ip_restrictions_headers = {
     x_azure_fdid      = null

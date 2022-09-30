@@ -84,12 +84,15 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  function_app_vnet_integration_enabled   = true
   function_app_vnet_integration_subnet_id = module.subnet["subnet-function-app"].subnet_id
 
-  os_type                     = "Linux"
-  function_language_for_linux = "python"
-  function_app_version        = 3
+  os_type              = "Linux"
+  function_app_version = 4
+  function_app_site_config = {
+    application_stack = {
+      python_version = "3.9"
+    }
+  }
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"

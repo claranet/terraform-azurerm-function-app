@@ -94,12 +94,6 @@ variable "storage_account_authorized_ips" {
   default     = []
 }
 
-variable "function_language_for_linux" {
-  description = "Language of the Function App on Linux hosting, can be \"dotnet\", \"node\" or \"python\""
-  type        = string
-  default     = "dotnet"
-}
-
 variable "application_insights_enabled" {
   description = "Enable or disable the Application Insights deployment"
   type        = bool
@@ -212,12 +206,6 @@ variable "ip_restriction_headers" {
   description = "IPs restriction headers for Function. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers"
   type        = map(list(string))
   default     = null
-}
-
-variable "function_app_vnet_integration_enabled" {
-  description = "Enable VNET integration with the Function App. `function_app_vnet_integration_subnet_id` is mandatory if enabled"
-  type        = bool
-  default     = false
 }
 
 variable "function_app_vnet_integration_subnet_id" {
