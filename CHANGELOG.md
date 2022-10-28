@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-887: Rename and fix the ternary condition of the `function_out_ips` local variable 
+
 # v7.0.0 - 2022-09-30
 
 Breaking
