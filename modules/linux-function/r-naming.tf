@@ -1,4 +1,4 @@
-resource "azurecaf_name" "function_app" {
+data "azurecaf_name" "function_app" {
   name          = var.stack
   resource_type = "azurerm_function_app"
   prefixes      = local.function_name_prefix == "" ? null : [local.function_name_prefix]
@@ -8,7 +8,7 @@ resource "azurecaf_name" "function_app" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "application_insights" {
+data "azurecaf_name" "application_insights" {
   name          = var.stack
   resource_type = "azurerm_application_insights"
   prefixes      = local.ai_name_prefix == "" ? null : [local.ai_name_prefix]
@@ -18,7 +18,7 @@ resource "azurecaf_name" "application_insights" {
   separator     = "-"
 }
 
-resource "azurecaf_name" "storage_account" {
+data "azurecaf_name" "storage_account" {
   name          = var.stack
   resource_type = "azurerm_storage_account"
   prefixes      = null

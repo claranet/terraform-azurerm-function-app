@@ -11,7 +11,7 @@ terraform {
     # tflint-ignore: terraform_unused_required_providers
     azurecaf = {
       source  = "aztfmod/azurecaf"
-      version = "~> 1.1"
+      version = "~> 1.2, >= 1.2.22"
     }
   }
 }
