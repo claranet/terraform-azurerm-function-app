@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-907: Fix Storage Account firewall for Consumption functions
+
 # v7.0.1 - 2022-10-28
 
 Fixed

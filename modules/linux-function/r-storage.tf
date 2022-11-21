@@ -65,6 +65,13 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   ip_rules                   = local.storage_ips
   virtual_network_subnet_ids = distinct(compact(concat(var.authorized_subnet_ids, [var.function_app_vnet_integration_subnet_id])))
   bypass                     = var.storage_account_network_bypass
+
+  lifecycle {
+    precondition {
+      condition     = !local.is_consumption
+      error_message = "Network rules on Storage Account cannot be set for consumption functions."
+    }
+  }
 }
 
 data "azurerm_storage_account" "storage" {

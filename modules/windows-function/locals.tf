@@ -1,7 +1,8 @@
 locals {
+  is_consumption = data.azurerm_service_plan.plan.sku_name == "Y1"
 
   default_site_config = {
-    always_on                              = data.azurerm_service_plan.plan.sku_name == "Y1" ? false : true
+    always_on                              = !local.is_consumption
     ip_restriction                         = concat(local.subnets, local.cidrs, local.service_tags)
     application_insights_connection_string = var.application_insights_enabled ? local.app_insights.connection_string : null
     application_insights_key               = var.application_insights_enabled ? local.app_insights.instrumentation_key : null
