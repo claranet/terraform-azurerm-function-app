@@ -179,14 +179,14 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 3.19 |
+| azurerm | ~> 3.22 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 6.0.0 |
-| storage | claranet/storage-account/azurerm | 7.0.0 |
+| storage | claranet/storage-account/azurerm | 7.3.0 |
 
 ## Resources
 
