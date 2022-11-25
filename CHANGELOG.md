@@ -2,6 +2,7 @@
 
 Fixed
   * AZ-907: Fix Storage Account firewall for Consumption functions
+  * AZ-907: Bump `storage-account` module and AzureRM provider to `v3.25+`
 
 # v7.0.1 - 2022-10-28
 
