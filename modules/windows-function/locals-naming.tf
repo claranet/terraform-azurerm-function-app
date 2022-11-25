@@ -7,7 +7,7 @@ locals {
   ai_name_prefix       = var.application_insights_name_prefix == "" ? local.name_prefix : lower(var.application_insights_name_prefix)
   sa_name_prefix       = var.storage_account_name_prefix == "" ? local.name_prefix : lower(var.storage_account_name_prefix)
 
-  app_insights_name    = coalesce(var.application_insights_custom_name, azurecaf_name.application_insights.result)
-  function_app_name    = coalesce(var.function_app_custom_name, azurecaf_name.function_app.result)
-  storage_account_name = coalesce(var.storage_account_name, azurecaf_name.storage_account.result)
+  app_insights_name    = coalesce(var.application_insights_custom_name, data.azurecaf_name.application_insights.result)
+  function_app_name    = coalesce(var.function_app_custom_name, data.azurecaf_name.function_app.result)
+  storage_account_name = coalesce(var.storage_account_name, data.azurecaf_name.storage_account.result)
 }

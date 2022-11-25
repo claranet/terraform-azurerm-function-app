@@ -1,5 +1,8 @@
 # Unreleased
 
+Changed
+  * AZ-908: Use the new data source for CAF naming (instead of resource)
+
 Fixed
   * AZ-907: Fix Storage Account firewall for Consumption functions
   * AZ-907: Bump `storage-account` module and AzureRM provider to `v3.25+`
