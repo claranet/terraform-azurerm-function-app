@@ -68,8 +68,8 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
 
   lifecycle {
     precondition {
-      condition     = !local.is_consumption
-      error_message = "Network rules on Storage Account cannot be set for consumption functions."
+      condition     = var.function_app_vnet_integration_subnet_id != null
+      error_message = "Network rules on Storage Account cannot be set for same region Storage without VNet integration."
     }
   }
 }
