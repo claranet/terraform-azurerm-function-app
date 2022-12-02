@@ -1,4 +1,4 @@
-# Unreleased
+# v7.1.1 - 2022-12-02
 
 Fixed
   * AZ-907: Fix Storage Account firewall when no VNet integration
