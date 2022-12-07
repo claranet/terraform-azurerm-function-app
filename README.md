@@ -221,6 +221,9 @@ No resources.
 | service\_plan\_extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
 | sku\_name | The SKU for the plan. Possible values include B1, B2, B3, D1, F1, FREE, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, and WS3. | `string` | `"Y1"` | no |
 | stack | Project stack name | `string` | n/a | yes |
+| staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
+| staging\_slot\_custom\_name | Custom name of the Function App slot | `string` | `null` | no |
+| staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
 | storage\_account\_access\_key | Access key the storage account to use. If null a new storage account is created | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restriction for Function storage account in CIDR format | `list(string)` | `[]` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
