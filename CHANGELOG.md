@@ -3,6 +3,9 @@
 Added
   * AZ-931: Add staging slot option and default hostname outputs
 
+Fixed
+  * AZ-908: Bump App Service Plan module to `v6.1.1`
+
 # v7.1.1 - 2022-12-02
 
 Fixed

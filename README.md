@@ -150,7 +150,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | linux\_function | ./modules/linux-function | n/a |
-| service\_plan | claranet/app-service-plan/azurerm | 6.1.0 |
+| service\_plan | claranet/app-service-plan/azurerm | 6.1.1 |
 | windows\_function | ./modules/windows-function | n/a |
 
 ## Resources
