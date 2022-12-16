@@ -1,4 +1,4 @@
-# Unreleased
+# v7.2.0 - 2022-12-16
 
 Added
   * AZ-931: Add staging slot option and default hostname outputs
