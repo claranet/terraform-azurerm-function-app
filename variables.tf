@@ -250,6 +250,18 @@ variable "application_zip_package_path" {
   default     = null
 }
 
+variable "staging_slot_enabled" {
+  description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
+  type        = bool
+  default     = false
+}
+
+variable "staging_slot_custom_application_settings" {
+  description = "Override staging slot with custom application settings."
+  type        = map(string)
+  default     = null
+}
+
 # SCM parameters
 
 variable "scm_authorized_ips" {

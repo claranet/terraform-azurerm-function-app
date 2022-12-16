@@ -30,6 +30,12 @@ variable "function_app_custom_name" {
   default     = ""
 }
 
+variable "staging_slot_custom_name" {
+  type        = string
+  description = "Custom name of the Function App slot"
+  default     = null
+}
+
 variable "application_insights_name_prefix" {
   description = "Application Insights name prefix"
   type        = string

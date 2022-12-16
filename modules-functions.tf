@@ -77,6 +77,10 @@ module "linux_function" {
 
   application_zip_package_path = var.application_zip_package_path
 
+  staging_slot_enabled                     = var.staging_slot_enabled
+  staging_slot_custom_name                 = var.staging_slot_custom_name
+  staging_slot_custom_application_settings = var.staging_slot_custom_application_settings
+
   default_tags_enabled = var.default_tags_enabled
 
   extra_tags = merge(var.extra_tags, local.default_tags)
@@ -180,6 +184,10 @@ module "windows_function" {
   client_certificate_mode    = var.client_certificate_mode
 
   application_zip_package_path = var.application_zip_package_path
+
+  staging_slot_enabled                     = var.staging_slot_enabled
+  staging_slot_custom_name                 = var.staging_slot_custom_name
+  staging_slot_custom_application_settings = var.staging_slot_custom_application_settings
 
   default_tags_enabled = var.default_tags_enabled
 

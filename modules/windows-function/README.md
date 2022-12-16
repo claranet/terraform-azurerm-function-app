@@ -197,6 +197,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | [azurerm_storage_blob.package_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
 | [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_windows_function_app.windows_function](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app) | resource |
+| [azurerm_windows_function_app_slot.windows_function_slot](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot) | resource |
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.storage_account](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/data-sources/name) | data source |
@@ -263,6 +264,9 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | service\_plan\_id | Id of the App Service Plan for Function App hosting | `string` | n/a | yes |
 | site\_config | Site config for App Service. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | stack | Project stack name | `string` | n/a | yes |
+| staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
+| staging\_slot\_custom\_name | Custom name of the Function App slot | `string` | `null` | no |
+| staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
 | storage\_account\_access\_key | Access key the storage account to use. If null a new storage account is created | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restriction for Function storage account in CIDR format | `list(string)` | `[]` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Boolean flag which controls if advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
@@ -288,11 +292,15 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
 | application\_insights\_name | Name of the associated Application Insights |
 | function\_app\_connection\_string | Connection string of the created Function App |
+| function\_app\_default\_hostname | Default hostname of the created Function App |
 | function\_app\_id | ID of the created Function App |
 | function\_app\_identity | Identity block output of the Function App |
 | function\_app\_name | Name of the created Function App |
 | function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
 | function\_app\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App |
+| function\_app\_slot\_default\_hostname | Default hostname of the Function App slot |
+| function\_app\_slot\_identity | Identity block output of the Function App slot |
+| function\_app\_slot\_name | Name of the Function App slot |
 | service\_plan\_id | Id of the created App Service Plan |
 | storage\_account\_id | ID of the associated Storage Account, `null` if connection string provided |
 | storage\_account\_name | Name of the associated Storage Account, `null` if connection string provided |
