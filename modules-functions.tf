@@ -10,7 +10,9 @@ module "linux_function" {
   location            = var.location
   location_short      = var.location_short
 
-  name_prefix = var.name_prefix
+  use_caf_naming = var.use_caf_naming
+  name_prefix    = var.name_prefix
+  name_suffix    = var.name_suffix
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
@@ -118,7 +120,9 @@ module "windows_function" {
   location            = var.location
   location_short      = var.location_short
 
-  name_prefix = var.name_prefix
+  use_caf_naming = var.use_caf_naming
+  name_prefix    = var.name_prefix
+  name_suffix    = var.name_suffix
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
