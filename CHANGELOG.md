@@ -1,4 +1,4 @@
-# Unreleased
+# v7.2.1 - 2022-12-23
 
 Fixed
   * AZ-963: Fix naming
