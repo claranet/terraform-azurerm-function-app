@@ -109,7 +109,7 @@ locals {
   ]))
 
   is_local_zip    = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : 0)) == 0
-  zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, data.azurerm_storage_account_sas.package_sas.sas, filemd5(var.application_zip_package_path)) : var.application_zip_package_path
+  zip_package_url = var.application_zip_package_path != null && local.is_local_zip ? format("%s%s&md5=%s", azurerm_storage_blob.package_blob[0].url, try(data.azurerm_storage_account_sas.package_sas["enabled"].sas, "?"), filemd5(var.application_zip_package_path)) : var.application_zip_package_path
 
-  storage_account_output = var.storage_account_access_key == null ? module.storage["enabled"].storage_account_properties : null
+  storage_account_output = !var.use_existing_storage_account ? module.storage["enabled"].storage_account_properties : null
 }

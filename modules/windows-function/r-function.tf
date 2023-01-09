@@ -12,10 +12,9 @@ resource "azurerm_windows_function_app" "windows_function" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  storage_account_name       = local.storage_account_name
-  storage_account_access_key = var.storage_account_access_key == null ? local.storage_account_output.primary_access_key : var.storage_account_access_key
-  # storage_uses_managed_identity = 
-  # storage_key_vault_secret_id =
+  storage_account_name          = data.azurerm_storage_account.storage.name
+  storage_account_access_key    = data.azurerm_storage_account.storage.primary_access_key
+  storage_uses_managed_identity = data.azurerm_storage_account.storage.primary_access_key == null
 
   functions_extension_version = "~${var.function_app_version}"
 
@@ -46,6 +45,9 @@ resource "azurerm_windows_function_app" "windows_function" {
       remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
       runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
+
+      application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
+      application_insights_key               = lookup(site_config.value, "application_insights_key", false)
 
       pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
@@ -115,8 +117,9 @@ resource "azurerm_windows_function_app_slot" "windows_function_slot" {
   name            = local.staging_slot_name
   function_app_id = azurerm_windows_function_app.windows_function.id
 
-  storage_account_name       = local.storage_account_name
-  storage_account_access_key = var.storage_account_access_key == null ? local.storage_account_output.primary_access_key : var.storage_account_access_key
+  storage_account_name          = data.azurerm_storage_account.storage.name
+  storage_account_access_key    = data.azurerm_storage_account.storage.primary_access_key
+  storage_uses_managed_identity = data.azurerm_storage_account.storage.primary_access_key == null
 
   functions_extension_version = "~${var.function_app_version}"
 
@@ -144,6 +147,9 @@ resource "azurerm_windows_function_app_slot" "windows_function_slot" {
       remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
       runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
+
+      application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
+      application_insights_key               = lookup(site_config.value, "application_insights_key", false)
 
       pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)

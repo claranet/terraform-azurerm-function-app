@@ -1,4 +1,6 @@
 module "storage" {
+  for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
+
   source  = "claranet/storage-account/azurerm"
   version = "7.3.0"
 
@@ -22,6 +24,7 @@ module "storage" {
   https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
   public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
+  shared_access_key_enabled          = var.storage_account_shared_access_key_enabled
 
   # Identity
   identity_type = var.storage_account_identity_type
@@ -52,12 +55,10 @@ module "storage" {
     var.storage_account_extra_tags,
     var.extra_tags,
   )
-
-  for_each = toset(var.storage_account_access_key == null ? ["enabled"] : [])
 }
 
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {
-  for_each = toset(var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? ["enabled"] : [])
+  for_each = toset(!var.use_existing_storage_account && var.storage_account_network_rules_enabled ? ["enabled"] : [])
 
   storage_account_id = local.storage_account_output.id
 
@@ -75,8 +76,8 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
 }
 
 data "azurerm_storage_account" "storage" {
-  name                = local.storage_account_name
-  resource_group_name = var.resource_group_name
+  name                = var.use_existing_storage_account ? split("/", var.storage_account_id)[8] : local.storage_account_name
+  resource_group_name = var.use_existing_storage_account ? split("/", var.storage_account_id)[4] : var.resource_group_name
 
   depends_on = [module.storage]
 }
@@ -101,6 +102,8 @@ resource "azurerm_storage_blob" "package_blob" {
 }
 
 data "azurerm_storage_account_sas" "package_sas" {
+  for_each = toset(data.azurerm_storage_account.storage.primary_access_key != null ? ["enabled"] : [])
+
   connection_string = data.azurerm_storage_account.storage.primary_connection_string
   https_only        = false
   resource_types {

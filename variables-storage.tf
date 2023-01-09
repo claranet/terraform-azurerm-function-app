@@ -1,5 +1,11 @@
-variable "storage_account_access_key" {
-  description = "Access key of the Storage Account to use. If `null` a new Storage Account is created."
+variable "use_existing_storage_account" {
+  description = "Whether existing Storage Account should be used instead of creating a new one."
+  type        = bool
+  default     = false
+}
+
+variable "storage_account_id" {
+  description = "ID of the existing Storage Account to use."
   type        = string
   default     = null
 }

@@ -1,5 +1,11 @@
-variable "storage_account_access_key" {
-  description = "Access key of the Storage Account to use. If `null` a new Storage Account is created."
+variable "use_existing_storage_account" {
+  description = "Whether existing Storage Account should be used instead of creating a new one."
+  type        = bool
+  default     = false
+}
+
+variable "storage_account_id" {
+  description = "ID of the existing Storage Account to use."
   type        = string
   default     = null
 }
@@ -23,7 +29,7 @@ variable "storage_account_enable_advanced_threat_protection" {
 }
 
 variable "storage_account_enable_https_traffic_only" {
-  description = "Whether HTTPS traffic only is enabled for Storage Account."
+  description = "Whether https traffic only is enabled for Storage Account."
   type        = bool
   default     = true
 }
@@ -56,4 +62,10 @@ variable "storage_account_authorized_ips" {
   description = "IPs restrictions for Function Storage Account in CIDR format."
   type        = list(string)
   default     = []
+}
+
+variable "storage_account_shared_access_key_enabled" {
+  description = "Whether to the shared access keys are enabled for the Storage Account. `storage_use_azuread` flag in the azurerm must be enabled if access key is disabled."
+  type        = bool
+  default     = false
 }

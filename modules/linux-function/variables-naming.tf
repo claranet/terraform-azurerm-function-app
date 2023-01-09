@@ -54,8 +54,8 @@ variable "storage_account_name_prefix" {
   default     = ""
 }
 
-variable "storage_account_name" {
-  description = "Name of the Storage account to attach to function."
+variable "storage_account_custom_name" {
+  description = "Custom name of the Storage account to attach to function."
   type        = string
   default     = null
 }
