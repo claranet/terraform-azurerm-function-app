@@ -1,13 +1,13 @@
 module "azure_region" {
   source  = "claranet/regions/azurerm"
-  version = "x.x.x"
+  version = "~> 6.1.0"
 
   azure_region = var.azure_region
 }
 
 module "rg" {
   source  = "claranet/rg/azurerm"
-  version = "x.x.x"
+  version = "~> 6.1.0"
 
   location    = module.azure_region.location
   client_name = var.client_name
@@ -17,7 +17,7 @@ module "rg" {
 
 module "logs" {
   source  = "claranet/run-common/azurerm//modules/logs"
-  version = "x.x.x"
+  version = "~> 7.3.0"
 
   client_name         = var.client_name
   environment         = var.environment

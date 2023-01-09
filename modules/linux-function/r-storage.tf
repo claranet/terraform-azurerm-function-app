@@ -1,4 +1,6 @@
 module "storage" {
+  for_each = toset(var.storage_account_access_key == null ? ["enabled"] : [])
+
   source  = "claranet/storage-account/azurerm"
   version = "7.3.0"
 
@@ -52,8 +54,6 @@ module "storage" {
     var.storage_account_extra_tags,
     var.extra_tags,
   )
-
-  for_each = toset(var.storage_account_access_key == null ? ["enabled"] : [])
 }
 
 resource "azurerm_storage_account_network_rules" "storage_network_rules" {

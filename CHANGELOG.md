@@ -1,3 +1,11 @@
+# Unreleased
+
+Added
+  * AZ-965: Additional outputs
+
+Changed
+  * AZ-965: Rework variables files and descriptions
+
 # v7.2.1 - 2022-12-23
 
 Fixed

@@ -1,13 +1,13 @@
 module "azure_region" {
   source  = "claranet/regions/azurerm"
-  version = "x.x.x"
+  version = "~> 6.1.0"
 
   azure_region = var.azure_region
 }
 
 module "rg" {
   source  = "claranet/rg/azurerm"
-  version = "x.x.x"
+  version = "~> 6.1.0"
 
   location    = module.azure_region.location
   client_name = var.client_name
@@ -17,7 +17,7 @@ module "rg" {
 
 module "logs" {
   source  = "claranet/run-common/azurerm//modules/logs"
-  version = "x.x.x"
+  version = "~> 7.3.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -29,7 +29,7 @@ module "logs" {
 
 module "vnet" {
   source  = "claranet/vnet/azurerm"
-  version = "x.x.x"
+  version = "~> 5.2.0"
 
   environment    = var.environment
   location       = module.azure_region.location
@@ -43,7 +43,7 @@ module "vnet" {
 
 module "subnet" {
   source  = "claranet/subnet/azurerm"
-  version = "x.x.x"
+  version = "~> 6.1.0"
 
   for_each = { for subnet in local.subnets : subnet.name => subnet }
 
