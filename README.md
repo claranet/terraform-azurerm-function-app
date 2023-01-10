@@ -41,14 +41,14 @@ More details about variables set by the `terraform-wrapper` available in the [do
 ```hcl
 module "azure_region" {
   source  = "claranet/regions/azurerm"
-  version = "~> 6.1.0"
+  version = "x.x.x"
 
   azure_region = var.azure_region
 }
 
 module "rg" {
   source  = "claranet/rg/azurerm"
-  version = "~> 6.1.0"
+  version = "x.x.x"
 
   location    = module.azure_region.location
   client_name = var.client_name
@@ -58,7 +58,7 @@ module "rg" {
 
 module "logs" {
   source  = "claranet/run-common/azurerm//modules/logs"
-  version = "~> 7.3.0"
+  version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
