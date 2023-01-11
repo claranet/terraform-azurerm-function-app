@@ -41,7 +41,11 @@ module "storage_account" {
 
   resource_group_name = module.rg.resource_group_name
 
+  # The `storage_use_azuread=true` flag is mandatory in the provider declaration for this feature
   shared_access_key_enabled = false
+
+  # Network rules cannot be enabled with consumption function
+  network_rules_enabled = false
 
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
