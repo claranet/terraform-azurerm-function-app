@@ -249,6 +249,16 @@ No resources.
 | application\_insights\_id | ID of the associated Application Insights |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights |
 | application\_insights\_name | Name of the associated Application Insights |
+| function\_app\_connection\_string | Connection string of the created Function App |
+| function\_app\_default\_hostname | Default hostname of the created Function App |
+| function\_app\_id | ID of the created Function App |
+| function\_app\_identity | Identity block output of the Function App |
+| function\_app\_name | Name of the created Function App |
+| function\_app\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App |
+| function\_app\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App |
+| function\_app\_slot\_default\_hostname | Default hostname of the Function App slot |
+| function\_app\_slot\_identity | Identity block output of the Function App slot |
+| function\_app\_slot\_name | Name of the Function App slot |
 | linux\_function\_app | Linux Function App output object if Linux is choosen. Please refer to `./modules/linux-function/README.md` |
 | os\_type | The OS type for the Functions to be hosted in this plan. |
 | service\_plan\_id | ID of the created Service Plan |
