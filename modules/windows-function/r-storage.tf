@@ -24,7 +24,7 @@ module "storage" {
   https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
   public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
-  shared_access_key_enabled          = var.storage_account_shared_access_key_enabled
+  shared_access_key_enabled          = !var.storage_uses_managed_identity
 
   # Identity
   identity_type = var.storage_account_identity_type

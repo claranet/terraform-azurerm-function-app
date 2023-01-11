@@ -16,6 +16,8 @@ module "linux_function" {
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
+  storage_uses_managed_identity = var.storage_uses_managed_identity
+
   storage_account_name_prefix                       = var.storage_account_name_prefix
   storage_account_custom_name                       = var.storage_account_custom_name
   use_existing_storage_account                      = var.use_existing_storage_account
@@ -127,6 +129,8 @@ module "windows_function" {
   name_suffix    = var.name_suffix
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
+
+  storage_uses_managed_identity = var.storage_uses_managed_identity
 
   storage_account_name_prefix                       = var.storage_account_name_prefix
   storage_account_custom_name                       = var.storage_account_custom_name

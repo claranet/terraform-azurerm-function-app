@@ -63,9 +63,3 @@ variable "storage_account_authorized_ips" {
   type        = list(string)
   default     = []
 }
-
-variable "storage_account_shared_access_key_enabled" {
-  description = "Whether to the shared access keys are enabled for the Storage Account. `storage_use_azuread` flag in the azurerm must be enabled if access key is disabled."
-  type        = bool
-  default     = false
-}

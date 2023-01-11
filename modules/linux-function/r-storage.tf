@@ -24,7 +24,7 @@ module "storage" {
   https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
   public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
-  shared_access_key_enabled          = var.storage_account_shared_access_key_enabled
+  shared_access_key_enabled          = !var.storage_uses_managed_identity
 
   # Identity
   identity_type = var.storage_account_identity_type
@@ -102,7 +102,7 @@ resource "azurerm_storage_blob" "package_blob" {
 }
 
 data "azurerm_storage_account_sas" "package_sas" {
-  for_each = toset(data.azurerm_storage_account.storage.primary_access_key != null ? ["enabled"] : [])
+  for_each = toset(var.application_zip_package_path != null && !var.storage_uses_managed_identity ? ["enabled"] : [])
 
   connection_string = data.azurerm_storage_account.storage.primary_connection_string
   https_only        = false

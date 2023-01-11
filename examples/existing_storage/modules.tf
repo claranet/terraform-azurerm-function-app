@@ -83,6 +83,8 @@ module "function_app" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  storage_uses_managed_identity = true
+
   use_existing_storage_account = true
   storage_account_id           = module.storage_account.storage_account_id
 
@@ -97,7 +99,7 @@ module "function_app" {
 }
 
 resource "azurerm_role_assignment" "function_storage" {
-  principal_id         = module.function_app.linux_function_app.identity[0].principal_id
+  principal_id         = module.function_app.linux_function_app.function_app_identity.principal_id
   scope                = module.storage_account.storage_account_id
   role_definition_name = "Storage Blob Data Owner"
 }
