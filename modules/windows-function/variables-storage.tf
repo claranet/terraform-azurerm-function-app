@@ -1,5 +1,5 @@
 variable "storage_account_access_key" {
-  description = "Access key of the Storage Account to use. If null a new storage account is created."
+  description = "Access key of the Storage Account to use. If `null` a new Storage Account is created."
   type        = string
   default     = null
 }
@@ -17,13 +17,13 @@ variable "storage_account_min_tls_version" {
 }
 
 variable "storage_account_enable_advanced_threat_protection" {
-  description = "Whether advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
+  description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
   type        = bool
   default     = false
 }
 
 variable "storage_account_enable_https_traffic_only" {
-  description = "Whether HTTPS traffic only is enabled."
+  description = "Whether HTTPS traffic only is enabled for Storage Account."
   type        = bool
   default     = true
 }

@@ -17,7 +17,7 @@ variable "storage_account_min_tls_version" {
 }
 
 variable "storage_account_enable_advanced_threat_protection" {
-  description = "Whether advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
+  description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
   type        = bool
   default     = false
 }
@@ -41,7 +41,7 @@ variable "storage_account_identity_ids" {
 }
 
 variable "storage_account_network_rules_enabled" {
-  description = "Whether to enable Storage Account network default rules for functions"
+  description = "Whether to enable Storage Account network default rules for functions."
   type        = bool
   default     = true
 }

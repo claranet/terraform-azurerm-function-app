@@ -1,9 +1,3 @@
-variable "application_insights_extra_tags" {
-  description = "Extra tags to add to Application Insights."
-  type        = map(string)
-  default     = {}
-}
-
 variable "default_tags_enabled" {
   description = "Option to enable or disable default tags."
   type        = bool
@@ -12,6 +6,12 @@ variable "default_tags_enabled" {
 
 variable "extra_tags" {
   description = "Extra tags to add."
+  type        = map(string)
+  default     = {}
+}
+
+variable "application_insights_extra_tags" {
+  description = "Extra tags to add to Application Insights."
   type        = map(string)
   default     = {}
 }

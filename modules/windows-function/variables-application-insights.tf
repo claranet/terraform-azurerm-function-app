@@ -59,7 +59,7 @@ variable "application_insights_local_authentication_disabled" {
 }
 
 variable "application_insights_force_customer_storage_for_profiler" {
-  description = "Whether Application Insights component to force users to create their own storage account for profiling is enforced."
+  description = "Whether to enforce users to create their own Storage Account for profiling in Application Insights."
   type        = bool
   default     = false
 }

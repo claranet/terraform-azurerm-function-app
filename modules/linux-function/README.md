@@ -210,7 +210,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| application\_insights\_custom\_name | Custom name for application insights deployed with function app | `string` | `""` | no |
+| application\_insights\_custom\_name | Custom name for application insights deployed with function app. | `string` | `""` | no |
 | application\_insights\_daily\_data\_cap | Daily data volume cap (in GB) for Application Insights. | `number` | `null` | no |
 | application\_insights\_daily\_data\_cap\_notifications\_disabled | Whether disable email notifications when data volume cap is met. | `bool` | `null` | no |
 | application\_insights\_enabled | Whether Application Insights should be deployed. | `bool` | `true` | no |
@@ -222,7 +222,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_ip\_masking\_disabled | Whether IP masking in logs is disabled. | `bool` | `false` | no |
 | application\_insights\_local\_authentication\_disabled | Whether Non-Azure AD based authentication is disabled. | `bool` | `false` | no |
 | application\_insights\_log\_analytics\_workspace\_id | ID of the Log Analytics Workspace to be used with Application Insights. | `string` | `null` | no |
-| application\_insights\_name\_prefix | Application Insights name prefix | `string` | `""` | no |
+| application\_insights\_name\_prefix | Application Insights name prefix. | `string` | `""` | no |
 | application\_insights\_retention | Retention period (in days) for logs. | `number` | `90` | no |
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry. | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type | `string` | `"web"` | no |
@@ -239,9 +239,9 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings. | `map(string)` | `{}` | no |
-| function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
+| function\_app\_custom\_name | Custom name for function app. | `string` | `""` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App. | `map(string)` | `{}` | no |
-| function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
+| function\_app\_name\_prefix | Function App name prefix. | `string` | `""` | no |
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |
 | function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
@@ -254,8 +254,8 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to use Azure EventHub as destination, you must provide a formatted string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account. | `number` | `30` | no |
-| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
-| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | scm\_authorized\_ips | SCM IPs restriction for Function App. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
 | scm\_authorized\_service\_tags | SCM Service Tags restriction for Function App. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction | `list(string)` | `[]` | no |
@@ -265,19 +265,19 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | site\_config | Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
-| staging\_slot\_custom\_name | Custom name of the Function App slot | `string` | `null` | no |
+| staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
-| storage\_account\_access\_key | Access key of the Storage Account to use. If null a new storage account is created. | `string` | `null` | no |
+| storage\_account\_access\_key | Access key of the Storage Account to use. If `null` a new Storage Account is created. | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
-| storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
-| storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
+| storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
+| storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Type of Managed Service Identity that should be configured on the Storage Account. | `string` | `null` | no |
 | storage\_account\_kind | Storage Account Kind. | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version. | `string` | `"TLS1_2"` | no |
-| storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
-| storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
+| storage\_account\_name | Name of the Storage account to attach to function. | `string` | `null` | no |
+| storage\_account\_name\_prefix | Storage Account name prefix. | `string` | `""` | no |
 | storage\_account\_network\_bypass | Whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`. | `list(string)` | <pre>[<br>  "Logging",<br>  "Metrics",<br>  "AzureServices"<br>]</pre> | no |
 | storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions. | `bool` | `true` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
