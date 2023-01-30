@@ -1,17 +1,17 @@
 variable "storage_account_access_key" {
-  description = "Access key of the Storage Account to use. If null a new storage account is created"
+  description = "Access key of the Storage Account to use. If null a new storage account is created."
   type        = string
   default     = null
 }
 
 variable "storage_account_kind" {
-  description = "Storage Account Kind"
+  description = "Storage Account Kind."
   type        = string
   default     = "StorageV2"
 }
 
 variable "storage_account_min_tls_version" {
-  description = "Storage Account minimal TLS version"
+  description = "Storage Account minimal TLS version."
   type        = string
   default     = "TLS1_2"
 }
@@ -41,7 +41,7 @@ variable "storage_account_identity_ids" {
 }
 
 variable "storage_account_network_rules_enabled" {
-  description = "Whether to enable Storage Account network default rules for functions"
+  description = "Whether to enable Storage Account network default rules for functions."
   type        = bool
   default     = true
 }

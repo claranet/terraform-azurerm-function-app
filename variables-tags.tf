@@ -23,7 +23,7 @@ variable "application_insights_extra_tags" {
 }
 
 variable "function_app_extra_tags" {
-  description = "Extra tags to add to Function App"
+  description = "Extra tags to add to Function App."
   type        = map(string)
   default     = {}
 }

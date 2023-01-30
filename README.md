@@ -192,7 +192,7 @@ No resources.
 | extra\_tags | Extra tags to add | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings. | `map(string)` | `{}` | no |
 | function\_app\_custom\_name | Custom name for function app | `string` | `""` | no |
-| function\_app\_extra\_tags | Extra tags to add to Function App | `map(string)` | `{}` | no |
+| function\_app\_extra\_tags | Extra tags to add to Function App. | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix | `string` | `""` | no |
 | function\_app\_site\_config | Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |

@@ -215,7 +215,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | application\_insights\_daily\_data\_cap\_notifications\_disabled | Whether disable email notifications when data volume cap is met. | `bool` | `null` | no |
 | application\_insights\_enabled | Whether Application Insights should be deployed. | `bool` | `true` | no |
 | application\_insights\_extra\_tags | Extra tags to add to Application Insights. | `map(string)` | `{}` | no |
-| application\_insights\_force\_customer\_storage\_for\_profiler | Whether Application Insights component to force users to create their own storage account for profiling is enforced. | `bool` | `false` | no |
+| application\_insights\_force\_customer\_storage\_for\_profiler | Whether to enforce users to create their own Storage Account for profiling in Application Insights. | `bool` | `false` | no |
 | application\_insights\_id | ID of the existing Application Insights to use instead of deploying a new one. | `string` | `null` | no |
 | application\_insights\_internet\_ingestion\_enabled | Whether ingestion support from Application Insights component over the Public Internet is enabled. | `bool` | `true` | no |
 | application\_insights\_internet\_query\_enabled | Whether querying support from Application Insights component over the Public Internet is enabled. | `bool` | `true` | no |
@@ -267,19 +267,19 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
 | staging\_slot\_custom\_name | Custom name of the Function App slot | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
-| storage\_account\_access\_key | Access key of the Storage Account to use. If null a new storage account is created | `string` | `null` | no |
+| storage\_account\_access\_key | Access key of the Storage Account to use. If null a new storage account is created. | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled, see [here](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Type of Managed Service Identity that should be configured on the Storage Account. | `string` | `null` | no |
-| storage\_account\_kind | Storage Account Kind | `string` | `"StorageV2"` | no |
-| storage\_account\_min\_tls\_version | Storage Account minimal TLS version | `string` | `"TLS1_2"` | no |
+| storage\_account\_kind | Storage Account Kind. | `string` | `"StorageV2"` | no |
+| storage\_account\_min\_tls\_version | Storage Account minimal TLS version. | `string` | `"TLS1_2"` | no |
 | storage\_account\_name | Name of the Storage account to attach to function | `string` | `null` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix | `string` | `""` | no |
 | storage\_account\_network\_bypass | Whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`. | `list(string)` | <pre>[<br>  "Logging",<br>  "Metrics",<br>  "AzureServices"<br>]</pre> | no |
-| storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions | `bool` | `true` | no |
+| storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions. | `bool` | `true` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
