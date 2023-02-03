@@ -34,5 +34,5 @@ output "storage_account_secondary_access_key" {
 
 output "storage_account_network_rules" {
   description = "Network rules of the associated Storage Account"
-  value       = azurerm_storage_account_network_rules.storage_network_rules[*]
+  value       = one(values(azurerm_storage_account_network_rules.storage_network_rules))
 }
