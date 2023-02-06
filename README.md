@@ -224,20 +224,22 @@ No resources.
 | staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
 | staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
-| storage\_account\_access\_key | Access key of the Storage Account to use. If `null` a new Storage Account is created. | `string` | `null` | no |
 | storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
+| storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
 | storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
+| storage\_account\_id | ID of the existing Storage Account to use. | `string` | `null` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Type of Managed Service Identity that should be configured on the Storage Account. | `string` | `null` | no |
 | storage\_account\_kind | Storage Account Kind. | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version. | `string` | `"TLS1_2"` | no |
-| storage\_account\_name | Name of the Storage account to attach to function. | `string` | `null` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix. | `string` | `""` | no |
 | storage\_account\_network\_bypass | Whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`. | `list(string)` | <pre>[<br>  "Logging",<br>  "Metrics",<br>  "AzureServices"<br>]</pre> | no |
 | storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions. | `bool` | `true` | no |
+| storage\_uses\_managed\_identity | Whether the Function App use Managed Identity to access the Storage Account. **Caution** This disable the storage keys on the Storage Account if created within the module. | `bool` | `false` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
+| use\_existing\_storage\_account | Whether existing Storage Account should be used instead of creating a new one. | `bool` | `false` | no |
 | worker\_count | Number of Workers (instances) to be allocated. | `number` | `null` | no |
 
 ## Outputs
@@ -259,7 +261,7 @@ No resources.
 | function\_app\_slot\_default\_hostname | Default hostname of the Function App slot |
 | function\_app\_slot\_identity | Identity block output of the Function App slot |
 | function\_app\_slot\_name | Name of the Function App slot |
-| linux\_function\_app | Linux Function App output object if Linux is choosen. Please refer to `./modules/linux-function/README.md` |
+| linux\_function\_app | Linux Function App output object if Linux is chosen. Please refer to `./modules/linux-function/README.md` |
 | os\_type | The OS type for the Functions to be hosted in this plan. |
 | service\_plan\_id | ID of the created Service Plan |
 | service\_plan\_name | Name of the created Service Plan |
@@ -270,7 +272,7 @@ No resources.
 | storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, empty if connection string provided |
 | storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, empty if connection string provided |
-| windows\_function\_app | Windows Function App output object if Windows is choosen. Please refer to `./modules/windows-function/README.md` |
+| windows\_function\_app | Windows Function App output object if Windows is chosen. Please refer to `./modules/windows-function/README.md` |
 <!-- END_TF_DOCS -->
 
 ## Related documentation

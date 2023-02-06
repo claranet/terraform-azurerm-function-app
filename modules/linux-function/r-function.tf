@@ -12,10 +12,9 @@ resource "azurerm_linux_function_app" "linux_function" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  storage_account_name       = local.storage_account_name
-  storage_account_access_key = var.storage_account_access_key == null ? local.storage_account_output.primary_access_key : var.storage_account_access_key
-  # storage_uses_managed_identity = 
-  # storage_key_vault_secret_id =
+  storage_account_name          = data.azurerm_storage_account.storage.name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.storage.primary_access_key : null
+  storage_uses_managed_identity = var.storage_uses_managed_identity
 
   functions_extension_version = "~${var.function_app_version}"
 
@@ -130,8 +129,9 @@ resource "azurerm_linux_function_app_slot" "linux_function_slot" {
   name            = local.staging_slot_name
   function_app_id = azurerm_linux_function_app.linux_function.id
 
-  storage_account_name       = local.storage_account_name
-  storage_account_access_key = var.storage_account_access_key == null ? local.storage_account_output.primary_access_key : var.storage_account_access_key
+  storage_account_name          = data.azurerm_storage_account.storage.name
+  storage_uses_managed_identity = var.storage_uses_managed_identity
+  storage_account_access_key    = var.storage_uses_managed_identity ? null : data.azurerm_storage_account.storage.primary_access_key
 
   functions_extension_version = "~${var.function_app_version}"
 

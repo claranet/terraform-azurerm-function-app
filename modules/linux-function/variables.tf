@@ -160,3 +160,9 @@ variable "scm_authorized_service_tags" {
   type        = list(string)
   default     = []
 }
+
+variable "storage_uses_managed_identity" {
+  description = "Whether the Function App use Managed Identity to access the Storage Account. **Caution** This disable the storage keys on the Storage Account if created within the module."
+  type        = bool
+  default     = false
+}

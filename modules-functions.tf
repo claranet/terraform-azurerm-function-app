@@ -16,9 +16,12 @@ module "linux_function" {
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
+  storage_uses_managed_identity = var.storage_uses_managed_identity
+
   storage_account_name_prefix                       = var.storage_account_name_prefix
-  storage_account_name                              = var.storage_account_name
-  storage_account_access_key                        = var.storage_account_access_key
+  storage_account_custom_name                       = var.storage_account_custom_name
+  use_existing_storage_account                      = var.use_existing_storage_account
+  storage_account_id                                = var.storage_account_id
   storage_account_enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
   storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
   storage_account_kind                              = var.storage_account_kind
@@ -58,9 +61,10 @@ module "linux_function" {
   authorized_subnet_ids                   = var.authorized_subnet_ids
   ip_restriction_headers                  = var.ip_restriction_headers
   function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
-  storage_account_network_rules_enabled   = var.storage_account_network_rules_enabled
-  storage_account_network_bypass          = var.storage_account_network_bypass
-  storage_account_authorized_ips          = var.storage_account_authorized_ips
+
+  storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
+  storage_account_network_bypass        = var.storage_account_network_bypass
+  storage_account_authorized_ips        = var.storage_account_authorized_ips
 
   scm_authorized_ips          = var.scm_authorized_ips
   scm_authorized_subnet_ids   = var.scm_authorized_subnet_ids
@@ -126,9 +130,12 @@ module "windows_function" {
 
   custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
 
+  storage_uses_managed_identity = var.storage_uses_managed_identity
+
   storage_account_name_prefix                       = var.storage_account_name_prefix
-  storage_account_name                              = var.storage_account_name
-  storage_account_access_key                        = var.storage_account_access_key
+  storage_account_custom_name                       = var.storage_account_custom_name
+  use_existing_storage_account                      = var.use_existing_storage_account
+  storage_account_id                                = var.storage_account_id
   storage_account_enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
   storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
   storage_account_kind                              = var.storage_account_kind

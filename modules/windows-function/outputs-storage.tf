@@ -34,6 +34,5 @@ output "storage_account_secondary_access_key" {
 
 output "storage_account_network_rules" {
   description = "Network rules of the associated Storage Account"
-  # value       = var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? module.storage["enabled"].storage_account_network_rules : null
-  value = var.storage_account_access_key == null && var.storage_account_network_rules_enabled ? azurerm_storage_account_network_rules.storage_network_rules["enabled"] : null
+  value       = one(values(azurerm_storage_account_network_rules.storage_network_rules))
 }

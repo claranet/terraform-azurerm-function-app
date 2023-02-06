@@ -2,9 +2,11 @@
 
 Added
   * AZ-965: Additional outputs
+  * AZ-965: Allow Storage RBAC access
 
 Changed
   * AZ-965: Rework variables files and descriptions
+  * AZ-965: Dedicated variable for Storage Account creation
 
 # v7.2.1 - 2022-12-23
 
