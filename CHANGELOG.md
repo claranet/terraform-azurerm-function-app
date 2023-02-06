@@ -1,4 +1,4 @@
-# Unreleased
+# v7.3.0 - 2023-02-06
 
 Added
   * AZ-965: Additional outputs
