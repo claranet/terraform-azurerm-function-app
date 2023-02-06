@@ -29,7 +29,7 @@ variable "storage_account_enable_advanced_threat_protection" {
 }
 
 variable "storage_account_enable_https_traffic_only" {
-  description = "Whether https traffic only is enabled for Storage Account."
+  description = "Whether HTTPS traffic only is enabled for Storage Account."
   type        = bool
   default     = true
 }

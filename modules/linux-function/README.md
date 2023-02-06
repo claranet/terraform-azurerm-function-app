@@ -270,7 +270,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 | storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
 | storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
-| storage\_account\_enable\_https\_traffic\_only | Whether https traffic only is enabled for Storage Account. | `bool` | `true` | no |
+| storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
 | storage\_account\_id | ID of the existing Storage Account to use. | `string` | `null` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
