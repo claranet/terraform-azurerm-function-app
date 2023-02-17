@@ -2,9 +2,9 @@
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/function-app/azurerm/)
 
 This Terraform module creates an [Azure Function App](https://docs.microsoft.com/en-us/azure/azure-functions/)
-with its [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans), 
+with its [App Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans),
 a consumption plan by default.
-A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
+A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
 are required and are created if not provided.
 This module allows to deploy a application from a local or remote ZIP file that will be stored on the associated storage
 account.
@@ -31,6 +31,13 @@ Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/container
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
+
+## Contributing
+
+If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
+which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
+
+More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-request-process) file.
 
 ## Usage
 
