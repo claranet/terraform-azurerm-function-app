@@ -38,7 +38,7 @@ Fixed
 # v7.0.1 - 2022-10-28
 
 Fixed
-  * AZ-887: Rename and fix the ternary condition of the `function_out_ips` local variable 
+  * AZ-887: Rename and fix the ternary condition of the `function_out_ips` local variable
 
 # v7.0.0 - 2022-09-30
 
@@ -63,7 +63,7 @@ Fixed
   * AZ-772: Fix deprecated terraform code with `v1.2.3`
 
 # v6.2.1 - 2022-06-23
- 
+
 Fixed
   * AZ-776: Fix outputs reference for linux-function and windows-function
 

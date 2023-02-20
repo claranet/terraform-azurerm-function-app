@@ -35,7 +35,7 @@ Fixed
 
 Breaking
   * AZ-368: Force HTTPS
-  
+
 Added
   * AZ-347: Add `application_insight_custom_name` and `function_app_custom_name` variables
   * AZ-364: Add network rules parameters
@@ -43,7 +43,7 @@ Added
 
 Fixed
   * AZ-349: Fix Docker images versions for v3 function apps
-  
+
 Changed
   * AZ-350: Upgrade Docker images from DockerHub to Official Microsoft Docker images repository
   * AZ-367: Adding `site_config` variable to adjust its values
@@ -52,18 +52,18 @@ Changed
 
 Breaking
   * AZ-198: Upgrade to AzureRM >= v2.0
- 
+
 Added
   * AZ-242: Allow to manage MSI on the app function
-  
+
 # v2.2.0 - 2020-07-30
 
 Added
   * AZ-201: Allow to use function app v3
-  
+
 Breaking
-  * AZ-238: Remove `create_storage_account_resource` and `create_application_insights_resource` variables. Now resources are created if `storage_account_connection_string` is `null` and `application_insights_instrumentation_key` is `null`. 
-   
+  * AZ-238: Remove `create_storage_account_resource` and `create_application_insights_resource` variables. Now resources are created if `storage_account_connection_string` is `null` and `application_insights_instrumentation_key` is `null`.
+
 # v2.1.0 - 2020-02-17
 
 Added

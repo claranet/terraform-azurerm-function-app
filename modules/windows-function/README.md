@@ -1,14 +1,14 @@
 # Azure Function (Windows)
 
 This Terraform submodule creates an [Azure Function (Windows)](https://docs.microsoft.com/en-us/azure/azure-functions/).
-A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) 
+A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
 are required and are created if not provided. A [Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
 must be provided for hosting. This module also support Diagnostics Settings activation.
 
 ## Usage
 
 This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
- 
+
 More details about variables set by the terraform-wrapper available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 Here are 2 examples in order to have 2 functions on a dedicated Service Plan.
@@ -109,7 +109,7 @@ module "function-plan" {
   resource_group_name = module.rg.resource_group_name
 
   kind = "Linux"
-  
+
   sku = {
     size = "S1"
     tier = "Standard"
@@ -158,7 +158,7 @@ module "function2" {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
-  
+
   logs_destinations_ids = [
     data.terraform_remote_state.run.outputs.logs_storage_account_id,
     data.terraform_remote_state.run.outputs.log_analytics_workspace_id
@@ -168,7 +168,7 @@ module "function2" {
 resource "azurerm_user_assigned_identity" "myIdentity" {
   resource_group_name = module.rg.resource_group_name
   location            = module.azure-region.location
-  
+
   name = "MyManagedIdentity"
 }
 ```
