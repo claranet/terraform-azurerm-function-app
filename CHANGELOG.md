@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1015: Fix Storage Account identity management
+
 # v7.3.0 - 2023-02-06
 
 Added

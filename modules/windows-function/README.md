@@ -185,7 +185,7 @@ resource "azurerm_user_assigned_identity" "myIdentity" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 6.2.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 6.3.0 |
 | storage | claranet/storage-account/azurerm | 7.3.0 |
 
 ## Resources
