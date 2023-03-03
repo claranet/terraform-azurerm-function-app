@@ -118,8 +118,8 @@ resource "azurerm_windows_function_app_slot" "windows_function_slot" {
   function_app_id = azurerm_windows_function_app.windows_function.id
 
   storage_account_name          = data.azurerm_storage_account.storage.name
-  storage_account_access_key    = data.azurerm_storage_account.storage.primary_access_key
-  storage_uses_managed_identity = data.azurerm_storage_account.storage.primary_access_key == null
+  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.storage.primary_access_key : null
+  storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = "~${var.function_app_version}"
 
