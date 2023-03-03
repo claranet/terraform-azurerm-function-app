@@ -1,4 +1,4 @@
-# Unreleased
+# v7.3.2 - 2023-03-03
 
 Fixed
   * AZ-1015: Fix Storage Account identity management on Function App staging slot
