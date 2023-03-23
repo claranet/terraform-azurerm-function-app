@@ -36,6 +36,7 @@ module "linux_function" {
   function_app_application_settings = var.function_app_application_settings
   function_app_version              = var.function_app_version
   site_config                       = var.function_app_site_config
+  sticky_settings                   = var.function_app_sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
   application_insights_enabled                               = var.application_insights_enabled
@@ -150,6 +151,7 @@ module "windows_function" {
   function_app_application_settings = var.function_app_application_settings
   function_app_version              = var.function_app_version
   site_config                       = var.function_app_site_config
+  sticky_settings                   = var.function_app_sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
   application_insights_enabled                               = var.application_insights_enabled

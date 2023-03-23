@@ -44,6 +44,7 @@ resource "azurerm_linux_function_app" "linux_function" {
       remote_debugging_enabled          = lookup(site_config.value, "remote_debugging_enabled", false)
       remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
       runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
+      use_32_bit_worker                 = lookup(site_config.value, "use_32_bit_worker", null)
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
 
       application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
@@ -117,6 +118,22 @@ resource "azurerm_linux_function_app" "linux_function" {
           support_credentials = lookup(site_config.value.cors, "support_credentials", false)
         }
       }
+
+      dynamic "app_service_logs" {
+        for_each = lookup(site_config.value, "app_service_logs", null) != null ? ["app_service_logs"] : []
+        content {
+          disk_quota_mb         = lookup(site_config.value.app_service_logs, "disk_quota_mb", null)
+          retention_period_days = lookup(site_config.value.app_service_logs, "retention_period_days", null)
+        }
+      }
+    }
+  }
+
+  dynamic "sticky_settings" {
+    for_each = var.sticky_settings[*]
+    content {
+      app_setting_names       = sticky_settings.value.app_setting_names
+      connection_string_names = sticky_settings.value.connection_string_names
     }
   }
 
@@ -186,6 +203,7 @@ resource "azurerm_linux_function_app_slot" "linux_function_slot" {
       remote_debugging_enabled          = lookup(site_config.value, "remote_debugging_enabled", false)
       remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
       runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
+      use_32_bit_worker                 = lookup(site_config.value, "use_32_bit_worker", null)
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
 
       application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
@@ -257,6 +275,14 @@ resource "azurerm_linux_function_app_slot" "linux_function_slot" {
         content {
           allowed_origins     = lookup(site_config.value.cors, "allowed_origins", [])
           support_credentials = lookup(site_config.value.cors, "support_credentials", false)
+        }
+      }
+
+      dynamic "app_service_logs" {
+        for_each = lookup(site_config.value, "app_service_logs", null) != null ? ["app_service_logs"] : []
+        content {
+          disk_quota_mb         = lookup(site_config.value.app_service_logs, "disk_quota_mb", null)
+          retention_period_days = lookup(site_config.value.app_service_logs, "retention_period_days", null)
         }
       }
     }

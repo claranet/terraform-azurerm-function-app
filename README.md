@@ -202,6 +202,7 @@ No resources.
 | function\_app\_extra\_tags | Extra tags to add to Function App. | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix. | `string` | `""` | no |
 | function\_app\_site\_config | Site config for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config. IP restriction attribute is not managed in this block. | `any` | `{}` | no |
+| function\_app\_sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br>    app_setting_names       = optional(list(string))<br>    connection_string_names = optional(list(string))<br>  })</pre> | `null` | no |
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |
 | function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
