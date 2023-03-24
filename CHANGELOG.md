@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1037: Fix `ip_restriction` and `scm_ip_restriction` parameters
+
 # v7.3.2 - 2023-03-03
 
 Fixed
