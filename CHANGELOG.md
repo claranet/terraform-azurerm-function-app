@@ -3,6 +3,9 @@
 Fixed
   * AZ-1037: Fix `ip_restriction` and `scm_ip_restriction` parameters
 
+Added
+  * AZ-1034: Add `sticky_settings` block and `site_config` parameters
+
 # v7.3.2 - 2023-03-03
 
 Fixed

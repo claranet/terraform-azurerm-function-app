@@ -88,6 +88,15 @@ variable "function_app_site_config" {
   default     = {}
 }
 
+variable "function_app_sticky_settings" {
+  description = "Lists of connection strings and app settings to prevent from swapping between slots."
+  type = object({
+    app_setting_names       = optional(list(string))
+    connection_string_names = optional(list(string))
+  })
+  default = null
+}
+
 variable "https_only" {
   description = "Whether HTTPS traffic only is enabled."
   type        = bool
