@@ -102,7 +102,7 @@ resource "azurerm_storage_blob" "package_blob" {
 }
 
 data "azurerm_storage_account_sas" "package_sas" {
-  for_each = toset(data.azurerm_storage_account.storage.primary_access_key != null ? ["enabled"] : [])
+  for_each = toset(var.application_zip_package_path != null && !var.storage_uses_managed_identity ? ["enabled"] : [])
 
   connection_string = data.azurerm_storage_account.storage.primary_connection_string
   https_only        = false
