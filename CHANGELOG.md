@@ -1,4 +1,4 @@
-# Unreleased
+# v7.4.1 - 2023-03-31
 
 Fixed
   * AZ-1042: Fix Windows Function outbound IPs and SAS resource condition
