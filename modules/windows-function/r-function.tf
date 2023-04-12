@@ -1,7 +1,7 @@
 # Data Service Plan
 data "azurerm_service_plan" "plan" {
   name                = element(split("/", var.service_plan_id), 8)
-  resource_group_name = var.resource_group_name
+  resource_group_name = element(split("/", var.service_plan_id), 4)
 }
 
 # Function App
