@@ -1,8 +1,9 @@
 locals {
-  is_consumption = data.azurerm_service_plan.plan.sku_name == "Y1"
+  is_consumption     = contains(["Y1"], data.azurerm_service_plan.plan.sku_name)
+  is_elastic_premium = contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.plan.sku_name)
 
   default_site_config = {
-    always_on                              = !local.is_consumption
+    always_on                              = !local.is_consumption && !local.is_elastic_premium
     application_insights_connection_string = var.application_insights_enabled ? local.app_insights.connection_string : null
     application_insights_key               = var.application_insights_enabled ? local.app_insights.instrumentation_key : null
   }
