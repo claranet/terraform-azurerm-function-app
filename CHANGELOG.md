@@ -1,3 +1,9 @@
+# v7.4.2 - 2023-04-13
+
+Fixed
+  * [GH-4](https://github.com/claranet/terraform-azurerm-function-app/pull/4): fix: disable always-on for elastic premium plans
+  * AZ-1037: Update examples with `run` module
+
 # v7.4.1 - 2023-03-31
 
 Fixed
