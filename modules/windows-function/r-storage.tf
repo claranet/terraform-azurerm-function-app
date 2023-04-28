@@ -2,7 +2,7 @@ module "storage" {
   for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
 
   source  = "claranet/storage-account/azurerm"
-  version = "7.3.0"
+  version = "7.6.0"
 
   client_name    = var.client_name
   environment    = var.environment
@@ -12,7 +12,10 @@ module "storage" {
 
   resource_group_name = var.resource_group_name
 
-  storage_account_custom_name = local.storage_account_name
+  storage_account_custom_name = var.storage_account_custom_name
+  name_prefix                 = local.sa_name_prefix
+  name_suffix                 = format("%sfunc", var.name_suffix)
+
 
   # Storage account kind/SKU/tier
   account_kind             = var.storage_account_kind
@@ -76,7 +79,7 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
 }
 
 data "azurerm_storage_account" "storage" {
-  name                = var.use_existing_storage_account ? split("/", var.storage_account_id)[8] : local.storage_account_name
+  name                = var.use_existing_storage_account ? split("/", var.storage_account_id)[8] : module.storage["enabled"].storage_account_name
   resource_group_name = var.use_existing_storage_account ? split("/", var.storage_account_id)[4] : var.resource_group_name
 
   depends_on = [module.storage]
