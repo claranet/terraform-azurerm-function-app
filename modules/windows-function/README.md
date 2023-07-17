@@ -5,17 +5,34 @@ A [Storage Account](https://docs.microsoft.com/en-us/azure/storage/) and an [App
 are required and are created if not provided. A [Service Plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans)
 must be provided for hosting. This module also support Diagnostics Settings activation.
 
+<!-- BEGIN_TF_DOCS -->
+## Global versioning rule for Claranet Azure modules
+
+| Module version | Terraform version | AzureRM version |
+| -------------- | ----------------- | --------------- |
+| >= 7.x.x       | 1.3.x             | >= 3.0          |
+| >= 6.x.x       | 1.x               | >= 3.0          |
+| >= 5.x.x       | 0.15.x            | >= 2.0          |
+| >= 4.x.x       | 0.13.x / 0.14.x   | >= 2.0          |
+| >= 3.x.x       | 0.12.x            | >= 2.0          |
+| >= 2.x.x       | 0.12.x            | < 2.0           |
+| <  2.x.x       | 0.11.x            | < 2.0           |
+
+## Contributing
+
+If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
+which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
+
+More details are available in the [CONTRIBUTING.md](../../CONTRIBUTING.md#pull-request-process) file.
+
 ## Usage
 
-This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool which set some terraform variables in the environment needed by this module.
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
+which set some terraform variables in the environment needed by this module.
+More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
-More details about variables set by the terraform-wrapper available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
-
-Here are 2 examples in order to have 2 functions on a dedicated Service Plan.
-
-### Windows
 ```hcl
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -26,154 +43,57 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  azure_region = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-  stack        = var.stack
+  location    = module.azure_region.location
+  client_name = var.client_name
+  environment = var.environment
+  stack       = var.stack
 }
 
-module "function-plan" {
-  source  = "claranet/app-service-plan/azurerm"
+module "logs" {
+  source  = "claranet/run/azurerm//modules/logs"
   version = "x.x.x"
 
-  location       = module.azure-region.location
-  location_short = module.azure-region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
-
-  kind = "Windows"
-
-  sku = {
-    size = "S1"
-    tier = "Standard"
-  }
-
 }
 
-module "function1" {
-  source  = "claranet/function-app/azurerm//modules/functionapp"
+module "function_app_windows" {
+  source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
-  location       = module.azure-region.location
-  location_short = module.azure-region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 
-  function_app_name_prefix = "function1"
+  name_prefix = "hello"
 
-  service_plan_id = module.function-plan.service_plan_id
+  os_type = "Windows"
 
   function_app_application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
-}
-```
 
-### Linux
-```hcl
-module "azure-region" {
-  source  = "claranet/regions/azurem"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  azure_region = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-
-  stack        = var.stack
-}
-
-module "function-plan" {
-  source  = "claranet/app-service-plan/azurerm"
-  version = "x.x.x"
-
-  location       = module.azure-region.location
-  location_short = module.azure-region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name = module.rg.resource_group_name
-
-  kind = "Linux"
-
-  sku = {
-    size = "S1"
-    tier = "Standard"
-  }
-}
-
-module "function1" {
-  source  = "claranet/function-app/azurerm//modules/functionapp"
-  version = "x.x.x"
-
-  location       = module.azure-region.location
-  location_short = module.azure-region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name = module.rg.resource_group_name
-
-  function_app_name_prefix = "function1"
-
-  function_language_for_linux = "python"
-
-  service_plan_id = module.function-plan.service_plan_id
-}
-
-module "function2" {
-  source  = "claranet/function-app/azurerm//modules/functionapp"
-  version = "x.x.x"
-
-  location       = module.azure-region.location
-  location_short = module.azure-region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name = module.rg.resource_group_name
-
-  function_app_name_prefix = "armv2"
-  storage_account_name     = "MyStorageName"
-
-  service_plan_id = module.function-plan.service_plan_id
-  identity_type       = "UserAssigned"
-  identity_ids        = [azurerm_user_assigned_identity.myIdentity.id]
-
-  function_app_application_settings = {
-    "tracker_id"      = "AJKGDFJKHFDS"
-    "backend_api_url" = "https://backend.domain.tld/api"
-  }
+  storage_account_identity_type = "SystemAssigned"
 
   logs_destinations_ids = [
-    data.terraform_remote_state.run.outputs.logs_storage_account_id,
-    data.terraform_remote_state.run.outputs.log_analytics_workspace_id
+    module.logs.logs_storage_account_id,
+    module.logs.log_analytics_workspace_id
   ]
-}
 
-resource "azurerm_user_assigned_identity" "myIdentity" {
-  resource_group_name = module.rg.resource_group_name
-  location            = module.azure-region.location
-
-  name = "MyManagedIdentity"
+  extra_tags = {
+    foo = "bar"
+  }
 }
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
