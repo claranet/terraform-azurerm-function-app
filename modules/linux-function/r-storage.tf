@@ -1,8 +1,9 @@
 module "storage" {
   for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
 
-  source  = "claranet/storage-account/azurerm"
-  version = "7.6.0"
+  # source  = "claranet/storage-account/azurerm"
+  # version = "7.6.0"
+  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=AZ-1153-update-logs"
 
   client_name    = var.client_name
   environment    = var.environment
@@ -48,7 +49,6 @@ module "storage" {
   logs_destinations_ids   = var.logs_destinations_ids
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
-  logs_retention_days     = var.logs_retention_days
 
   # Tagging
   default_tags_enabled = var.default_tags_enabled

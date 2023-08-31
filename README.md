@@ -157,7 +157,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | linux\_function | ./modules/linux-function | n/a |
-| service\_plan | claranet/app-service-plan/azurerm | 6.1.1 |
+| service\_plan | git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-1153-update-logs |
 | windows\_function | ./modules/windows-function | n/a |
 
 ## Resources
@@ -214,7 +214,6 @@ No resources.
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to use Azure EventHub as destination, you must provide a formatted string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_retention\_days | Number of days to keep logs on storage account. | `number` | `30` | no |
 | maximum\_elastic\_worker\_count | Maximum number of workers to use in an Elastic SKU Plan. Cannot be set unless using an Elastic SKU. | `number` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |

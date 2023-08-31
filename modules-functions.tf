@@ -73,7 +73,6 @@ module "linux_function" {
   scm_ip_restriction_headers  = var.scm_ip_restriction_headers
 
   logs_destinations_ids   = var.logs_destinations_ids
-  logs_retention_days     = var.logs_retention_days
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
@@ -187,7 +186,6 @@ module "windows_function" {
   scm_ip_restriction_headers  = var.scm_ip_restriction_headers
 
   logs_destinations_ids   = var.logs_destinations_ids
-  logs_retention_days     = var.logs_retention_days
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
