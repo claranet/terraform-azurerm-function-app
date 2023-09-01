@@ -1,8 +1,7 @@
 # Service Plan
 module "service_plan" {
-  # source  = "claranet/app-service-plan/azurerm"
-  # version = "6.1.1"
-  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/app-service-plan.git?ref=AZ-1153-update-logs"
+  source  = "claranet/app-service-plan/azurerm"
+  version = "~> 6.2.0"
 
   client_name         = var.client_name
   environment         = var.environment

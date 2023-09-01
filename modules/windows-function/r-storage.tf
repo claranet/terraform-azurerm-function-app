@@ -1,9 +1,8 @@
 module "storage" {
   for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
 
-  # source  = "claranet/storage-account/azurerm"
-  # version = "7.6.0"
-  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=AZ-1153-update-logs"
+  source  = "claranet/storage-account/azurerm"
+  version = "~> 7.8.0"
 
   client_name    = var.client_name
   environment    = var.environment

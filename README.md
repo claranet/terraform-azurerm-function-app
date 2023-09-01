@@ -157,7 +157,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | linux\_function | ./modules/linux-function | n/a |
-| service\_plan | git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/app-service-plan.git | AZ-1153-update-logs |
+| service\_plan | claranet/app-service-plan/azurerm | ~> 6.2.0 |
 | windows\_function | ./modules/windows-function | n/a |
 
 ## Resources
