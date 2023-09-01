@@ -1,7 +1,7 @@
 # Service Plan
 module "service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "6.1.1"
+  version = "~> 6.2.0"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -25,7 +25,6 @@ module "service_plan" {
   per_site_scaling_enabled     = var.per_site_scaling_enabled
 
   logs_destinations_ids   = var.logs_destinations_ids
-  logs_retention_days     = var.logs_retention_days
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
