@@ -16,7 +16,7 @@ locals {
     # MD5 as query to force function restart on change
     WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
-    data.external.app_service_settings.result
+    try(data.external.app_service_settings[0].result, {}),
   )
 
   default_ip_restrictions_headers = {
