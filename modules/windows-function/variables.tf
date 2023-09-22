@@ -45,6 +45,12 @@ variable "function_app_application_settings" {
   default     = {}
 }
 
+variable "function_app_application_settings_drift_ignore" {
+  description = "Ignore drift from settings manually set."
+  type        = bool
+  default     = true
+}
+
 variable "identity_type" {
   description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned."
   type        = string

@@ -21,6 +21,7 @@ locals {
       FUNCTIONS_WORKER_RUNTIME            = null
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     } : {},
+    try(data.external.app_service_settings[0].result, {}),
   )
 
   default_ip_restrictions_headers = {

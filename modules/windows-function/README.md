@@ -100,6 +100,7 @@ module "function_app_windows" {
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | ~> 3.36 |
+| external | ~> 2.0 |
 
 ## Modules
 
@@ -124,6 +125,8 @@ module "function_app_windows" {
 | [azurerm_service_plan.plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan) | data source |
 | [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
 | [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
+| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
+| [external_external.app_service_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
@@ -158,6 +161,7 @@ module "function_app_windows" {
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
 | function\_app\_application\_settings | Function App application settings. | `map(string)` | `{}` | no |
+| function\_app\_application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | function\_app\_custom\_name | Custom name for function app. | `string` | `""` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App. | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix. | `string` | `""` | no |
