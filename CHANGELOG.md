@@ -1,3 +1,8 @@
+# v7.7.0 - 2023-09-22
+
+Added
+  * AZ-1133: Add dynamic settings
+
 # v7.6.0 - 2023-09-01
 
 Breaking
