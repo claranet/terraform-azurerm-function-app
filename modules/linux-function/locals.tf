@@ -21,6 +21,7 @@ locals {
       FUNCTIONS_WORKER_RUNTIME            = null
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     } : {},
+    try(local.site_config.application_stack.python_version != null, false) ? { PYTHON_ISOLATE_WORKER_DEPENDENCIES = 1 } : {},
     try(data.external.app_service_settings[0].result, {}),
   )
 

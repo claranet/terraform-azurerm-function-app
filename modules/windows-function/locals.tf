@@ -16,6 +16,7 @@ locals {
     # MD5 as query to force function restart on change
     WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
+    try(local.site_config.application_stack.python_version != null, false) ? { PYTHON_ISOLATE_WORKER_DEPENDENCIES = 1 } : {},
     try(data.external.app_service_settings[0].result, {}),
   )
 

@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-1218: Set by default application setting `PYTHON_ISOLATE_WORKER_DEPENDENCIES` to 1 for Python functions
+
 # v7.7.0 - 2023-09-22
 
 Added
