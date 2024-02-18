@@ -1,3 +1,8 @@
+# v7.8.1 - 2024-02-18
+
+Fixed
+  * [GH-6](https://github.com/claranet/terraform-azurerm-function-app/issues/6): fix: sensitive output for linux_function and windows_function
+
 # v7.8.0 - 2023-10-20
 
 Added
