@@ -34,4 +34,11 @@ resource "azurerm_application_insights" "app_insights" {
     var.application_insights_extra_tags,
     var.extra_tags,
   )
+
+  lifecycle {
+    precondition {
+      condition     = var.application_insights_enabled && var.application_insights_log_analytics_workspace_id != null
+      error_message = "var.application_insights_log_analytics_workspace_id is mandatory when Application Insights is enabled."
+    }
+  }
 }

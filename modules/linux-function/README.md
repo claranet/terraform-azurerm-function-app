@@ -90,6 +90,8 @@ module "function_app_linux" {
 
   storage_account_identity_type = "SystemAssigned"
 
+  application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
