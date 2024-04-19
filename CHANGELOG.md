@@ -1,3 +1,24 @@
+## 7.9.0 (2024-04-19)
+
+
+### Features
+
+* **AZ-1362:** add log analytics precondition 7dec34d
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] 7b26f6b
+
+
+### Miscellaneous Chores
+
+* **deps:** add renovate.json e489349
+* **deps:** update dependency claranet/storage-account/azurerm to ~> 7.11.0 c0d3a00
+* **deps:** update renovate.json 8c34526
+* **deps:** update terraform claranet/app-service-plan/azurerm to ~> 6.4.0 dbc2f66
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 7.10.0 4c9ea91
+
 # v7.8.0 - 2023-10-20
 
 Added
