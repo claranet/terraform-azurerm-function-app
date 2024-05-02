@@ -140,6 +140,136 @@ resource "azurerm_windows_function_app" "windows_function" {
     ]
   }
 
+  dynamic "auth_settings_v2" {
+    for_each = lookup(local.auth_settings_v2, "auth_enabled", false) ? [local.auth_settings_v2] : []
+    content {
+      auth_enabled                            = lookup(auth_settings_v2.value, "auth_enabled", false)
+      runtime_version                         = lookup(auth_settings_v2.value, "runtime_version", "~1")
+      config_file_path                        = lookup(auth_settings_v2.value, "config_file_path", null)
+      require_authentication                  = lookup(auth_settings_v2.value, "require_authentication", null)
+      unauthenticated_action                  = lookup(auth_settings_v2.value, "unauthenticated_action", "RedirectToLoginPage")
+      default_provider                        = lookup(auth_settings_v2.value, "default_provider", "azureactivedirectory")
+      excluded_paths                          = lookup(auth_settings_v2.value, "excluded_paths", null)
+      require_https                           = lookup(auth_settings_v2.value, "require_https", true)
+      http_route_api_prefix                   = lookup(auth_settings_v2.value, "http_route_api_prefix", "/.auth")
+      forward_proxy_convention                = lookup(auth_settings_v2.value, "forward_proxy_convention", "NoProxy")
+      forward_proxy_custom_host_header_name   = lookup(auth_settings_v2.value, "forward_proxy_custom_host_header_name", null)
+      forward_proxy_custom_scheme_header_name = lookup(auth_settings_v2.value, "forward_proxy_custom_scheme_header_name", null)
+
+      dynamic "apple_v2" {
+        for_each = try(local.auth_settings_v2.apple_v2[*], [])
+        content {
+          client_id                  = lookup(apple_v2.value, "client_id", null)
+          client_secret_setting_name = lookup(apple_v2.value, "client_secret_setting_name", null)
+        }
+      }
+
+      dynamic "active_directory_v2" {
+        for_each = try(local.auth_settings_v2.active_directory_v2[*], [])
+
+        content {
+          client_id                            = lookup(active_directory_v2.value, "client_id", null)
+          tenant_auth_endpoint                 = lookup(active_directory_v2.value, "tenant_auth_endpoint", null)
+          client_secret_setting_name           = lookup(active_directory_v2.value, "client_secret_setting_name", null)
+          client_secret_certificate_thumbprint = lookup(active_directory_v2.value, "client_secret_certificate_thumbprint", null)
+          jwt_allowed_groups                   = lookup(active_directory_v2.value, "jwt_allowed_groups", null)
+          jwt_allowed_client_applications      = lookup(active_directory_v2.value, "jwt_allowed_client_applications", null)
+          www_authentication_disabled          = lookup(active_directory_v2.value, "www_authentication_disabled", false)
+          allowed_groups                       = lookup(active_directory_v2.value, "allowed_groups", null)
+          allowed_identities                   = lookup(active_directory_v2.value, "allowed_identities", null)
+          allowed_applications                 = lookup(active_directory_v2.value, "allowed_applications", null)
+          login_parameters                     = lookup(active_directory_v2.value, "login_parameters", null)
+          allowed_audiences                    = lookup(active_directory_v2.value, "allowed_audiences", null)
+        }
+      }
+
+      dynamic "azure_static_web_app_v2" {
+        for_each = try(local.auth_settings_v2.azure_static_web_app_v2[*], [])
+        content {
+          client_id = lookup(azure_static_web_app_v2.value, "client_id", null)
+        }
+      }
+
+      dynamic "custom_oidc_v2" {
+        for_each = try(local.auth_settings_v2.custom_oidc_v2[*], [])
+        content {
+          name                          = lookup(custom_oidc_v2.value, "name", null)
+          client_id                     = lookup(custom_oidc_v2.value, "client_id", null)
+          openid_configuration_endpoint = lookup(custom_oidc_v2.value, "openid_configuration_endpoint", null)
+          name_claim_type               = lookup(custom_oidc_v2.value, "name_claim_type", null)
+          scopes                        = lookup(custom_oidc_v2.value, "scopes", null)
+          client_credential_method      = lookup(custom_oidc_v2.value, "client_credential_method", null)
+          client_secret_setting_name    = lookup(custom_oidc_v2.value, "client_secret_setting_name", null)
+          authorisation_endpoint        = lookup(custom_oidc_v2.value, "authorisation_endpoint", null)
+          token_endpoint                = lookup(custom_oidc_v2.value, "token_endpoint", null)
+          issuer_endpoint               = lookup(custom_oidc_v2.value, "issuer_endpoint", null)
+          certification_uri             = lookup(custom_oidc_v2.value, "certification_uri", null)
+        }
+      }
+
+      dynamic "facebook_v2" {
+        for_each = try(local.auth_settings_v2.facebook_v2[*], [])
+        content {
+          app_id                  = lookup(facebook_v2.value, "app_id", null)
+          app_secret_setting_name = lookup(facebook_v2.value, "app_secret_setting_name", null)
+          graph_api_version       = lookup(facebook_v2.value, "graph_api_version", null)
+          login_scopes            = lookup(facebook_v2.value, "login_scopes", null)
+        }
+      }
+
+      dynamic "github_v2" {
+        for_each = try(local.auth_settings_v2.github_v2[*], [])
+        content {
+          client_id                  = lookup(github_v2.value, "client_id", null)
+          client_secret_setting_name = lookup(github_v2.value, "client_secret_setting_name", null)
+          login_scopes               = lookup(github_v2.value, "login_scopes", null)
+        }
+      }
+
+      dynamic "google_v2" {
+        for_each = try(local.auth_settings_v2.google_v2[*], [])
+        content {
+          client_id                  = lookup(google_v2.value, "client_id", null)
+          client_secret_setting_name = lookup(google_v2.value, "client_secret_setting_name", null)
+          allowed_audiences          = lookup(google_v2.value, "allowed_audiences", null)
+          login_scopes               = lookup(google_v2.value, "login_scopes", null)
+        }
+      }
+
+      dynamic "microsoft_v2" {
+        for_each = try(local.auth_settings_v2.microsoft_v2[*], [])
+        content {
+          client_id                  = lookup(microsoft_v2.value, "client_id", null)
+          client_secret_setting_name = lookup(microsoft_v2.value, "client_secret_setting_name", null)
+          allowed_audiences          = lookup(microsoft_v2.value, "allowed_audiences", null)
+          login_scopes               = lookup(microsoft_v2.value, "login_scopes", null)
+        }
+      }
+
+      dynamic "twitter_v2" {
+        for_each = try(local.auth_settings_v2.twitter_v2[*], [])
+        content {
+          consumer_key                 = lookup(twitter_v2.value, "consumer_key", null)
+          consumer_secret_setting_name = lookup(twitter_v2.value, "consumer_secret_setting_name", null)
+        }
+      }
+
+      login {
+        logout_endpoint                   = lookup(local.auth_settings_v2_login, "logout_endpoint", null)
+        cookie_expiration_convention      = lookup(local.auth_settings_v2_login, "cookie_expiration_convention", "FixedTime")
+        cookie_expiration_time            = lookup(local.auth_settings_v2_login, "cookie_expiration_time", "08:00:00")
+        preserve_url_fragments_for_logins = lookup(local.auth_settings_v2_login, "preserve_url_fragments_for_logins", false)
+        token_refresh_extension_time      = lookup(local.auth_settings_v2_login, "token_refresh_extension_time", 72)
+        token_store_enabled               = lookup(local.auth_settings_v2_login, "token_store_enabled", false)
+        token_store_path                  = lookup(local.auth_settings_v2_login, "token_store_path", null)
+        token_store_sas_setting_name      = lookup(local.auth_settings_v2_login, "token_store_sas_setting_name", null)
+        validate_nonce                    = lookup(local.auth_settings_v2_login, "validate_nonce", true)
+        nonce_expiration_time             = lookup(local.auth_settings_v2_login, "nonce_expiration_time", "00:05:00")
+        allowed_external_redirect_urls    = lookup(local.auth_settings_v2_login, "allowed_external_redirect_urls", null)
+      }
+    }
+  }
+
   dynamic "identity" {
     for_each = var.identity_type != null ? ["identity"] : []
     content {
