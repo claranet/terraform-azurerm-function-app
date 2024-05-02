@@ -23,6 +23,7 @@ module "service_plan" {
   worker_count                 = var.worker_count
   maximum_elastic_worker_count = var.maximum_elastic_worker_count
   per_site_scaling_enabled     = var.per_site_scaling_enabled
+  zone_balancing_enabled       = var.zone_balancing_enabled
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_categories         = var.logs_categories

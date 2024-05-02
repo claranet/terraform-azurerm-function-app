@@ -32,3 +32,9 @@ variable "per_site_scaling_enabled" {
   type        = bool
   default     = false
 }
+
+variable "zone_balancing_enabled" {
+  description = "Should the Service Plan balance across Availability Zones in the region."
+  type        = bool
+  default     = false
+}

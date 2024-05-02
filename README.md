@@ -253,6 +253,7 @@ No resources.
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_existing\_storage\_account | Whether existing Storage Account should be used instead of creating a new one. | `bool` | `false` | no |
 | worker\_count | Number of Workers (instances) to be allocated. | `number` | `null` | no |
+| zone\_balancing\_enabled | Should the Service Plan balance across Availability Zones in the region. | `bool` | `false` | no |
 
 ## Outputs
 
