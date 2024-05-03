@@ -1,3 +1,25 @@
+## 7.10.0 (2024-05-03)
+
+
+### Features
+
+* **AZ-1405:** add `zone_balancing_enabled` parameter to app service plan 376cc63
+
+
+### Continuous Integration
+
+* **AZ-1391:** update semantic-release config [skip ci] 16e0be0
+
+
+### Miscellaneous Chores
+
+* **deps:** enable automerge on renovate eb8ed9f
+* **deps:** update dependency opentofu to v1.7.0 aa7d2fc
+* **deps:** update dependency trivy to v0.50.2 2aaf0a7
+* **deps:** update dependency trivy to v0.50.4 2a34ed4
+* **pre-commit:** update commitlint hook 97e3aed
+* **release:** remove legacy `VERSION` file 677a19f
+
 ## 7.9.0 (2024-04-19)
 
 
