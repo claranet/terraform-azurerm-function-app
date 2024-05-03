@@ -9,6 +9,12 @@ variable "sku_name" {
   default     = "Y1"
 }
 
+variable "zone_balancing_enabled" {
+  description = "Should the Service Plan balance across Availability Zones in the region. Defaults to `false` because the default SKU `Y1` for the App Service Plan cannot use this feature."
+  type        = bool
+  default     = false
+}
+
 variable "app_service_environment_id" {
   description = "ID of the App Service Environment to create this Service Plan in. Requires an Isolated SKU. Use one of I1, I2, I3 for azurerm_app_service_environment, or I1v2, I2v2, I3v2 for azurerm_app_service_environment_v3."
   type        = string
