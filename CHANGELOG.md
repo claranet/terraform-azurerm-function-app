@@ -1,3 +1,19 @@
+## 7.11.0 (2024-05-07)
+
+
+### Features
+
+* add Authentication Settings V2 9fd91d7
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/app-service-plan/azurerm to ~> 6.5.0 9d3fe74
+* **deps:** update dependency tflint to v0.51.0 8eca4e7
+* **deps:** update dependency trivy to v0.51.0 9fe6146
+* **deps:** update dependency trivy to v0.51.1 20ce53c
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 7.12.0 783e3a8
+
 ## 7.10.0 (2024-05-03)
 
 
