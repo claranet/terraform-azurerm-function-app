@@ -150,6 +150,12 @@ variable "staging_slot_custom_application_settings" {
   default     = null
 }
 
+variable "auth_settings_v2" {
+  description = "Authentication settings V2. See https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2"
+  type        = any
+  default     = {}
+}
+
 # SCM parameters
 
 variable "scm_authorized_ips" {

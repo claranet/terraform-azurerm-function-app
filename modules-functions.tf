@@ -37,6 +37,7 @@ module "linux_function" {
   function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
   function_app_version                           = var.function_app_version
   site_config                                    = var.function_app_site_config
+  auth_settings_v2                               = var.function_app_auth_settings_v2
   sticky_settings                                = var.function_app_sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
@@ -152,6 +153,7 @@ module "windows_function" {
   function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
   function_app_version                           = var.function_app_version
   site_config                                    = var.function_app_site_config
+  auth_settings_v2                               = var.function_app_auth_settings_v2
   sticky_settings                                = var.function_app_sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
