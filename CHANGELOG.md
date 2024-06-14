@@ -1,3 +1,35 @@
+## 7.12.0 (2024-06-14)
+
+
+### Features
+
+* upgrade `service-plan` module to `v7.0` e5b9ef6
+
+
+### Bug Fixes
+
+* storage module now require AzureRM provider `v3.102+` a210135
+
+
+### Styles
+
+* typo 2b40bbd
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.7.1 d71b9cf
+* **deps:** update dependency opentofu to v1.7.2 7c4e1ba
+* **deps:** update dependency pre-commit to v3.7.1 581d631
+* **deps:** update dependency terraform-docs to v0.18.0 6bf1e27
+* **deps:** update dependency tflint to v0.51.1 76343ad
+* **deps:** update dependency trivy to v0.51.2 a21656e
+* **deps:** update dependency trivy to v0.51.4 43344d6
+* **deps:** update dependency trivy to v0.52.0 5f271cd
+* **deps:** update dependency trivy to v0.52.1 9872c0f
+* **deps:** update dependency trivy to v0.52.2 aad4a50
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 7.13.0 643593a
+
 ## 7.11.0 (2024-05-07)
 
 
