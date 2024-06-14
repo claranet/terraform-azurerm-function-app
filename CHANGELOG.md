@@ -83,7 +83,7 @@ Fixed
 # v7.5.0 - 2023-04-28
 
 Breaking
-  * AZ-1056: Fix Function Storage Account name with client_name. Use `var.storage_account_custom_name` to keep your Storage Account when upgrading.
+  * AZ-1056: Fix Function Storage Account name with `client_name`. Use `var.storage_account_custom_name` to keep your Storage Account when upgrading.
 
 # v7.4.2 - 2023-04-13
 
