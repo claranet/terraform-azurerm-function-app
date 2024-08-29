@@ -108,7 +108,7 @@ module "function_app_linux" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.36 |
+| azurerm | ~> 3.114 |
 | external | ~> 2.0 |
 
 ## Modules
@@ -116,7 +116,7 @@ module "function_app_linux" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 6.5.0 |
-| storage | claranet/storage-account/azurerm | ~> 7.13.0 |
+| storage | claranet/storage-account/azurerm | ~> 7.13.3 |
 
 ## Resources
 
