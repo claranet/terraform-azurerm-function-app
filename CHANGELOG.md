@@ -1,3 +1,21 @@
+## 7.13.1 (2024-10-08)
+
+### Documentation
+
+* update submodule READMEs with latest template 206da17
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/app-service-plan/azurerm to ~> 7.1.0 1a6207a
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v7 a9e1809
+* **deps:** update dependency claranet/storage-account/azurerm to ~> 7.14.0 76c1829
+* **deps:** update dependency opentofu to v1.8.3 47cb9c5
+* **deps:** update dependency pre-commit to v4 d921ca7
+* **deps:** update dependency trivy to v0.56.0 f438f0f
+* **deps:** update dependency trivy to v0.56.1 021b7b6
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 68e0f4a
+* prepare for new examples structure 96636ab
+
 ## 7.13.0 (2024-10-03)
 
 ### Features
