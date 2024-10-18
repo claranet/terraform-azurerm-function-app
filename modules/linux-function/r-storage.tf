@@ -2,7 +2,7 @@ module "storage" {
   for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
 
   source  = "claranet/storage-account/azurerm"
-  version = "~> 7.14.0"
+  version = "~> 8.0.0"
 
   client_name    = var.client_name
   environment    = var.environment

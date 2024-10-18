@@ -120,7 +120,7 @@ module "function_app_linux" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
-| storage | claranet/storage-account/azurerm | ~> 7.14.0 |
+| storage | claranet/storage-account/azurerm | ~> 8.0.0 |
 
 ## Resources
 
