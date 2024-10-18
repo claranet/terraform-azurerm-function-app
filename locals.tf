@@ -1,3 +1,3 @@
 locals {
-  function_output = try(module.linux_function["enabled"], module.windows_function["enabled"])
+  function_output = try(module.linux_function[0], module.windows_function[0])
 }

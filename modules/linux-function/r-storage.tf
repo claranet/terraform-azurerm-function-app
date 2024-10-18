@@ -1,5 +1,10 @@
+moved {
+  from = module.storage["enabled"]
+  to   = module.storage[0]
+}
+
 module "storage" {
-  for_each = toset(var.use_existing_storage_account ? [] : ["enabled"])
+  count = var.use_existing_storage_account ? 0 : 1
 
   source  = "claranet/storage-account/azurerm"
   version = "~> 8.0.0"
@@ -12,9 +17,9 @@ module "storage" {
 
   resource_group_name = var.resource_group_name
 
-  storage_account_custom_name = var.storage_account_custom_name
-  name_prefix                 = local.sa_name_prefix
-  name_suffix                 = format("%sfunc", var.name_suffix)
+  custom_name = var.storage_account_custom_name
+  name_prefix = local.sa_name_prefix
+  name_suffix = format("%sfunc", var.name_suffix)
 
   # Storage account kind/SKU/tier
   account_kind             = var.storage_account_kind
@@ -33,7 +38,7 @@ module "storage" {
   identity_ids  = var.storage_account_identity_ids
 
   # Data protection - not needed for functions
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = false
     versioning_enabled                        = false
     delete_retention_policy_in_days           = 0
@@ -58,8 +63,13 @@ module "storage" {
   )
 }
 
-resource "azurerm_storage_account_network_rules" "storage_network_rules" {
-  for_each = toset(!var.use_existing_storage_account && var.storage_account_network_rules_enabled ? ["enabled"] : [])
+moved {
+  from = azurerm_storage_account_network_rules.storage_network_rules["enabled"]
+  to   = azurerm_storage_account_network_rules.main[0]
+}
+
+resource "azurerm_storage_account_network_rules" "main" {
+  count = !var.use_existing_storage_account && var.storage_account_network_rules_enabled ? 1 : 0
 
   storage_account_id = local.storage_account_output.id
 
@@ -76,18 +86,11 @@ resource "azurerm_storage_account_network_rules" "storage_network_rules" {
   }
 }
 
-data "azurerm_storage_account" "storage" {
-  name                = var.use_existing_storage_account ? split("/", var.storage_account_id)[8] : module.storage["enabled"].storage_account_name
-  resource_group_name = var.use_existing_storage_account ? split("/", var.storage_account_id)[4] : var.resource_group_name
-
-  depends_on = [module.storage]
-}
-
 resource "azurerm_storage_container" "package_container" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                  = "functions-packages"
-  storage_account_name  = data.azurerm_storage_account.storage.name
+  storage_account_name  = data.azurerm_storage_account.main.name
   container_access_type = "private"
 }
 
@@ -103,9 +106,9 @@ resource "azurerm_storage_blob" "package_blob" {
 }
 
 data "azurerm_storage_account_sas" "package_sas" {
-  for_each = toset(var.application_zip_package_path != null && !var.storage_uses_managed_identity ? ["enabled"] : [])
+  count = var.application_zip_package_path != null && !var.storage_uses_managed_identity ? 1 : 0
 
-  connection_string = data.azurerm_storage_account.storage.primary_connection_string
+  connection_string = data.azurerm_storage_account.main.primary_connection_string
   https_only        = false
   resource_types {
     service   = false

@@ -1,5 +1,10 @@
+moved {
+  from = module.linux_function["enabled"]
+  to   = module.linux_function[0]
+}
+
 module "linux_function" {
-  for_each = toset(lower(var.os_type) == "linux" ? ["enabled"] : [])
+  count = lower(var.os_type) == "linux" ? 1 : 0
 
   source = "./modules/linux-function"
 
@@ -10,11 +15,10 @@ module "linux_function" {
   location            = var.location
   location_short      = var.location_short
 
-  use_caf_naming = var.use_caf_naming
-  name_prefix    = var.name_prefix
-  name_suffix    = var.name_suffix
+  name_prefix = var.name_prefix
+  name_suffix = var.name_suffix
 
-  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
+  diagnostic_settings_custom_name = var.diagnostic_settings_custom_name
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
 
@@ -32,7 +36,7 @@ module "linux_function" {
   service_plan_id = module.service_plan.service_plan_id
 
   function_app_name_prefix                       = var.function_app_name_prefix
-  function_app_custom_name                       = var.function_app_custom_name
+  custom_name                                    = var.function_app_custom_name
   function_app_application_settings              = var.function_app_application_settings
   function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
   function_app_version                           = var.function_app_version
@@ -110,12 +114,12 @@ module "linux_function" {
 }
 
 moved {
-  from = module.function_app
-  to   = module.linux_function
+  from = module.windows_function["enabled"]
+  to   = module.windows_function[0]
 }
 
 module "windows_function" {
-  for_each = toset(lower(var.os_type) == "windows" ? ["enabled"] : [])
+  count = lower(var.os_type) == "windows" ? 1 : 0
 
   source = "./modules/windows-function"
 
@@ -126,11 +130,10 @@ module "windows_function" {
   location            = var.location
   location_short      = var.location_short
 
-  use_caf_naming = var.use_caf_naming
-  name_prefix    = var.name_prefix
-  name_suffix    = var.name_suffix
+  name_prefix = var.name_prefix
+  name_suffix = var.name_suffix
 
-  custom_diagnostic_settings_name = var.custom_diagnostic_settings_name
+  diagnostic_settings_custom_name = var.diagnostic_settings_custom_name
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
 
@@ -148,7 +151,7 @@ module "windows_function" {
   service_plan_id = module.service_plan.service_plan_id
 
   function_app_name_prefix                       = var.function_app_name_prefix
-  function_app_custom_name                       = var.function_app_custom_name
+  custom_name                                    = var.function_app_custom_name
   function_app_application_settings              = var.function_app_application_settings
   function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
   function_app_version                           = var.function_app_version

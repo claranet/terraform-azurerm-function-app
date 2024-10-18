@@ -1,6 +1,6 @@
 locals {
-  is_consumption     = contains(["Y1"], data.azurerm_service_plan.plan.sku_name)
-  is_elastic_premium = contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.plan.sku_name)
+  is_consumption     = contains(["Y1"], data.azurerm_service_plan.main.sku_name)
+  is_elastic_premium = contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.main.sku_name)
 
   default_site_config = {
     always_on                              = !local.is_consumption && !local.is_elastic_premium
@@ -10,11 +10,12 @@ locals {
 
   site_config = merge(local.default_site_config, var.site_config)
 
-  app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
+  app_insights = try(data.azurerm_application_insights.main[0], one(azurerm_application_insights.main[*]))
 
-  default_application_settings = merge(var.application_zip_package_path != null ? {
-    # MD5 as query to force function restart on change
-    WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
+  default_application_settings = merge(
+    var.application_zip_package_path != null ? {
+      # MD5 as query to force function restart on change
+      WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
     try(local.site_config.application_stack.python_version != null, false) ? { PYTHON_ISOLATE_WORKER_DEPENDENCIES = 1 } : {},
     try(data.external.app_service_settings[0].result, {}),
@@ -92,7 +93,7 @@ locals {
   }]
 
   # If no VNet integration, allow Function App outbound public IPs
-  function_outbound_ips = var.function_app_vnet_integration_subnet_id == null ? distinct(concat(azurerm_windows_function_app.windows_function.possible_outbound_ip_address_list, azurerm_windows_function_app.windows_function.outbound_ip_address_list)) : []
+  function_outbound_ips = var.function_app_vnet_integration_subnet_id == null ? distinct(concat(azurerm_windows_function_app.main.possible_outbound_ip_address_list, azurerm_windows_function_app.main.outbound_ip_address_list)) : []
 
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules#ip_rules
   # > Small address ranges using "/31" or "/32" prefix sizes are not supported. These ranges should be configured using individual IP address rules without prefix specified.
@@ -107,7 +108,7 @@ locals {
     var.application_zip_package_path
   )
 
-  storage_account_output = data.azurerm_storage_account.storage
+  storage_account_output = data.azurerm_storage_account.main
 
   auth_settings_v2 = merge({
     auth_enabled = false
