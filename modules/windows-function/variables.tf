@@ -70,7 +70,7 @@ variable "authorized_ips" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Whether enable public access for the App Service."
+  description = "Whether enable public access for the Function App."
   type        = bool
   default     = false
 }
