@@ -59,6 +59,7 @@ module "linux_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
+  public_network_access_enabled           = var.public_network_access_enabled
   authorized_ips                          = var.authorized_ips
   authorized_service_tags                 = var.authorized_service_tags
   authorized_subnet_ids                   = var.authorized_subnet_ids
@@ -175,6 +176,7 @@ module "windows_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
+  public_network_access_enabled           = var.public_network_access_enabled
   authorized_ips                          = var.authorized_ips
   authorized_service_tags                 = var.authorized_service_tags
   authorized_subnet_ids                   = var.authorized_subnet_ids
