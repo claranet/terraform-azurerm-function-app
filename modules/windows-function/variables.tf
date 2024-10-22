@@ -69,6 +69,12 @@ variable "authorized_ips" {
   default     = []
 }
 
+variable "public_network_access_enabled" {
+  description = "Whether enable public access for the Function App."
+  type        = bool
+  default     = true
+}
+
 variable "authorized_subnet_ids" {
   description = "Subnets restriction for Function App. See documentation https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction"
   type        = list(string)

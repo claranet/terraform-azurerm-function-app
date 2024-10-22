@@ -18,7 +18,8 @@ resource "azurerm_windows_function_app" "windows_function" {
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.function_app_vnet_integration_subnet_id
 
   app_settings = merge(
     local.default_application_settings,
