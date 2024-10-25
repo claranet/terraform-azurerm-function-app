@@ -18,11 +18,11 @@ resource "azurerm_linux_function_app" "main" {
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+  virtual_network_subnet_id = var.vnet_integration_subnet_id
 
   app_settings = merge(
     local.default_application_settings,
-    var.function_app_application_settings,
+    var.application_settings,
   )
 
   dynamic "site_config" {
@@ -54,7 +54,7 @@ resource "azurerm_linux_function_app" "main" {
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
       worker_count              = lookup(site_config.value, "worker_count", null)
 
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.function_app_vnet_integration_subnet_id != null)
+      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
 
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)
@@ -311,10 +311,10 @@ resource "azurerm_linux_function_app_slot" "staging" {
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+  virtual_network_subnet_id = var.vnet_integration_subnet_id
 
   app_settings = var.staging_slot_custom_application_settings == null ? {
-    for k, v in merge(local.default_application_settings, var.function_app_application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
+    for k, v in merge(local.default_application_settings, var.application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
     } : {
     for k, v in merge(local.default_application_settings, var.staging_slot_custom_application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
   }
@@ -348,7 +348,7 @@ resource "azurerm_linux_function_app_slot" "staging" {
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
       worker_count              = lookup(site_config.value, "worker_count", null)
 
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.function_app_vnet_integration_subnet_id != null)
+      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
 
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)

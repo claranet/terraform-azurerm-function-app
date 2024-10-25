@@ -18,7 +18,7 @@ module "storage" {
   resource_group_name = var.resource_group_name
 
   custom_name = var.storage_account_custom_name
-  name_prefix = local.sa_name_prefix
+  name_prefix = local.storage_account_name_prefix
   name_suffix = format("%sfunc", var.name_suffix)
 
   # Storage account kind/SKU/tier
@@ -28,9 +28,9 @@ module "storage" {
 
   # Storage account options / security
   min_tls_version                    = var.storage_account_min_tls_version
-  https_traffic_only_enabled         = var.storage_account_enable_https_traffic_only
+  https_traffic_only_enabled         = var.storage_account_https_traffic_only_enabled
   public_nested_items_allowed        = false
-  advanced_threat_protection_enabled = var.storage_account_enable_advanced_threat_protection
+  advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
   shared_access_key_enabled          = !var.storage_uses_managed_identity
 
   # Identity
@@ -75,12 +75,12 @@ resource "azurerm_storage_account_network_rules" "main" {
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
-  virtual_network_subnet_ids = distinct(compact(concat(var.authorized_subnet_ids, [var.function_app_vnet_integration_subnet_id])))
+  virtual_network_subnet_ids = distinct(compact(concat(var.authorized_subnet_ids, [var.vnet_integration_subnet_id])))
   bypass                     = var.storage_account_network_bypass
 
   lifecycle {
     precondition {
-      condition     = var.function_app_vnet_integration_subnet_id != null
+      condition     = var.vnet_integration_subnet_id != null
       error_message = "Network rules on Storage Account cannot be set for same region Storage without VNet integration."
     }
   }

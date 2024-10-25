@@ -22,13 +22,13 @@ variable "storage_account_min_tls_version" {
   default     = "TLS1_2"
 }
 
-variable "storage_account_enable_advanced_threat_protection" {
+variable "storage_account_advanced_threat_protection_enabled" {
   description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
   type        = bool
   default     = false
 }
 
-variable "storage_account_enable_https_traffic_only" {
+variable "storage_account_https_traffic_only_enabled" {
   description = "Whether HTTPS traffic only is enabled for Storage Account."
   type        = bool
   default     = true

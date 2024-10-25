@@ -36,35 +36,6 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "function_app_windows" {
   source  = "claranet/function-app/azurerm"
   version = "x.x.x"
@@ -74,24 +45,24 @@ module "function_app_windows" {
   stack               = var.stack
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   name_prefix = "hello"
 
   os_type = "Windows"
 
-  function_app_application_settings = {
+  application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
   storage_account_identity_type = "SystemAssigned"
 
-  application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
+  # application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    # module.logs.logs_storage_account_id,
+    # module.logs.log_analytics_workspace_id
   ]
 
   extra_tags = {
@@ -132,7 +103,7 @@ module "function_app_windows" {
 | [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
 | [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
-| [external_external.app_service_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
+| [external_external.function_app_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
@@ -154,11 +125,13 @@ module "function_app_windows" {
 | application\_insights\_retention | Retention period (in days) for logs. | `number` | `90` | no |
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry. | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type) | `string` | `"web"` | no |
+| application\_settings | Function App application settings. | `map(string)` | `{}` | no |
+| application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App. | `string` | `null` | no |
-| auth\_settings\_v2 | Authentication settings V2. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2) | `any` | `{}` | no |
-| authorized\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction) | `list(string)` | `[]` | no |
-| authorized\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction) | `list(string)` | `[]` | no |
-| authorized\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction) | `list(string)` | `[]` | no |
+| auth\_settings\_v2 | Authentication settings V2. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2). | `any` | `{}` | no |
+| authorized\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
+| authorized\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
+| authorized\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | builtin\_logging\_enabled | Whether built-in logging is enabled. | `bool` | `true` | no |
 | client\_certificate\_enabled | Whether the Function App uses client certificates. | `bool` | `null` | no |
 | client\_certificate\_mode | The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`. | `string` | `null` | no |
@@ -168,16 +141,13 @@ module "function_app_windows" {
 | diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Extra tags to add. | `map(string)` | `{}` | no |
-| function\_app\_application\_settings | Function App application settings. | `map(string)` | `{}` | no |
-| function\_app\_application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | function\_app\_extra\_tags | Extra tags to add to Function App. | `map(string)` | `{}` | no |
 | function\_app\_name\_prefix | Function App name prefix. | `string` | `""` | no |
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |
-| function\_app\_vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
-| identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is UserAssigned. | `list(string)` | `null` | no |
-| identity\_type | Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned. | `string` | `"SystemAssigned"` | no |
-| ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers) | `map(list(string))` | `null` | no |
+| identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`. | `list(string)` | `null` | no |
+| identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned` or `UserAssigned`. | `string` | `"SystemAssigned"` | no |
+| ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | `map(list(string))` | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -186,10 +156,10 @@ module "function_app_windows" {
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
-| scm\_authorized\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction) | `list(string)` | `[]` | no |
-| scm\_authorized\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction) | `list(string)` | `[]` | no |
-| scm\_authorized\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction) | `list(string)` | `[]` | no |
-| scm\_ip\_restriction\_headers | IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction) | `map(list(string))` | `null` | no |
+| scm\_authorized\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_authorized\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_authorized\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_ip\_restriction\_headers | IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `map(list(string))` | `null` | no |
 | service\_plan\_id | ID of the App Service Plan for the Function App. | `string` | n/a | yes |
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | stack | Project stack name. | `string` | n/a | yes |
@@ -197,11 +167,11 @@ module "function_app_windows" {
 | staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
 | sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br/>    app_setting_names       = optional(list(string))<br/>    connection_string_names = optional(list(string))<br/>  })</pre> | `null` | no |
+| storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
 | storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
-| storage\_account\_enable\_advanced\_threat\_protection | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
-| storage\_account\_enable\_https\_traffic\_only | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
+| storage\_account\_https\_traffic\_only\_enabled | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
 | storage\_account\_id | ID of the existing Storage Account to use. | `string` | `null` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Type of Managed Service Identity that should be configured on the Storage Account. | `string` | `null` | no |
@@ -212,6 +182,7 @@ module "function_app_windows" {
 | storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions. | `bool` | `true` | no |
 | storage\_uses\_managed\_identity | Whether the Function App use Managed Identity to access the Storage Account. **Caution** This disable the storage keys on the Storage Account if created within the module. | `bool` | `false` | no |
 | use\_existing\_storage\_account | Whether existing Storage Account should be used instead of creating a new one. | `bool` | `false` | no |
+| vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
 
 ## Outputs
 
@@ -233,17 +204,17 @@ module "function_app_windows" {
 | resource | Function App resource object. |
 | resource\_application\_insights | Application Insights resource object. |
 | resource\_slot | Function App staging slot resource object. |
-| service\_plan\_id | ID of the associated App Service Plan. |
+| service\_plan\_id | ID of the App Service Plan. |
 | slot\_default\_hostname | Default hostname of the Function App slot. |
 | slot\_identity | Identity block output of the Function App slot. |
 | slot\_name | Name of the Function App slot. |
-| storage\_account\_id | ID of the associated Storage Account, `null` if connection string provided. |
-| storage\_account\_name | Name of the associated Storage Account, `null` if connection string provided. |
-| storage\_account\_network\_rules | Network rules of the associated Storage Account. |
-| storage\_account\_primary\_access\_key | Primary connection string of the associated Storage Account, `null` if connection string provided. |
-| storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account, `null` if connection string provided. |
-| storage\_account\_secondary\_access\_key | Secondary connection string of the associated Storage Account, `null` if connection string provided. |
-| storage\_account\_secondary\_connection\_string | Secondary connection string of the associated Storage Account, `null` if connection string provided. |
+| storage\_account\_id | Storage Account ID, `null` if connection string provided. |
+| storage\_account\_name | Storage Account name, `null` if connection string provided. |
+| storage\_account\_network\_rules | Network rules of the Storage Account. |
+| storage\_account\_primary\_access\_key | Storage Account's primary access key, `null` if connection string provided. |
+| storage\_account\_primary\_connection\_string | Storage Account's primary connection string, `null` if connection string provided. |
+| storage\_account\_secondary\_access\_key | Storage Account's secondary access key, `null` if connection string provided. |
+| storage\_account\_secondary\_connection\_string | Storage Account's secondary connection string, `null` if connection string provided. |
 <!-- END_TF_DOCS -->
 
 ## Related documentation

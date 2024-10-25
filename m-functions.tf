@@ -22,27 +22,27 @@ module "linux_function" {
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
 
-  storage_account_name_prefix                       = var.storage_account_name_prefix
-  storage_account_custom_name                       = var.storage_account_custom_name
-  use_existing_storage_account                      = var.use_existing_storage_account
-  storage_account_id                                = var.storage_account_id
-  storage_account_enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
-  storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
-  storage_account_kind                              = var.storage_account_kind
-  storage_account_min_tls_version                   = var.storage_account_min_tls_version
-  storage_account_identity_type                     = var.storage_account_identity_type
-  storage_account_identity_ids                      = var.storage_account_identity_ids
+  storage_account_name_prefix                        = var.storage_account_name_prefix
+  storage_account_custom_name                        = var.storage_account_custom_name
+  use_existing_storage_account                       = var.use_existing_storage_account
+  storage_account_id                                 = var.storage_account_id
+  storage_account_advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
+  storage_account_https_traffic_only_enabled         = var.storage_account_https_traffic_only_enabled
+  storage_account_kind                               = var.storage_account_kind
+  storage_account_min_tls_version                    = var.storage_account_min_tls_version
+  storage_account_identity_type                      = var.storage_account_identity_type
+  storage_account_identity_ids                       = var.storage_account_identity_ids
 
-  service_plan_id = module.service_plan.service_plan_id
+  service_plan_id = module.service_plan.id
 
-  function_app_name_prefix                       = var.function_app_name_prefix
-  custom_name                                    = var.function_app_custom_name
-  function_app_application_settings              = var.function_app_application_settings
-  function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
-  function_app_version                           = var.function_app_version
-  site_config                                    = var.function_app_site_config
-  auth_settings_v2                               = var.function_app_auth_settings_v2
-  sticky_settings                                = var.function_app_sticky_settings
+  function_app_name_prefix          = var.function_app_name_prefix
+  custom_name                       = var.function_app_custom_name
+  application_settings              = var.application_settings
+  application_settings_drift_ignore = var.application_settings_drift_ignore
+  function_app_version              = var.function_app_version
+  site_config                       = var.site_config
+  auth_settings_v2                  = var.auth_settings_v2
+  sticky_settings                   = var.sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
   application_insights_enabled                               = var.application_insights_enabled
@@ -63,11 +63,11 @@ module "linux_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  authorized_ips                          = var.authorized_ips
-  authorized_service_tags                 = var.authorized_service_tags
-  authorized_subnet_ids                   = var.authorized_subnet_ids
-  ip_restriction_headers                  = var.ip_restriction_headers
-  function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
+  authorized_ips             = var.authorized_ips
+  authorized_service_tags    = var.authorized_service_tags
+  authorized_subnet_ids      = var.authorized_subnet_ids
+  ip_restriction_headers     = var.ip_restriction_headers
+  vnet_integration_subnet_id = var.vnet_integration_subnet_id
 
   storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
   storage_account_network_bypass        = var.storage_account_network_bypass
@@ -137,27 +137,27 @@ module "windows_function" {
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
 
-  storage_account_name_prefix                       = var.storage_account_name_prefix
-  storage_account_custom_name                       = var.storage_account_custom_name
-  use_existing_storage_account                      = var.use_existing_storage_account
-  storage_account_id                                = var.storage_account_id
-  storage_account_enable_advanced_threat_protection = var.storage_account_enable_advanced_threat_protection
-  storage_account_enable_https_traffic_only         = var.storage_account_enable_https_traffic_only
-  storage_account_kind                              = var.storage_account_kind
-  storage_account_min_tls_version                   = var.storage_account_min_tls_version
-  storage_account_identity_type                     = var.storage_account_identity_type
-  storage_account_identity_ids                      = var.storage_account_identity_ids
+  storage_account_name_prefix                        = var.storage_account_name_prefix
+  storage_account_custom_name                        = var.storage_account_custom_name
+  use_existing_storage_account                       = var.use_existing_storage_account
+  storage_account_id                                 = var.storage_account_id
+  storage_account_advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
+  storage_account_https_traffic_only_enabled         = var.storage_account_https_traffic_only_enabled
+  storage_account_kind                               = var.storage_account_kind
+  storage_account_min_tls_version                    = var.storage_account_min_tls_version
+  storage_account_identity_type                      = var.storage_account_identity_type
+  storage_account_identity_ids                       = var.storage_account_identity_ids
 
-  service_plan_id = module.service_plan.service_plan_id
+  service_plan_id = module.service_plan.id
 
-  function_app_name_prefix                       = var.function_app_name_prefix
-  custom_name                                    = var.function_app_custom_name
-  function_app_application_settings              = var.function_app_application_settings
-  function_app_application_settings_drift_ignore = var.function_app_application_settings_drift_ignore
-  function_app_version                           = var.function_app_version
-  site_config                                    = var.function_app_site_config
-  auth_settings_v2                               = var.function_app_auth_settings_v2
-  sticky_settings                                = var.function_app_sticky_settings
+  function_app_name_prefix          = var.function_app_name_prefix
+  custom_name                       = var.function_app_custom_name
+  application_settings              = var.application_settings
+  application_settings_drift_ignore = var.application_settings_drift_ignore
+  function_app_version              = var.function_app_version
+  site_config                       = var.site_config
+  auth_settings_v2                  = var.auth_settings_v2
+  sticky_settings                   = var.sticky_settings
 
   application_insights_name_prefix                           = var.application_insights_name_prefix
   application_insights_enabled                               = var.application_insights_enabled
@@ -178,14 +178,14 @@ module "windows_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  authorized_ips                          = var.authorized_ips
-  authorized_service_tags                 = var.authorized_service_tags
-  authorized_subnet_ids                   = var.authorized_subnet_ids
-  ip_restriction_headers                  = var.ip_restriction_headers
-  function_app_vnet_integration_subnet_id = var.function_app_vnet_integration_subnet_id
-  storage_account_network_rules_enabled   = var.storage_account_network_rules_enabled
-  storage_account_network_bypass          = var.storage_account_network_bypass
-  storage_account_authorized_ips          = var.storage_account_authorized_ips
+  authorized_ips                        = var.authorized_ips
+  authorized_service_tags               = var.authorized_service_tags
+  authorized_subnet_ids                 = var.authorized_subnet_ids
+  ip_restriction_headers                = var.ip_restriction_headers
+  vnet_integration_subnet_id            = var.vnet_integration_subnet_id
+  storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
+  storage_account_network_bypass        = var.storage_account_network_bypass
+  storage_account_authorized_ips        = var.storage_account_authorized_ips
 
   scm_authorized_ips          = var.scm_authorized_ips
   scm_authorized_subnet_ids   = var.scm_authorized_subnet_ids

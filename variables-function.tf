@@ -5,14 +5,14 @@ variable "function_app_version" {
   nullable    = false
 }
 
-variable "function_app_application_settings" {
+variable "application_settings" {
   description = "Function App application settings."
   type        = map(string)
   default     = {}
   nullable    = false
 }
 
-variable "function_app_application_settings_drift_ignore" {
+variable "application_settings_drift_ignore" {
   description = "Ignore drift from settings manually set."
   type        = bool
   default     = true
@@ -20,58 +20,58 @@ variable "function_app_application_settings_drift_ignore" {
 }
 
 variable "identity_type" {
-  description = "Add an Identity (MSI) to the function app. Possible values are SystemAssigned or UserAssigned."
+  description = "Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned` or `UserAssigned`."
   type        = string
   default     = "SystemAssigned"
 }
 
 variable "identity_ids" {
-  description = "User Assigned Identities IDs to add to Function App. Mandatory if type is UserAssigned."
+  description = "User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`."
   type        = list(string)
   default     = null
 }
 
 variable "authorized_ips" {
-  description = "IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction)"
+  description = "IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "authorized_subnet_ids" {
-  description = "Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)"
+  description = "Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "ip_restriction_headers" {
-  description = "IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers)"
+  description = "IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers)."
   type        = map(list(string))
   default     = null
 }
 
 variable "authorized_service_tags" {
-  description = "Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)"
+  description = "Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
-variable "function_app_vnet_integration_subnet_id" {
+variable "vnet_integration_subnet_id" {
   description = "ID of the subnet to associate with the Function App (Virtual Network integration)."
   type        = string
   default     = null
 }
 
-variable "function_app_site_config" {
+variable "site_config" {
   description = "Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block."
   type        = any
   default     = {}
   nullable    = false
 }
 
-variable "function_app_sticky_settings" {
+variable "sticky_settings" {
   description = "Lists of connection strings and app settings to prevent from swapping between slots."
   type = object({
     app_setting_names       = optional(list(string))
@@ -125,8 +125,8 @@ variable "staging_slot_custom_application_settings" {
   default     = null
 }
 
-variable "function_app_auth_settings_v2" {
-  description = "Authentication settings V2. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2)"
+variable "auth_settings_v2" {
+  description = "Authentication settings V2. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2)."
   type        = any
   default     = {}
   nullable    = false
@@ -135,27 +135,27 @@ variable "function_app_auth_settings_v2" {
 # SCM parameters
 
 variable "scm_authorized_ips" {
-  description = "SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)"
+  description = "SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "scm_authorized_subnet_ids" {
-  description = "SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)"
+  description = "SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "scm_ip_restriction_headers" {
-  description = "IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)"
+  description = "IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = map(list(string))
   default     = null
 }
 
 variable "scm_authorized_service_tags" {
-  description = "SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)"
+  description = "SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
