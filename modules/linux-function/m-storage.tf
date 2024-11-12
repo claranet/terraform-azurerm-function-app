@@ -7,7 +7,7 @@ module "storage" {
   count = var.use_existing_storage_account ? 0 : 1
 
   source  = "claranet/storage-account/azurerm"
-  version = "~> 8.0.0"
+  version = "~> 8.1.0"
 
   client_name    = var.client_name
   environment    = var.environment
@@ -32,6 +32,13 @@ module "storage" {
   public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
   shared_access_key_enabled          = !var.storage_uses_managed_identity
+
+  # RBAC
+  rbac_storage_contributor_role_principal_ids       = var.rbac_storage_contributor_role_principal_ids
+  rbac_storage_blob_role_principal_ids              = var.rbac_storage_blob_role_principal_ids
+  rbac_storage_file_role_principal_ids              = var.rbac_storage_file_role_principal_ids
+  rbac_storage_table_role_principal_ids             = var.rbac_storage_table_role_principal_ids
+  rbac_storage_queue_contributor_role_principal_ids = var.rbac_storage_queue_contributor_role_principal_ids
 
   # Identity
   identity_type = var.storage_account_identity_type

@@ -33,6 +33,12 @@ module "linux_function" {
   storage_account_identity_type                      = var.storage_account_identity_type
   storage_account_identity_ids                       = var.storage_account_identity_ids
 
+  rbac_storage_contributor_role_principal_ids       = var.rbac_storage_contributor_role_principal_ids
+  rbac_storage_blob_role_principal_ids              = var.rbac_storage_blob_role_principal_ids
+  rbac_storage_file_role_principal_ids              = var.rbac_storage_file_role_principal_ids
+  rbac_storage_table_role_principal_ids             = var.rbac_storage_table_role_principal_ids
+  rbac_storage_queue_contributor_role_principal_ids = var.rbac_storage_queue_contributor_role_principal_ids
+
   service_plan_id = module.service_plan.id
 
   function_app_name_prefix          = var.function_app_name_prefix

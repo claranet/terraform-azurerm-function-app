@@ -91,7 +91,7 @@ module "function_app_linux" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
-| storage | claranet/storage-account/azurerm | ~> 8.0.0 |
+| storage | claranet/storage-account/azurerm | ~> 8.1.0 |
 
 ## Resources
 
@@ -162,6 +162,11 @@ module "function_app_linux" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
+| rbac\_storage\_blob\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Blob Data *` different roles to if Blob containers are created. | <pre>object({<br/>    owners       = optional(list(string), [])<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
+| rbac\_storage\_contributor\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Account Contributor` role to. | `list(string)` | `[]` | no |
+| rbac\_storage\_file\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage File Data *` different roles to if File Shares are created. | <pre>object({<br/>    privileged_contributors = optional(list(string), [])<br/>    privileged_readers      = optional(list(string), [])<br/>    smb_owners              = optional(list(string), [])<br/>    smb_contributors        = optional(list(string), [])<br/>    smb_readers             = optional(list(string), [])<br/>  })</pre> | `{}` | no |
+| rbac\_storage\_queue\_contributor\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Queue Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
+| rbac\_storage\_table\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Table Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | scm\_authorized\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_authorized\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
