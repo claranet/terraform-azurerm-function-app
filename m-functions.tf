@@ -69,20 +69,20 @@ module "linux_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  authorized_ips             = var.authorized_ips
-  authorized_service_tags    = var.authorized_service_tags
-  authorized_subnet_ids      = var.authorized_subnet_ids
+  allowed_ips                = var.allowed_ips
+  allowed_service_tags       = var.allowed_service_tags
+  allowed_subnet_ids         = var.allowed_subnet_ids
   ip_restriction_headers     = var.ip_restriction_headers
   vnet_integration_subnet_id = var.vnet_integration_subnet_id
 
   storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
   storage_account_network_bypass        = var.storage_account_network_bypass
-  storage_account_authorized_ips        = var.storage_account_authorized_ips
+  storage_account_allowed_ips           = var.storage_account_allowed_ips
 
-  scm_authorized_ips          = var.scm_authorized_ips
-  scm_authorized_subnet_ids   = var.scm_authorized_subnet_ids
-  scm_authorized_service_tags = var.scm_authorized_service_tags
-  scm_ip_restriction_headers  = var.scm_ip_restriction_headers
+  scm_allowed_ips            = var.scm_allowed_ips
+  scm_allowed_subnet_ids     = var.scm_allowed_subnet_ids
+  scm_allowed_service_tags   = var.scm_allowed_service_tags
+  scm_ip_restriction_headers = var.scm_ip_restriction_headers
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_categories         = var.logs_categories
@@ -184,19 +184,19 @@ module "windows_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  authorized_ips                        = var.authorized_ips
-  authorized_service_tags               = var.authorized_service_tags
-  authorized_subnet_ids                 = var.authorized_subnet_ids
+  allowed_ips                           = var.allowed_ips
+  allowed_service_tags                  = var.allowed_service_tags
+  allowed_subnet_ids                    = var.allowed_subnet_ids
   ip_restriction_headers                = var.ip_restriction_headers
   vnet_integration_subnet_id            = var.vnet_integration_subnet_id
   storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
   storage_account_network_bypass        = var.storage_account_network_bypass
-  storage_account_authorized_ips        = var.storage_account_authorized_ips
+  storage_account_allowed_ips           = var.storage_account_allowed_ips
 
-  scm_authorized_ips          = var.scm_authorized_ips
-  scm_authorized_subnet_ids   = var.scm_authorized_subnet_ids
-  scm_authorized_service_tags = var.scm_authorized_service_tags
-  scm_ip_restriction_headers  = var.scm_ip_restriction_headers
+  scm_allowed_ips            = var.scm_allowed_ips
+  scm_allowed_subnet_ids     = var.scm_allowed_subnet_ids
+  scm_allowed_service_tags   = var.scm_allowed_service_tags
+  scm_ip_restriction_headers = var.scm_ip_restriction_headers
 
   logs_destinations_ids   = var.logs_destinations_ids
   logs_categories         = var.logs_categories

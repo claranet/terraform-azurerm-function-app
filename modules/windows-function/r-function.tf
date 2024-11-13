@@ -83,7 +83,7 @@ resource "azurerm_windows_function_app" "main" {
       }
 
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_authorized_ips) > 0 || var.scm_authorized_subnet_ids != null ? false : true
+      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null) == null ? [] : ["application_stack"]
@@ -365,7 +365,7 @@ resource "azurerm_windows_function_app_slot" "staging" {
       }
 
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_authorized_ips) > 0 || var.scm_authorized_subnet_ids != null ? false : true
+      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null) == null ? [] : ["application_stack"]

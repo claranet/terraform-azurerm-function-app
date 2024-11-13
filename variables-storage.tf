@@ -58,7 +58,7 @@ variable "storage_account_network_bypass" {
   default     = ["Logging", "Metrics", "AzureServices"]
 }
 
-variable "storage_account_authorized_ips" {
+variable "storage_account_allowed_ips" {
   description = "IPs restrictions for Function Storage Account in CIDR format."
   type        = list(string)
   default     = []

@@ -82,7 +82,7 @@ resource "azurerm_storage_account_network_rules" "main" {
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
-  virtual_network_subnet_ids = distinct(compact(concat(var.authorized_subnet_ids, [var.vnet_integration_subnet_id])))
+  virtual_network_subnet_ids = distinct(compact(concat(var.allowed_subnet_ids, [var.vnet_integration_subnet_id])))
   bypass                     = var.storage_account_network_bypass
 
   lifecycle {

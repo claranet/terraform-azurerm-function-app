@@ -12,34 +12,34 @@ module "vnet" {
   cidrs               = [local.vnet_cidr]
 }
 
-# module "subnet" {
-#   source  = "claranet/subnet/azurerm"
-#   version = "x.x.x"
+module "subnet" {
+  source  = "claranet/subnet/azurerm"
+  version = "x.x.x"
 
-#   for_each = { for subnet in local.subnets : subnet.name => subnet }
+  for_each = { for subnet in local.subnets : subnet.name => subnet }
 
-#   environment    = var.environment
-#   location_short = module.azure_region.location_short
-#   client_name    = var.client_name
-#   stack          = var.stack
+  environment    = var.environment
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  stack          = var.stack
 
-#   custom_subnet_name = each.key
+  custom_name = each.key
 
-#   resource_group_name  = module.rg.name
-#   virtual_network_name = module.vnet.name
-#   cidrs                = each.value.cidrs
+  resource_group_name  = module.rg.name
+  virtual_network_name = module.vnet.name
+  cidrs                = each.value.cidrs
 
-#   service_endpoints = each.value.service_endpoints
+  service_endpoints = each.value.service_endpoints
 
-#   subnet_delegation = {
-#     app-service-plan = [
-#       {
-#         name    = "Microsoft.Web/serverFarms"
-#         actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-#       }
-#     ]
-#   }
-# }
+  delegations = {
+    app-service-plan = [
+      {
+        name    = "Microsoft.Web/serverFarms"
+        actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+      }
+    ]
+  }
+}
 
 ### Linux with VNET integration
 module "function_app_linux" {
@@ -55,7 +55,7 @@ module "function_app_linux" {
 
   name_prefix = "hello"
 
-  # function_app_vnet_integration_subnet_id = module.subnet["subnet-function-app"].subnet_id
+  vnet_integration_subnet_id = module.subnet["subnet-function-app"].id
 
   os_type              = "Linux"
   function_app_version = 4

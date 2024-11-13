@@ -109,6 +109,9 @@ module "function_app_windows" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| allowed\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
+| allowed\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
+| allowed\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app. | `string` | `""` | no |
 | application\_insights\_daily\_data\_cap | Daily data volume cap (in GB) for Application Insights. | `number` | `null` | no |
 | application\_insights\_daily\_data\_cap\_notifications\_disabled | Whether disable email notifications when data volume cap is met. | `bool` | `null` | no |
@@ -129,9 +132,6 @@ module "function_app_windows" {
 | application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App. | `string` | `null` | no |
 | auth\_settings\_v2 | Authentication settings V2. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_web_app#auth_settings_v2). | `any` | `{}` | no |
-| authorized\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
-| authorized\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
-| authorized\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | builtin\_logging\_enabled | Whether built-in logging is enabled. | `bool` | `true` | no |
 | client\_certificate\_enabled | Whether the Function App uses client certificates. | `bool` | `null` | no |
 | client\_certificate\_mode | The mode of the Function App's client certificates requirement for incoming requests. Possible values are `Required`, `Optional`, and `OptionalInteractiveUser`. | `string` | `null` | no |
@@ -161,9 +161,9 @@ module "function_app_windows" {
 | rbac\_storage\_queue\_contributor\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Queue Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | rbac\_storage\_table\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Table Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
-| scm\_authorized\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
-| scm\_authorized\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
-| scm\_authorized\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_allowed\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_allowed\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_allowed\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_ip\_restriction\_headers | IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `map(list(string))` | `null` | no |
 | service\_plan\_id | ID of the App Service Plan for the Function App. | `string` | n/a | yes |
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
@@ -173,7 +173,7 @@ module "function_app_windows" {
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
 | sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br/>    app_setting_names       = optional(list(string))<br/>    connection_string_names = optional(list(string))<br/>  })</pre> | `null` | no |
 | storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
-| storage\_account\_authorized\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
+| storage\_account\_allowed\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |
 | storage\_account\_https\_traffic\_only\_enabled | Whether HTTPS traffic only is enabled for Storage Account. | `bool` | `true` | no |
