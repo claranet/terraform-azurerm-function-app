@@ -76,7 +76,7 @@ module "function_app_windows" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2.28 |
-| azurerm | ~> 4.0 |
+| azurerm | ~> 4.9 |
 | external | ~> 2.0 |
 
 ## Modules
@@ -127,7 +127,7 @@ module "function_app_windows" {
 | application\_insights\_name\_prefix | Application Insights name prefix. | `string` | `""` | no |
 | application\_insights\_retention | Retention period (in days) for logs. | `number` | `90` | no |
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry. | `number` | `null` | no |
-| application\_insights\_type | Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type) | `string` | `"web"` | no |
+| application\_insights\_type | Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type). | `string` | `"web"` | no |
 | application\_settings | Function App application settings. | `map(string)` | `{}` | no |
 | application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App. | `string` | `null` | no |
@@ -146,7 +146,7 @@ module "function_app_windows" {
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
 | identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`. | `list(string)` | `null` | no |
-| identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned` or `UserAssigned`. | `string` | `"SystemAssigned"` | no |
+| identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities. | `string` | `"SystemAssigned"` | no |
 | ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | `map(list(string))` | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |

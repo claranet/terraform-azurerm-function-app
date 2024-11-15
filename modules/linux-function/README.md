@@ -83,7 +83,7 @@ module "function_app_linux" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2.28 |
-| azurerm | ~> 4.0 |
+| azurerm | ~> 4.9 |
 | external | ~> 2.0 |
 
 ## Modules
@@ -179,7 +179,7 @@ module "function_app_linux" {
 | staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
 | sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br/>    app_setting_names       = optional(list(string))<br/>    connection_string_names = optional(list(string))<br/>  })</pre> | `null` | no |
-| storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal | `bool` | `false` | no |
+| storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. [See documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal). | `bool` | `false` | no |
 | storage\_account\_allowed\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
 | storage\_account\_extra\_tags | Extra tags to add to Storage Account. | `map(string)` | `{}` | no |

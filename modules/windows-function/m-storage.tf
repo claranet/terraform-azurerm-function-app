@@ -97,7 +97,7 @@ resource "azurerm_storage_container" "package_container" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                  = "functions-packages"
-  storage_account_name  = data.azurerm_storage_account.main.name
+  storage_account_id    = data.azurerm_storage_account.main.id
   container_access_type = "private"
 }
 
@@ -105,7 +105,7 @@ resource "azurerm_storage_blob" "package_blob" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                   = "${local.function_app_name}.zip"
-  storage_account_name   = azurerm_storage_container.package_container[0].storage_account_name
+  storage_account_name   = data.azurerm_storage_account.main.name
   storage_container_name = azurerm_storage_container.package_container[0].name
   type                   = "Block"
   source                 = var.application_zip_package_path

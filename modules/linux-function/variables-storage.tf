@@ -23,7 +23,7 @@ variable "storage_account_min_tls_version" {
 }
 
 variable "storage_account_advanced_threat_protection_enabled" {
-  description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
+  description = "Whether advanced threat protection is enabled. [See documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal)."
   type        = bool
   default     = false
 }
