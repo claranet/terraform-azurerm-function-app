@@ -1,3 +1,33 @@
+## 8.0.0 (2024-11-15)
+
+### ⚠ BREAKING CHANGES
+
+* **AZ-1088:** AzureRM Provider v4+ and OpenTofu 1.8+
+
+### Features
+
+* **AZ-1088:** add Storage Account RBAC variable e0d25ac
+* **AZ-1088:** module v8 structure and updates f1d17c5
+
+### Code Refactoring
+
+* **AZ-1088:** apply module structure suggestions 9513a62
+* **AZ-1088:** variable name updates 5330eb7
+
+### Miscellaneous Chores
+
+* apply suggestion(s) to file(s) ef80c4f
+* **deps:** update dependency claranet/app-service-plan/azurerm to v8 8f296ad
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v8 e72563b
+* **deps:** update dependency opentofu to v1.8.4 f54b1c4
+* **deps:** update dependency pre-commit to v4.0.1 b4b4722
+* **deps:** update dependency tflint to v0.54.0 4de7ea6
+* **deps:** update dependency trivy to v0.56.2 569a0fa
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.1.0 d1d82c0
+* **deps:** update terraform claranet/storage-account/azurerm to v8 27b2ab7
+* **deps:** update tools 2556d58
+* update examples structure 3b07b1f
+
 ## 7.13.1 (2024-10-08)
 
 ### Documentation
