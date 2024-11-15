@@ -91,7 +91,7 @@ module "function_app_linux" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
-| storage | claranet/storage-account/azurerm | ~> 8.1.0 |
+| storage | claranet/storage-account/azurerm | ~> 8.2.0 |
 
 ## Resources
 
@@ -153,7 +153,7 @@ module "function_app_linux" {
 | function\_app\_version | Version of the function app runtime to use. | `number` | `3` | no |
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
 | identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`. | `list(string)` | `null` | no |
-| identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned` or `UserAssigned`. | `string` | `"SystemAssigned"` | no |
+| identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities. | `string` | `"SystemAssigned"` | no |
 | ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | `map(list(string))` | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |

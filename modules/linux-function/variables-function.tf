@@ -25,7 +25,7 @@ variable "application_settings_drift_ignore" {
 }
 
 variable "identity_type" {
-  description = "Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned` or `UserAssigned`."
+  description = "Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities."
   type        = string
   default     = "SystemAssigned"
 }
