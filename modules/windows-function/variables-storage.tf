@@ -22,13 +22,13 @@ variable "storage_account_min_tls_version" {
   default     = "TLS1_2"
 }
 
-variable "storage_account_enable_advanced_threat_protection" {
+variable "storage_account_advanced_threat_protection_enabled" {
   description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
   type        = bool
   default     = false
 }
 
-variable "storage_account_enable_https_traffic_only" {
+variable "storage_account_https_traffic_only_enabled" {
   description = "Whether HTTPS traffic only is enabled for Storage Account."
   type        = bool
   default     = true
@@ -58,8 +58,59 @@ variable "storage_account_network_bypass" {
   default     = ["Logging", "Metrics", "AzureServices"]
 }
 
-variable "storage_account_authorized_ips" {
+variable "storage_account_allowed_ips" {
   description = "IPs restrictions for Function Storage Account in CIDR format."
   type        = list(string)
   default     = []
+}
+
+variable "rbac_storage_contributor_role_principal_ids" {
+  description = "The principal IDs of the users, groups, and service principals to assign the `Storage Account Contributor` role to."
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
+variable "rbac_storage_blob_role_principal_ids" {
+  description = "The principal IDs of the users, groups, and service principals to assign the `Storage Blob Data *` different roles to if Blob containers are created."
+  type = object({
+    owners       = optional(list(string), [])
+    contributors = optional(list(string), [])
+    readers      = optional(list(string), [])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "rbac_storage_file_role_principal_ids" {
+  description = "The principal IDs of the users, groups, and service principals to assign the `Storage File Data *` different roles to if File Shares are created."
+  type = object({
+    privileged_contributors = optional(list(string), [])
+    privileged_readers      = optional(list(string), [])
+    smb_owners              = optional(list(string), [])
+    smb_contributors        = optional(list(string), [])
+    smb_readers             = optional(list(string), [])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "rbac_storage_table_role_principal_ids" {
+  description = "The principal IDs of the users, groups, and service principals to assign the `Storage Table Data *` role to."
+  type = object({
+    contributors = optional(list(string), [])
+    readers      = optional(list(string), [])
+  })
+  default  = {}
+  nullable = false
+}
+
+variable "rbac_storage_queue_contributor_role_principal_ids" {
+  description = "The principal IDs of the users, groups, and service principals to assign the `Storage Queue Data *` role to."
+  type = object({
+    contributors = optional(list(string), [])
+    readers      = optional(list(string), [])
+  })
+  default  = {}
+  nullable = false
 }

@@ -11,23 +11,25 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure_region.location
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
 }
 
-module "logs" {
-  source  = "claranet/run/azurerm//modules/logs"
-  version = "x.x.x"
+# module "logs" {
+#   source  = "claranet/run/azurerm//modules/logs"
+#   version = "x.x.x"
 
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-}
+#   client_name         = var.client_name
+#   environment         = var.environment
+#   stack               = var.stack
+#   location            = module.azure_region.location
+#   location_short      = module.azure_region.location_short
+#   resource_group_name = module.rg.name
+# }
 
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
@@ -39,7 +41,7 @@ module "storage_account" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   # The `storage_use_azuread=true` flag is mandatory in the provider declaration for this feature
   shared_access_key_enabled = false
@@ -48,8 +50,8 @@ module "storage_account" {
   network_rules_enabled = false
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    # module.logs.logs_storage_account_id,
+    # module.logs.log_analytics_workspace_id
   ]
 
   extra_tags = {
@@ -59,7 +61,7 @@ module "storage_account" {
 
 resource "azurerm_role_assignment" "user_storage" {
   principal_id         = data.azurerm_client_config.current.object_id
-  scope                = module.storage_account.storage_account_id
+  scope                = module.storage_account.id
   role_definition_name = "Storage Blob Data Owner"
 }
 
@@ -72,17 +74,17 @@ module "function_app" {
   stack               = var.stack
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   os_type              = "Linux"
   function_app_version = 4
-  function_app_site_config = {
+  site_config = {
     application_stack = {
-      python_version = "3.9"
+      python_version = "3.12"
     }
   }
 
-  function_app_application_settings = {
+  application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
@@ -90,13 +92,13 @@ module "function_app" {
   storage_uses_managed_identity = true
 
   use_existing_storage_account = true
-  storage_account_id           = module.storage_account.storage_account_id
+  storage_account_id           = module.storage_account.id
 
-  application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
+  # application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
 
   logs_destinations_ids = [
-    module.logs.logs_storage_account_id,
-    module.logs.log_analytics_workspace_id
+    # module.logs.logs_storage_account_id,
+    # module.logs.log_analytics_workspace_id
   ]
 
   extra_tags = {
@@ -106,6 +108,6 @@ module "function_app" {
 
 resource "azurerm_role_assignment" "function_storage" {
   principal_id         = module.function_app.linux_function_app.function_app_identity.principal_id
-  scope                = module.storage_account.storage_account_id
+  scope                = module.storage_account.id
   role_definition_name = "Storage Blob Data Owner"
 }

@@ -1,6 +1,6 @@
 locals {
-  is_consumption     = contains(["Y1"], data.azurerm_service_plan.plan.sku_name)
-  is_elastic_premium = contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.plan.sku_name)
+  is_consumption     = contains(["Y1"], data.azurerm_service_plan.main.sku_name)
+  is_elastic_premium = contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.main.sku_name)
 
   default_site_config = {
     always_on                              = !local.is_consumption && !local.is_elastic_premium
@@ -10,14 +10,15 @@ locals {
 
   site_config = merge(local.default_site_config, var.site_config)
 
-  app_insights = try(data.azurerm_application_insights.app_insights[0], try(azurerm_application_insights.app_insights[0], {}))
+  app_insights = try(data.azurerm_application_insights.main[0], one(azurerm_application_insights.main[*]))
 
-  default_application_settings = merge(var.application_zip_package_path != null ? {
-    # MD5 as query to force function restart on change
-    WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
+  default_application_settings = merge(
+    var.application_zip_package_path != null ? {
+      # MD5 as query to force function restart on change
+      WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
     try(local.site_config.application_stack.python_version != null, false) ? { PYTHON_ISOLATE_WORKER_DEPENDENCIES = 1 } : {},
-    try(data.external.app_service_settings[0].result, {}),
+    try(data.external.function_app_settings[0].result, {}),
   )
 
   default_ip_restrictions_headers = {
@@ -29,74 +30,74 @@ locals {
 
   ip_restriction_headers = var.ip_restriction_headers != null ? [merge(local.default_ip_restrictions_headers, var.ip_restriction_headers)] : []
 
-  cidrs = [for cidr in var.authorized_ips : {
-    name                      = "ip_restriction_cidr_${join("", [1, index(var.authorized_ips, cidr)])}"
+  cidrs = [for cidr in var.allowed_ips : {
+    name                      = "ip_restriction_cidr_${join("", [1, index(var.allowed_ips, cidr)])}"
     ip_address                = cidr
     virtual_network_subnet_id = null
     service_tag               = null
-    priority                  = join("", [1, index(var.authorized_ips, cidr)])
+    priority                  = join("", [1, index(var.allowed_ips, cidr)])
     action                    = "Allow"
     headers                   = local.ip_restriction_headers
   }]
 
-  subnets = [for subnet in var.authorized_subnet_ids : {
-    name                      = "ip_restriction_subnet_${join("", [1, index(var.authorized_subnet_ids, subnet)])}"
+  subnets = [for subnet in var.allowed_subnet_ids : {
+    name                      = "ip_restriction_subnet_${join("", [1, index(var.allowed_subnet_ids, subnet)])}"
     ip_address                = null
     virtual_network_subnet_id = subnet
     service_tag               = null
-    priority                  = join("", [1, index(var.authorized_subnet_ids, subnet)])
+    priority                  = join("", [1, index(var.allowed_subnet_ids, subnet)])
     action                    = "Allow"
     headers                   = local.ip_restriction_headers
   }]
 
-  service_tags = [for service_tag in var.authorized_service_tags : {
-    name                      = "service_tag_restriction_${join("", [1, index(var.authorized_service_tags, service_tag)])}"
+  service_tags = [for service_tag in var.allowed_service_tags : {
+    name                      = "service_tag_restriction_${join("", [1, index(var.allowed_service_tags, service_tag)])}"
     ip_address                = null
     virtual_network_subnet_id = null
     service_tag               = service_tag
-    priority                  = join("", [1, index(var.authorized_service_tags, service_tag)])
+    priority                  = join("", [1, index(var.allowed_service_tags, service_tag)])
     action                    = "Allow"
     headers                   = local.ip_restriction_headers
   }]
 
   scm_ip_restriction_headers = var.scm_ip_restriction_headers != null ? [merge(local.default_ip_restrictions_headers, var.scm_ip_restriction_headers)] : []
 
-  scm_cidrs = [for cidr in var.scm_authorized_ips : {
-    name                      = "scm_ip_restriction_cidr_${join("", [1, index(var.scm_authorized_ips, cidr)])}"
+  scm_cidrs = [for cidr in var.scm_allowed_ips : {
+    name                      = "scm_ip_restriction_cidr_${join("", [1, index(var.scm_allowed_ips, cidr)])}"
     ip_address                = cidr
     virtual_network_subnet_id = null
     service_tag               = null
-    priority                  = join("", [1, index(var.scm_authorized_ips, cidr)])
+    priority                  = join("", [1, index(var.scm_allowed_ips, cidr)])
     action                    = "Allow"
     headers                   = local.scm_ip_restriction_headers
   }]
 
-  scm_subnets = [for subnet in var.scm_authorized_subnet_ids : {
-    name                      = "scm_ip_restriction_subnet_${join("", [1, index(var.scm_authorized_subnet_ids, subnet)])}"
+  scm_subnets = [for subnet in var.scm_allowed_subnet_ids : {
+    name                      = "scm_ip_restriction_subnet_${join("", [1, index(var.scm_allowed_subnet_ids, subnet)])}"
     ip_address                = null
     virtual_network_subnet_id = subnet
     service_tag               = null
-    priority                  = join("", [1, index(var.scm_authorized_subnet_ids, subnet)])
+    priority                  = join("", [1, index(var.scm_allowed_subnet_ids, subnet)])
     action                    = "Allow"
     headers                   = local.scm_ip_restriction_headers
   }]
 
-  scm_service_tags = [for service_tag in var.scm_authorized_service_tags : {
-    name                      = "scm_service_tag_restriction_${join("", [1, index(var.scm_authorized_service_tags, service_tag)])}"
+  scm_service_tags = [for service_tag in var.scm_allowed_service_tags : {
+    name                      = "scm_service_tag_restriction_${join("", [1, index(var.scm_allowed_service_tags, service_tag)])}"
     ip_address                = null
     virtual_network_subnet_id = null
     service_tag               = service_tag
-    priority                  = join("", [1, index(var.scm_authorized_service_tags, service_tag)])
+    priority                  = join("", [1, index(var.scm_allowed_service_tags, service_tag)])
     action                    = "Allow"
     headers                   = local.scm_ip_restriction_headers
   }]
 
   # If no VNet integration, allow Function App outbound public IPs
-  function_outbound_ips = var.function_app_vnet_integration_subnet_id == null ? distinct(concat(azurerm_windows_function_app.windows_function.possible_outbound_ip_address_list, azurerm_windows_function_app.windows_function.outbound_ip_address_list)) : []
+  outbound_ips = var.vnet_integration_subnet_id == null ? distinct(concat(azurerm_windows_function_app.main.possible_outbound_ip_address_list, azurerm_windows_function_app.main.outbound_ip_address_list)) : []
 
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules#ip_rules
   # > Small address ranges using "/31" or "/32" prefix sizes are not supported. These ranges should be configured using individual IP address rules without prefix specified.
-  storage_ips = distinct(flatten([for cidr in distinct(concat(local.function_outbound_ips, var.storage_account_authorized_ips)) :
+  storage_ips = distinct(flatten([for cidr in distinct(concat(local.outbound_ips, var.storage_account_allowed_ips)) :
     length(regexall("/3[12]$", cidr)) > 0 ? [cidrhost(cidr, 0), cidrhost(cidr, -1)] : [cidr]
   ]))
 
@@ -107,7 +108,7 @@ locals {
     var.application_zip_package_path
   )
 
-  storage_account_output = data.azurerm_storage_account.storage
+  storage_account_output = data.azurerm_storage_account.main
 
   auth_settings_v2 = merge({
     auth_enabled = false

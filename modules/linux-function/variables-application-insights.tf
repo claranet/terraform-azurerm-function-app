@@ -11,7 +11,7 @@ variable "application_insights_id" {
 }
 
 variable "application_insights_type" {
-  description = "Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type"
+  description = "Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type)"
   type        = string
   default     = "web"
 }

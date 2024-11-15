@@ -1,28 +1,28 @@
-# Data Service Plan
-data "azurerm_service_plan" "plan" {
-  name                = element(split("/", var.service_plan_id), 8)
-  resource_group_name = element(split("/", var.service_plan_id), 4)
+# Function App
+
+moved {
+  from = azurerm_windows_function_app.linux_function
+  to   = azurerm_windows_function_app.main
 }
 
-# Function App
-resource "azurerm_windows_function_app" "windows_function" {
+resource "azurerm_windows_function_app" "main" {
   name = local.function_app_name
 
   service_plan_id     = var.service_plan_id
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  storage_account_name          = data.azurerm_storage_account.storage.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.storage.primary_access_key : null
+  storage_account_name          = data.azurerm_storage_account.main.name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.main.primary_access_key : null
   storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+  virtual_network_subnet_id = var.vnet_integration_subnet_id
 
   app_settings = merge(
     local.default_application_settings,
-    var.function_app_application_settings,
+    var.application_settings,
   )
 
   dynamic "site_config" {
@@ -54,7 +54,7 @@ resource "azurerm_windows_function_app" "windows_function" {
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
       worker_count              = lookup(site_config.value, "worker_count", null)
 
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.function_app_vnet_integration_subnet_id != null)
+      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
 
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)
@@ -83,7 +83,7 @@ resource "azurerm_windows_function_app" "windows_function" {
       }
 
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_authorized_ips) > 0 || var.scm_authorized_subnet_ids != null ? false : true
+      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null) == null ? [] : ["application_stack"]
@@ -282,21 +282,30 @@ resource "azurerm_windows_function_app" "windows_function" {
   tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
 }
 
-resource "azurerm_windows_function_app_slot" "windows_function_slot" {
+moved {
+  from = azurerm_windows_function_app_slot.linux_function_slot
+  to   = azurerm_windows_function_app_slot.staging
+}
+
+resource "azurerm_windows_function_app_slot" "staging" {
   count = var.staging_slot_enabled ? 1 : 0
 
   name            = local.staging_slot_name
-  function_app_id = azurerm_windows_function_app.windows_function.id
+  function_app_id = azurerm_windows_function_app.main.id
 
-  storage_account_name          = data.azurerm_storage_account.storage.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.storage.primary_access_key : null
+  storage_account_name          = data.azurerm_storage_account.main.name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.main.primary_access_key : null
   storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.function_app_vnet_integration_subnet_id
+  virtual_network_subnet_id = var.vnet_integration_subnet_id
 
-  app_settings = var.staging_slot_custom_application_settings == null ? var.function_app_application_settings : var.staging_slot_custom_application_settings
+  app_settings = var.staging_slot_custom_application_settings == null ? {
+    for k, v in merge(local.default_application_settings, var.application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
+    } : {
+    for k, v in merge(local.default_application_settings, var.staging_slot_custom_application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
+  }
 
   dynamic "site_config" {
     for_each = [local.site_config]
@@ -327,7 +336,7 @@ resource "azurerm_windows_function_app_slot" "windows_function_slot" {
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
       worker_count              = lookup(site_config.value, "worker_count", null)
 
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.function_app_vnet_integration_subnet_id != null)
+      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
 
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)
@@ -356,7 +365,7 @@ resource "azurerm_windows_function_app_slot" "windows_function_slot" {
       }
 
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_authorized_ips) > 0 || var.scm_authorized_subnet_ids != null ? false : true
+      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null) == null ? [] : ["application_stack"]
