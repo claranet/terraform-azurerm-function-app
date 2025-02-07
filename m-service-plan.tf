@@ -1,7 +1,7 @@
 # Service Plan
 module "service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "~> 8.0.0"
+  version = "~> 8.1.0"
 
   client_name         = var.client_name
   environment         = var.environment
