@@ -56,6 +56,9 @@ resource "azurerm_windows_function_app" "main" {
 
       vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
 
+      ip_restriction_default_action     = lookup(site_config.value, "ip_restriction_default_action", "Deny")
+      scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
+
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)
         content {
@@ -337,6 +340,9 @@ resource "azurerm_windows_function_app_slot" "staging" {
       worker_count              = lookup(site_config.value, "worker_count", null)
 
       vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
+
+      ip_restriction_default_action     = lookup(site_config.value, "ip_restriction_default_action", "Deny")
+      scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
 
       dynamic "ip_restriction" {
         for_each = concat(local.subnets, local.cidrs, local.service_tags)
