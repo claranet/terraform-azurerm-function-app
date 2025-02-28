@@ -1,3 +1,30 @@
+## 8.1.0 (2025-02-28)
+
+### Features
+
+* **AZ-1528:** add firewall default action to site_config 0822f0c
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.6 c0a934c
+* **deps:** update dependency opentofu to v1.8.8 21db39f
+* **deps:** update dependency opentofu to v1.9.0 c9f329e
+* **deps:** update dependency pre-commit to v4.1.0 fe0fbba
+* **deps:** update dependency tflint to v0.55.0 5a73b41
+* **deps:** update dependency trivy to v0.57.1 2b88740
+* **deps:** update dependency trivy to v0.58.1 aeb71b0
+* **deps:** update dependency trivy to v0.58.2 1415efd
+* **deps:** update dependency trivy to v0.59.1 e7f3d43
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 f019e59
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 55cdb89
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 e5bb385
+* **deps:** update terraform claranet/app-service-plan/azurerm to ~> 8.1.0 79236b4
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 8.3.0 a6bff6d
+* **deps:** update tools 6db6919
+* **deps:** update tools 7275af1
+* update Github templates ef372a3
+* update tflint config for v0.55.0 7ef8e65
+
 ## 8.0.0 (2024-11-15)
 
 ### ⚠ BREAKING CHANGES
