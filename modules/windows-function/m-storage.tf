@@ -32,6 +32,7 @@ module "storage" {
   public_nested_items_allowed        = false
   advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
   shared_access_key_enabled          = !var.storage_uses_managed_identity
+  infrastructure_encryption_enabled  = var.storage_infrastructure_encryption_enabled
 
   # RBAC
   rbac_storage_contributor_role_principal_ids       = var.rbac_storage_contributor_role_principal_ids

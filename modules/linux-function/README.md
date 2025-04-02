@@ -192,6 +192,7 @@ module "function_app_linux" {
 | storage\_account\_name\_prefix | Storage Account name prefix. | `string` | `""` | no |
 | storage\_account\_network\_bypass | Whether traffic is bypassed for Logging/Metrics/AzureServices. Valid options are any combination of `Logging`, `Metrics`, `AzureServices`, or `None`. | `list(string)` | <pre>[<br/>  "Logging",<br/>  "Metrics",<br/>  "AzureServices"<br/>]</pre> | no |
 | storage\_account\_network\_rules\_enabled | Whether to enable Storage Account network default rules for functions. | `bool` | `true` | no |
+| storage\_infrastructure\_encryption\_enabled | Boolean flag which enables infrastructure encryption.  Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information. | `bool` | `false` | no |
 | storage\_uses\_managed\_identity | Whether the Function App use Managed Identity to access the Storage Account. **Caution** This disable the storage keys on the Storage Account if created within the module. | `bool` | `false` | no |
 | use\_existing\_storage\_account | Whether existing Storage Account should be used instead of creating a new one. | `bool` | `false` | no |
 | vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
