@@ -27,7 +27,7 @@ module "linux_function" {
   use_existing_storage_account                       = var.use_existing_storage_account
   storage_account_id                                 = var.storage_account_id
   storage_account_advanced_threat_protection_enabled = var.storage_account_advanced_threat_protection_enabled
-  storage_infrastructure_encryption_enabled          = var.storage_infrastructure_encryption_enabled
+  storage_account_infrastructure_encryption_enabled  = var.storage_account_infrastructure_encryption_enabled
   storage_account_https_traffic_only_enabled         = var.storage_account_https_traffic_only_enabled
   storage_account_kind                               = var.storage_account_kind
   storage_account_min_tls_version                    = var.storage_account_min_tls_version
