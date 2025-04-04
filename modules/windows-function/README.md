@@ -84,7 +84,7 @@ module "function_app_windows" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0.0 |
-| storage | claranet/storage-account/azurerm | ~> 8.4.0 |
+| storage | claranet/storage-account/azurerm | ~> 8.5.0 |
 
 ## Resources
 
