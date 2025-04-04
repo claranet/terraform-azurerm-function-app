@@ -224,6 +224,7 @@ No resources.
 | storage\_account\_id | ID of the existing Storage Account to use. | `string` | `null` | no |
 | storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to the Storage Account. | `list(string)` | `null` | no |
 | storage\_account\_identity\_type | Type of Managed Service Identity that should be configured on the Storage Account. | `string` | `null` | no |
+| storage\_account\_infrastructure\_encryption\_enabled | Boolean flag which enables infrastructure encryption.  Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information. | `bool` | `false` | no |
 | storage\_account\_kind | Storage Account Kind. | `string` | `"StorageV2"` | no |
 | storage\_account\_min\_tls\_version | Storage Account minimal TLS version. | `string` | `"TLS1_2"` | no |
 | storage\_account\_name\_prefix | Storage Account name prefix. | `string` | `""` | no |
