@@ -1,3 +1,23 @@
+## 8.1.1 (2025-04-04)
+
+### Bug Fixes
+
+* add `storage_infrastructure_encryption_enabled` option 3b74fed
+
+### Documentation
+
+* update variable name 83d83f1
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/storage-account/azurerm to ~> 8.5.0 7b18488
+* **deps:** update dependency pre-commit to v4.2.0 e941ddd
+* **deps:** update dependency trivy to v0.60.0 23b3438
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 b7e7279
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 916a57a
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 8.4.0 c8081b1
+* **deps:** update tools 7a469f2
+
 ## 8.1.0 (2025-02-28)
 
 ### Features
