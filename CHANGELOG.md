@@ -1,3 +1,19 @@
+## 8.2.0 (2025-05-23)
+
+### Features
+
+* **GH-11:** add public_network_access_enabled variable 71ae741
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.9.1 be7eb38
+* **deps:** update dependency terraform-docs to v0.20.0 b3481da
+* **deps:** update dependency tflint to v0.57.0 87c0714
+* **deps:** update dependency trivy to v0.61.1 298026f
+* **deps:** update dependency trivy to v0.62.0 89bfadf
+* **deps:** update dependency trivy to v0.62.1 7a69bbf
+* **deps:** update terraform claranet/storage-account/azurerm to ~> 8.6.0 f1fbdfc
+
 ## 8.1.1 (2025-04-04)
 
 ### Bug Fixes
