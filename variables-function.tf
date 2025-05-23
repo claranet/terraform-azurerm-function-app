@@ -31,6 +31,13 @@ variable "identity_ids" {
   default     = null
 }
 
+variable "public_network_access_enabled" {
+  description = "Whether public network access is allowed for the function app."
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "allowed_ips" {
   description = "IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction)."
   type        = list(string)

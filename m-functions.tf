@@ -70,11 +70,12 @@ module "linux_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
-  allowed_ips                = var.allowed_ips
-  allowed_service_tags       = var.allowed_service_tags
-  allowed_subnet_ids         = var.allowed_subnet_ids
-  ip_restriction_headers     = var.ip_restriction_headers
-  vnet_integration_subnet_id = var.vnet_integration_subnet_id
+  public_network_access_enabled = var.public_network_access_enabled
+  allowed_ips                   = var.allowed_ips
+  allowed_service_tags          = var.allowed_service_tags
+  allowed_subnet_ids            = var.allowed_subnet_ids
+  ip_restriction_headers        = var.ip_restriction_headers
+  vnet_integration_subnet_id    = var.vnet_integration_subnet_id
 
   storage_account_network_rules_enabled = var.storage_account_network_rules_enabled
   storage_account_network_bypass        = var.storage_account_network_bypass
@@ -185,6 +186,7 @@ module "windows_function" {
   identity_type = var.identity_type
   identity_ids  = var.identity_ids
 
+  public_network_access_enabled         = var.public_network_access_enabled
   allowed_ips                           = var.allowed_ips
   allowed_service_tags                  = var.allowed_service_tags
   allowed_subnet_ids                    = var.allowed_subnet_ids
