@@ -155,6 +155,7 @@ module "function_app_windows" {
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
+| public\_network\_access\_enabled | Whether public network access is allowed for the function app. | `bool` | `true` | no |
 | rbac\_storage\_blob\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Blob Data *` different roles to if Blob containers are created. | <pre>object({<br/>    owners       = optional(list(string), [])<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | rbac\_storage\_contributor\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Account Contributor` role to. | `list(string)` | `[]` | no |
 | rbac\_storage\_file\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage File Data *` different roles to if File Shares are created. | <pre>object({<br/>    privileged_contributors = optional(list(string), [])<br/>    privileged_readers      = optional(list(string), [])<br/>    smb_owners              = optional(list(string), [])<br/>    smb_contributors        = optional(list(string), [])<br/>    smb_readers             = optional(list(string), [])<br/>  })</pre> | `{}` | no |

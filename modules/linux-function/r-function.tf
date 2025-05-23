@@ -314,7 +314,8 @@ resource "azurerm_linux_function_app_slot" "staging" {
 
   functions_extension_version = "~${var.function_app_version}"
 
-  virtual_network_subnet_id = var.vnet_integration_subnet_id
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.vnet_integration_subnet_id
 
   app_settings = var.staging_slot_custom_application_settings == null ? {
     for k, v in merge(local.default_application_settings, var.application_settings) : k => v if k != "WEBSITE_RUN_FROM_PACKAGE"
