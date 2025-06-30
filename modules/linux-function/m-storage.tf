@@ -58,9 +58,9 @@ module "storage" {
   network_rules_enabled = false
 
   # Diagnostics/logs
-  logs_destinations_ids   = var.logs_destinations_ids
-  logs_categories         = var.logs_categories
-  logs_metrics_categories = var.logs_metrics_categories
+  logs_destinations_ids   = var.storage_logs_destinations_ids != null ? var.storage_logs_destinations_ids : var.logs_destinations_ids
+  logs_categories         = var.storage_logs_categories != null ? var.storage_logs_categories : var.logs_categories
+  logs_metrics_categories = var.storage_logs_metrics_categories != null ? var.storage_logs_metrics_categories : var.logs_metrics_categories
 
   # Tagging
   default_tags_enabled = var.default_tags_enabled

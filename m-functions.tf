@@ -90,6 +90,10 @@ module "linux_function" {
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
 
+  storage_logs_destinations_ids   = var.storage_logs_destinations_ids
+  storage_logs_categories         = var.storage_logs_categories
+  storage_logs_metrics_categories = var.storage_logs_metrics_categories
+
   https_only                 = var.https_only
   builtin_logging_enabled    = var.builtin_logging_enabled
   client_certificate_enabled = var.client_certificate_enabled
@@ -204,6 +208,10 @@ module "windows_function" {
   logs_destinations_ids   = var.logs_destinations_ids
   logs_categories         = var.logs_categories
   logs_metrics_categories = var.logs_metrics_categories
+
+  storage_logs_destinations_ids   = var.storage_logs_destinations_ids
+  storage_logs_categories         = var.storage_logs_categories
+  storage_logs_metrics_categories = var.storage_logs_metrics_categories
 
   https_only                 = var.https_only
   builtin_logging_enabled    = var.builtin_logging_enabled
