@@ -1,3 +1,20 @@
+## 8.3.0 (2025-07-04)
+
+### Features
+
+* **AZ-1579:** ✨ add storage logs variables af4be6f
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review 37427b5
+* 🗑️ remove old commitlint configuration files da2797f
+* **deps:** update dependency opentofu to v1.10.0 a20219c
+* **deps:** update dependency opentofu to v1.10.1 c2def2d
+* **deps:** update dependency tflint to v0.58.0 6a7c781
+* **deps:** update dependency trivy to v0.63.0 973b8bf
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 0a1bbd4
+* **deps:** update tools c4f5348
+
 ## 8.2.0 (2025-05-23)
 
 ### Features
