@@ -160,6 +160,7 @@ module "function_app_linux" {
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
+| mount\_points | Storage Account mount points. Name is generated if not set and default type is `AzureFiles`. | <pre>list(object({<br/>    name         = optional(string)<br/>    type         = optional(string, "AzureFiles")<br/>    account_name = string<br/>    share_name   = string<br/>    access_key   = string<br/>    mount_path   = optional(string)<br/>  }))</pre> | `[]` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | public\_network\_access\_enabled | Whether public network access is allowed for the function app. | `bool` | `true` | no |
@@ -179,6 +180,7 @@ module "function_app_linux" {
 | staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
 | staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |
 | staging\_slot\_enabled | Create a staging slot alongside the Function App for blue/green deployment purposes. | `bool` | `false` | no |
+| staging\_slot\_mount\_points | Storage Account mount points for staging slot. Name is generated if not set and default type is `AzureFiles`. | <pre>list(object({<br/>    name         = optional(string)<br/>    type         = optional(string, "AzureFiles")<br/>    account_name = string<br/>    share_name   = string<br/>    access_key   = string<br/>    mount_path   = optional(string)<br/>  }))</pre> | `[]` | no |
 | sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br/>    app_setting_names       = optional(list(string))<br/>    connection_string_names = optional(list(string))<br/>  })</pre> | `null` | no |
 | storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. [See documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal). | `bool` | `false` | no |
 | storage\_account\_allowed\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |

@@ -286,6 +286,19 @@ resource "azurerm_linux_function_app" "main" {
     }
   }
 
+  dynamic "storage_account" {
+    for_each = var.mount_points
+    iterator = mp
+    content {
+      name         = coalesce(mp.value.name, format("%s-%s", mp.value.account_name, mp.value.share_name))
+      type         = mp.value.type
+      account_name = mp.value.account_name
+      share_name   = mp.value.share_name
+      access_key   = mp.value.access_key
+      mount_path   = mp.value.mount_path
+    }
+  }
+
   dynamic "identity" {
     for_each = var.identity_type != null ? ["identity"] : []
     content {
@@ -433,6 +446,19 @@ resource "azurerm_linux_function_app_slot" "staging" {
 
   https_only              = var.https_only
   builtin_logging_enabled = var.builtin_logging_enabled
+
+  dynamic "storage_account" {
+    for_each = length(var.staging_slot_mount_points) > 0 ? var.staging_slot_mount_points : var.mount_points
+    iterator = mp
+    content {
+      name         = coalesce(mp.value.name, format("%s-%s", mp.value.account_name, mp.value.share_name))
+      type         = mp.value.type
+      account_name = mp.value.account_name
+      share_name   = mp.value.share_name
+      access_key   = mp.value.access_key
+      mount_path   = mp.value.mount_path
+    }
+  }
 
   lifecycle {
     ignore_changes = [

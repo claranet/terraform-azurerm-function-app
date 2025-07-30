@@ -31,6 +31,42 @@ variable "identity_ids" {
   default     = null
 }
 
+variable "mount_points" {
+  description = "Storage Account mount points. Name is generated if not set and default type is `AzureFiles`."
+  type = list(object({
+    name         = optional(string)
+    type         = optional(string, "AzureFiles")
+    account_name = string
+    share_name   = string
+    access_key   = string
+    mount_path   = optional(string)
+  }))
+  validation {
+    condition     = alltrue([for m in var.mount_points : contains(["AzureBlob", "AzureFiles"], m.type)])
+    error_message = "The `type` attribute of `var.mount_points` object list must be `AzureBlob` or `AzureFiles`."
+  }
+  default  = []
+  nullable = false
+}
+
+variable "staging_slot_mount_points" {
+  description = "Storage Account mount points for staging slot. Name is generated if not set and default type is `AzureFiles`."
+  type = list(object({
+    name         = optional(string)
+    type         = optional(string, "AzureFiles")
+    account_name = string
+    share_name   = string
+    access_key   = string
+    mount_path   = optional(string)
+  }))
+  validation {
+    condition     = alltrue([for m in var.staging_slot_mount_points : contains(["AzureBlob", "AzureFiles"], m.type)])
+    error_message = "The `type` attribute of `var.staging_slot_mount_points` object list must be `AzureBlob` or `AzureFiles`."
+  }
+  default  = []
+  nullable = false
+}
+
 variable "public_network_access_enabled" {
   description = "Whether public network access is allowed for the function app."
   type        = bool

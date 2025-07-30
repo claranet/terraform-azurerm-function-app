@@ -21,6 +21,8 @@ module "linux_function" {
   diagnostic_settings_custom_name = var.diagnostic_settings_custom_name
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
+  mount_points                  = var.mount_points
+  staging_slot_mount_points     = var.staging_slot_mount_points
 
   storage_account_name_prefix                        = var.storage_account_name_prefix
   storage_account_custom_name                        = var.storage_account_custom_name
@@ -148,6 +150,8 @@ module "windows_function" {
   diagnostic_settings_custom_name = var.diagnostic_settings_custom_name
 
   storage_uses_managed_identity = var.storage_uses_managed_identity
+  mount_points                  = var.mount_points
+  staging_slot_mount_points     = var.staging_slot_mount_points
 
   storage_account_name_prefix                        = var.storage_account_name_prefix
   storage_account_custom_name                        = var.storage_account_custom_name
