@@ -1,3 +1,19 @@
+## 8.4.0 (2025-08-01)
+
+### Features
+
+* **GH-14:** ✨ add `mount_points` and `staging_slot_mount_points` variables 4ba3cc4
+
+### Bug Fixes
+
+* **GH-13:** 🐛 add missing `public_network_access_enabled` params 3f6d69f
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.3 365ab48
+* **deps:** update dependency tflint to v0.58.1 5dcfc3b
+* **deps:** update tools 97ffb26
+
 ## 8.3.0 (2025-07-04)
 
 ### Features
