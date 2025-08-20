@@ -9,7 +9,10 @@ are required and are created if not provided.
 This module allows to deploy a application from a local or remote ZIP file that will be stored on the associated storage
 account.
 
-You can create an Azure Function without plan by using the submodule `modules/functionapp`.
+The module automatically selects the appropriate Function App resource type based on the `os_type` variable:
+- `Linux` - Creates `azurerm_linux_function_app`
+- `Windows` - Creates `azurerm_windows_function_app`
+- `Flex` - Creates `azurerm_function_app_flex_consumption`
 
 Azure Functions v3 are now supported by this module and is the default one.
 
@@ -129,20 +132,41 @@ module "function_app_linux" {
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| azurecaf | ~> 1.2.28 |
+| azurerm | ~> 4.35 |
+| external | ~> 2.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| flex\_function | ./modules/flex-function | n/a |
-| linux\_function | ./modules/linux-function | n/a |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
 | service\_plan | claranet/app-service-plan/azurerm | ~> 8.2.0 |
-| windows\_function | ./modules/windows-function | n/a |
+| storage | claranet/storage-account/azurerm | ~> 8.6.0 |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
+| [azurerm_function_app_flex_consumption.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption) | resource |
+| [azurerm_linux_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app) | resource |
+| [azurerm_linux_function_app_slot.staging](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot) | resource |
+| [azurerm_storage_account_network_rules.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
+| [azurerm_storage_blob.package_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
+| [azurerm_storage_container.flex_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_windows_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app) | resource |
+| [azurerm_windows_function_app_slot.staging](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot) | resource |
+| [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
+| [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |
+| [azurerm_service_plan.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan) | data source |
+| [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
+| [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
+| [external_external.function_app_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
 
@@ -260,10 +284,10 @@ No resources.
 | application\_insights\_name | Name of the associated Application Insights. |
 | connection\_string | Connection string of the created Function App. |
 | default\_hostname | Default hostname of the created Function App. |
-| flex\_function\_app | Flex Function App output object if flex is chosen. Please refer to `./modules/flex-function/README.md` |
+| flex\_function\_app | Flex Function App output object if flex is chosen. |
 | id | ID of the created Function App. |
 | identity\_principal\_id | Identity principal ID output of the Function App. |
-| linux\_function\_app | Linux Function App output object if Linux is chosen. Please refer to `./modules/linux-function/README.md` |
+| linux\_function\_app | Linux Function App output object if Linux is chosen. |
 | module\_service\_plan | Service Plan module object. |
 | name | Name of the created Function App. |
 | os\_type | The OS type for the Functions to be hosted in this plan. |
@@ -282,7 +306,7 @@ No resources.
 | storage\_account\_primary\_connection\_string | Storage Account primary connection string, empty if connection string provided. |
 | storage\_account\_secondary\_access\_key | Storage Account secondary access key, empty if connection string provided. |
 | storage\_account\_secondary\_connection\_string | Storage Account secondary connection string, empty if connection string provided. |
-| windows\_function\_app | Windows Function App output object if Windows is chosen. Please refer to `./modules/windows-function/README.md` |
+| windows\_function\_app | Windows Function App output object if Windows is chosen. |
 <!-- END_TF_DOCS -->
 
 ## Related documentation

@@ -1,7 +1,4 @@
-moved {
-  from = module.storage["enabled"]
-  to   = module.storage[0]
-}
+# Storage resources consolidated from submodules
 
 module "storage" {
   count = var.use_existing_storage_account ? 0 : 1
@@ -71,19 +68,14 @@ module "storage" {
   )
 }
 
-moved {
-  from = azurerm_storage_account_network_rules.storage_network_rules["enabled"]
-  to   = azurerm_storage_account_network_rules.main[0]
-}
-
 resource "azurerm_storage_account_network_rules" "main" {
   count = !var.use_existing_storage_account && var.storage_account_network_rules_enabled ? 1 : 0
 
   storage_account_id = local.storage_account.id
 
   default_action             = "Deny"
-  ip_rules                   = local.storage_ips
-  virtual_network_subnet_ids = distinct(compact(concat(var.allowed_subnet_ids, [var.vnet_integration_subnet_id])))
+  ip_rules                   = local.is_plan_linux_flex ? var.storage_account_allowed_ips : local.storage_ips
+  virtual_network_subnet_ids = local.is_plan_linux_flex ? var.allowed_subnet_ids : distinct(compact(concat(var.allowed_subnet_ids, [var.vnet_integration_subnet_id])))
   bypass                     = var.storage_account_network_bypass
 
   lifecycle {
@@ -94,6 +86,7 @@ resource "azurerm_storage_account_network_rules" "main" {
   }
 }
 
+# Package deployment resources
 resource "azurerm_storage_container" "package_container" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
@@ -113,24 +106,36 @@ resource "azurerm_storage_blob" "package_blob" {
   content_md5            = filemd5(var.application_zip_package_path)
 }
 
+resource "azurerm_storage_container" "flex_container" {
+  count = lower(var.os_type) == "flex" ? 1 : 0
+
+  name                  = "functions-flex"
+  storage_account_id    = data.azurerm_storage_account.main.id
+  container_access_type = "private"
+}
+
 data "azurerm_storage_account_sas" "package_sas" {
   count = var.application_zip_package_path != null && !var.storage_uses_managed_identity ? 1 : 0
 
   connection_string = local.storage_account.primary_connection_string
   https_only        = false
+
   resource_types {
     service   = false
     container = false
     object    = true
   }
+
   services {
     blob  = true
     queue = false
     table = false
     file  = false
   }
+
   start  = "2021-01-01"
   expiry = "2041-01-01"
+
   permissions {
     read    = true
     write   = false

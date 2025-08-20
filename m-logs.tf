@@ -1,8 +1,10 @@
+# Diagnostic settings consolidated from submodules
+
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
   version = "~> 8.2.0"
 
-  resource_id = azurerm_linux_function_app.main.id
+  resource_id = local.function_output.id
 
   logs_destinations_ids = var.logs_destinations_ids
   log_categories        = var.logs_categories

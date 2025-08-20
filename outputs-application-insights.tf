@@ -1,30 +1,30 @@
 output "application_insights_id" {
   description = "ID of the associated Application Insights."
-  value       = local.function_output.application_insights_id
+  value       = local.app_insights.id
 }
 
 output "application_insights_name" {
   description = "Name of the associated Application Insights."
-  value       = local.function_output.application_insights_name
+  value       = local.app_insights.name
 }
 
 output "application_insights_app_id" {
   description = "App ID of the associated Application Insights."
-  value       = local.function_output.application_insights_app_id
+  value       = local.app_insights.app_id
 }
 
 output "application_insights_instrumentation_key" {
   description = "Instrumentation key of the associated Application Insights."
-  value       = local.function_output.application_insights_instrumentation_key
+  value       = local.app_insights.instrumentation_key
   sensitive   = true
 }
 
 output "application_insights_application_type" {
   description = "Application Type of the associated Application Insights."
-  value       = local.function_output.application_insights_application_type
+  value       = local.app_insights.application_type
 }
 
 output "resource_application_insights" {
   description = "Application Insights resource object."
-  value       = try(local.function_output.resource_application_insights, null)
+  value       = local.app_insights
 }

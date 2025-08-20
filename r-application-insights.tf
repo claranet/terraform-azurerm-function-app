@@ -1,8 +1,4 @@
-moved {
-  from = azurerm_application_insights.app_insights
-  to   = azurerm_application_insights.main
-}
-
+# Application Insights resources consolidated from submodules
 resource "azurerm_application_insights" "main" {
   count = var.application_insights_enabled && var.application_insights_id == null ? 1 : 0
 
