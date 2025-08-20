@@ -8,6 +8,11 @@ output "windows_function_app" {
   value       = one(module.windows_function[*])
 }
 
+output "flex_function_app" {
+  description = "Flex Function App output object if flex is chosen. Please refer to `./modules/flex-function/README.md`"
+  value       = one(module.flex_function[*])
+}
+
 output "id" {
   description = "ID of the created Function App."
   value       = local.function_output.id

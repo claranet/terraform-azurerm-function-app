@@ -210,3 +210,48 @@ variable "storage_uses_managed_identity" {
   default     = false
   nullable    = false
 }
+
+# Flex-specific variables
+
+variable "runtime_name" {
+  description = "The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only used when os_type is `flex`."
+  type        = string
+  default     = "dotnet-isolated"
+}
+
+variable "runtime_version" {
+  description = "The runtime version for the Function App. Only used when os_type is `flex`."
+  type        = string
+  default     = "8.0"
+}
+
+variable "maximum_instance_count" {
+  description = "The maximum number of instances for this Function App. Only affects apps on Flex Consumption plans."
+  type        = number
+  default     = 100
+  nullable    = false
+}
+
+variable "always_ready_instance_count" {
+  description = "The number of instances that are always ready and warm for this Function App. Only affects apps on Flex Consumption plans."
+  type        = number
+  default     = null
+}
+
+variable "instance_memory_mb" {
+  description = "The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`."
+  type        = number
+  default     = 2048
+  nullable    = false
+  validation {
+    condition     = contains([2048, 4096, 8192, 16384], var.instance_memory_mb)
+    error_message = "The instance_memory_mb must be one of: 2048, 4096, 8192, 16384."
+  }
+}
+
+variable "storage_user_assigned_identity_id" {
+  description = "The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`."
+  type        = string
+  default     = null
+  nullable    = true
+}

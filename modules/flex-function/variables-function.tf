@@ -159,13 +159,6 @@ variable "storage_uses_managed_identity" {
   nullable    = false
 }
 
-variable "storage_access_key" {
-  description = "Storage Account access key to use for the Function App. Required if `storage_uses_managed_identity` is false."
-  type        = string
-  default     = null
-  nullable    = true
-}
-
 variable "storage_user_assigned_identity_id" {
   description = "The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`."
   type        = string

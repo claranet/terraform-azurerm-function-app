@@ -135,6 +135,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
+| flex\_function | ./modules/flex-function | n/a |
 | linux\_function | ./modules/linux-function | n/a |
 | service\_plan | claranet/app-service-plan/azurerm | ~> 8.2.0 |
 | windows\_function | ./modules/windows-function | n/a |
@@ -150,6 +151,7 @@ No resources.
 | allowed\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
 | allowed\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | allowed\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
+| always\_ready\_instance\_count | The number of instances that are always ready and warm for this Function App. Only affects apps on Flex Consumption plans. | `number` | `null` | no |
 | app\_service\_environment\_id | ID of the App Service Environment to create this Service Plan in. Requires an Isolated SKU. Use one of I1, I2, I3 for azurerm\_app\_service\_environment, or I1v2, I2v2, I3v2 for azurerm\_app\_service\_environment\_v3. | `string` | `null` | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app. | `string` | `""` | no |
 | application\_insights\_daily\_data\_cap | Daily data volume cap (in GB) for Application Insights. | `number` | `null` | no |
@@ -186,6 +188,7 @@ No resources.
 | https\_only | Whether HTTPS traffic only is enabled. | `bool` | `true` | no |
 | identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`. | `list(string)` | `null` | no |
 | identity\_type | Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities. | `string` | `"SystemAssigned"` | no |
+| instance\_memory\_mb | The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`. | `number` | `2048` | no |
 | ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | `map(list(string))` | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
@@ -193,10 +196,11 @@ No resources.
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | maximum\_elastic\_worker\_count | Maximum number of workers to use in an Elastic SKU Plan. Cannot be set unless using an Elastic SKU. | `number` | `null` | no |
+| maximum\_instance\_count | The maximum number of instances for this Function App. Only affects apps on Flex Consumption plans. | `number` | `100` | no |
 | mount\_points | Storage Account mount points. Name is generated if not set and default type is `AzureFiles`. | <pre>list(object({<br/>    name         = optional(string)<br/>    type         = optional(string, "AzureFiles")<br/>    account_name = string<br/>    share_name   = string<br/>    access_key   = string<br/>    mount_path   = optional(string)<br/>  }))</pre> | `[]` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
-| os\_type | OS type for the Functions to be hosted in the Service Plan. Possible values include `Windows`, `Linux`, and `WindowsContainer`. | `string` | n/a | yes |
+| os\_type | OS type for the Functions to be hosted in the Service Plan. Possible values include `Windows`, `Linux`, `WindowsContainer`, and `Flex`. | `string` | n/a | yes |
 | per\_site\_scaling\_enabled | Should per site scaling be enabled on the Service Plan. | `bool` | `false` | no |
 | public\_network\_access\_enabled | Whether public network access is allowed for the function app. | `bool` | `true` | no |
 | rbac\_storage\_blob\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Blob Data *` different roles to if Blob containers are created. | <pre>object({<br/>    owners       = optional(list(string), [])<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
@@ -205,6 +209,8 @@ No resources.
 | rbac\_storage\_queue\_contributor\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Queue Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | rbac\_storage\_table\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Table Data *` role to. | <pre>object({<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
+| runtime\_name | The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only used when os\_type is `flex`. | `string` | `"dotnet-isolated"` | no |
+| runtime\_version | The runtime version for the Function App. Only used when os\_type is `flex`. | `string` | `"8.0"` | no |
 | scm\_allowed\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_allowed\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_allowed\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
@@ -236,6 +242,7 @@ No resources.
 | storage\_logs\_categories | Override storage\_logs\_categories for the storage. Log categories to send to destinations. | `list(string)` | `null` | no |
 | storage\_logs\_destinations\_ids | Override logs\_destinations\_ids for the storage.<br/>List of destination resources IDs for logs diagnostic destination used.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | `null` | no |
 | storage\_logs\_metrics\_categories | Override storage\_logs\_metrics\_categories for the storage. Metrics categories to send to destinations. | `list(string)` | `null` | no |
+| storage\_user\_assigned\_identity\_id | The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`. | `string` | `null` | no |
 | storage\_uses\_managed\_identity | Whether the Function App use Managed Identity to access the Storage Account. **Caution** This disable the storage keys on the Storage Account if created within the module. | `bool` | `false` | no |
 | use\_existing\_storage\_account | Whether existing Storage Account should be used instead of creating a new one. | `bool` | `false` | no |
 | vnet\_integration\_subnet\_id | ID of the subnet to associate with the Function App (Virtual Network integration). | `string` | `null` | no |
@@ -253,6 +260,7 @@ No resources.
 | application\_insights\_name | Name of the associated Application Insights. |
 | connection\_string | Connection string of the created Function App. |
 | default\_hostname | Default hostname of the created Function App. |
+| flex\_function\_app | Flex Function App output object if flex is chosen. Please refer to `./modules/flex-function/README.md` |
 | id | ID of the created Function App. |
 | identity\_principal\_id | Identity principal ID output of the Function App. |
 | linux\_function\_app | Linux Function App output object if Linux is chosen. Please refer to `./modules/linux-function/README.md` |

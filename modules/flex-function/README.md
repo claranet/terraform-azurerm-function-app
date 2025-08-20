@@ -36,43 +36,43 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "flex_function" {
-  source = "../../modules/flex-function"
+### Flex
+module "function_app_flex_consumption" {
+  source  = "claranet/function-app/azurerm"
+  version = "x.x.x"
 
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
-  location       = var.location
-  location_short = var.location_short
+  client_name         = var.client_name
+  environment         = var.environment
+  stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  resource_group_name = module.rg.name
 
-  resource_group_name = var.resource_group_name
+  name_prefix = "hello"
 
-  service_plan_id = var.service_plan_id
+  os_type = "Flex"
 
-  # Function App configuration
-  runtime_name    = var.runtime_name
-  runtime_version = var.runtime_version
+  runtime_name                  = "python"
+  runtime_version               = "3.12"
+  storage_uses_managed_identity = true
 
-  # Flex-specific configuration
-  maximum_instance_count = var.maximum_instance_count
+  application_settings = {
+    "tracker_id"      = "AJKGDFJKHFDS"
+    "backend_api_url" = "https://backend.domain.tld/api"
+  }
 
-  # Application Insights
-  application_insights_enabled                    = var.application_insights_enabled
-  application_insights_log_analytics_workspace_id = var.application_insights_log_analytics_workspace_id
+  storage_account_identity_type = "SystemAssigned"
 
-  # Storage
-  use_existing_storage_account = var.use_existing_storage_account
-  storage_account_id           = var.storage_account_id
+  # application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
 
-  # Networking
-  public_network_access_enabled = var.public_network_access_enabled
-  allowed_ips                   = var.allowed_ips
-  allowed_subnet_ids            = var.allowed_subnet_ids
+  logs_destinations_ids = [
+    # module.logs.logs_storage_account_id,
+    # module.logs.log_analytics_workspace_id
+  ]
 
-  # Logging
-  logs_destinations_ids = var.logs_destinations_ids
-
-  extra_tags = var.extra_tags
+  extra_tags = {
+    foo = "bar"
+  }
 }
 ```
 
@@ -175,7 +175,6 @@ module "flex_function" {
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | sticky\_settings | Lists of connection strings and app settings to prevent from swapping between slots. | <pre>object({<br/>    app_setting_names       = optional(list(string))<br/>    connection_string_names = optional(list(string))<br/>  })</pre> | `null` | no |
-| storage\_access\_key | Storage Account access key to use for the Function App. Required if `storage_uses_managed_identity` is false. | `string` | `null` | no |
 | storage\_account\_advanced\_threat\_protection\_enabled | Whether advanced threat protection is enabled. [See documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal). | `bool` | `false` | no |
 | storage\_account\_allowed\_ips | IPs restrictions for Function Storage Account in CIDR format. | `list(string)` | `[]` | no |
 | storage\_account\_custom\_name | Custom name of the Storage account to attach to function. | `string` | `null` | no |
