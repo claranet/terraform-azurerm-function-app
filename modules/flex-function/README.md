@@ -81,7 +81,7 @@ module "function_app_flex_consumption" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2.28 |
-| azurerm | ~> 4.9 |
+| azurerm | ~> 4.35 |
 | external | ~> 2.0 |
 
 ## Modules
