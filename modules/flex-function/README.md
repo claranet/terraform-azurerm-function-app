@@ -89,7 +89,7 @@ module "function_app_flex_consumption" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
-| storage | claranet/storage-account/azurerm | ~> 8.6.0 |
+| storage | git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git | fix/threat_protect |
 
 ## Resources
 
@@ -99,6 +99,7 @@ module "function_app_flex_consumption" {
 | [azurerm_function_app_flex_consumption.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption) | resource |
 | [azurerm_storage_account_network_rules.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 | [azurerm_storage_blob.package_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
+| [azurerm_storage_container.flex_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |

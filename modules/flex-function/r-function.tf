@@ -11,9 +11,9 @@ resource "azurerm_function_app_flex_consumption" "main" {
   runtime_name    = var.runtime_name
   runtime_version = var.runtime_version
 
-  storage_container_type            = var.storage_uses_managed_identity ? "ManagedIdentity" : "StorageAccount"
-  storage_container_endpoint        = data.azurerm_storage_account.main.primary_blob_endpoint
-  storage_authentication_type       = var.storage_uses_managed_identity ? "ManagedIdentity" : "StorageAccountConnectionString"
+  storage_container_type            = "blobContainer"
+  storage_container_endpoint        = "${data.azurerm_storage_account.main.primary_blob_endpoint}${azurerm_storage_container.flex_container.name}"
+  storage_authentication_type       = var.storage_uses_managed_identity ? (var.storage_user_assigned_identity_id != null ? "UserAssignedIdentity" : "SystemAssignedIdentity") : "StorageAccountConnectionString"
   storage_access_key                = var.storage_uses_managed_identity ? null : local.storage_account_output.primary_access_key
   storage_user_assigned_identity_id = var.storage_uses_managed_identity ? var.storage_user_assigned_identity_id : null
 

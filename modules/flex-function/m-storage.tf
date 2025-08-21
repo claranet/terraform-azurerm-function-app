@@ -1,8 +1,9 @@
 module "storage" {
   count = var.use_existing_storage_account ? 0 : 1
 
-  source  = "claranet/storage-account/azurerm"
-  version = "~> 8.6.0"
+  #   source  = "claranet/storage-account/azurerm"
+  #   version = "~> 8.6.0"
+  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=fix/threat_protect"
 
   client_name    = var.client_name
   environment    = var.environment
@@ -81,6 +82,12 @@ resource "azurerm_storage_container" "package_container" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                  = "functions-packages"
+  storage_account_id    = data.azurerm_storage_account.main.id
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "flex_container" {
+  name                  = "functions-flex"
   storage_account_id    = data.azurerm_storage_account.main.id
   container_access_type = "private"
 }

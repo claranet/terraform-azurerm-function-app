@@ -91,7 +91,7 @@ module "function_app_linux" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.1.0 |
-| storage | claranet/storage-account/azurerm | ~> 8.6.0 |
+| storage | git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git | fix/threat_protect |
 
 ## Resources
 

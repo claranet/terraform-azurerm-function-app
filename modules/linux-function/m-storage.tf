@@ -6,8 +6,9 @@ moved {
 module "storage" {
   count = var.use_existing_storage_account ? 0 : 1
 
-  source  = "claranet/storage-account/azurerm"
-  version = "~> 8.6.0"
+  #   source  = "claranet/storage-account/azurerm"
+  #   version = "~> 8.6.0"
+  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git?ref=fix/threat_protect"
 
   client_name    = var.client_name
   environment    = var.environment
