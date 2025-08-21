@@ -28,6 +28,12 @@ output "identity_principal_id" {
   value       = try(azurerm_function_app_flex_consumption.main.identity[0].principal_id, null)
 }
 
+output "connection_string" {
+  description = "Connection string of the created Function App."
+  value       = azurerm_function_app_flex_consumption.main.connection_string
+  sensitive   = true
+}
+
 output "resource" {
   description = "Function App resource object."
   value       = azurerm_function_app_flex_consumption.main
@@ -36,4 +42,20 @@ output "resource" {
 output "module_diagnostics" {
   description = "Diagnostics settings module outputs."
   value       = module.diagnostics
+}
+
+# Slot not handled
+output "slot_name" {
+  description = "[Not implemented for Flex]."
+  value       = null
+}
+
+output "slot_default_hostname" {
+  description = "[Not implemented for Flex]."
+  value       = null
+}
+
+output "slot_identity" {
+  description = "[Not implemented for Flex]."
+  value       = null
 }

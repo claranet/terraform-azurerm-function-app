@@ -1,26 +1,30 @@
 output "application_insights_id" {
   description = "ID of the associated Application Insights."
-  value       = local.app_insights.id
+  value       = try(local.app_insights.id, null)
 }
 
 output "application_insights_name" {
   description = "Name of the associated Application Insights."
-  value       = local.app_insights.name
+  value       = try(local.app_insights.name, null)
 }
 
 output "application_insights_app_id" {
   description = "App ID of the associated Application Insights."
-  value       = local.app_insights.app_id
+  value       = try(local.app_insights.app_id, null)
+}
+
+output "resource_application_insights" {
+  description = "Application Insights resource object."
+  value       = try(local.app_insights, null)
 }
 
 output "application_insights_instrumentation_key" {
   description = "Instrumentation key of the associated Application Insights."
-  value       = local.app_insights.instrumentation_key
+  value       = try(local.app_insights.instrumentation_key, null)
   sensitive   = true
 }
 
-output "application_insights_connection_string" {
-  description = "Connection string of the associated Application Insights."
-  value       = local.app_insights.connection_string
-  sensitive   = true
+output "application_insights_application_type" {
+  description = "Application Type of the associated Application Insights."
+  value       = try(local.app_insights.application_type, null)
 }

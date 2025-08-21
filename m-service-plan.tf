@@ -15,8 +15,8 @@ module "service_plan" {
   custom_name                     = var.service_plan_custom_name
   diagnostic_settings_custom_name = var.diagnostic_settings_custom_name
 
-  os_type                = lower(var.os_type) == "flex" ? "Linux" : var.os_type
-  sku_name               = lower(var.os_type) == "flex" ? "FC1" : var.sku_name
+  os_type                = var.os_type
+  sku_name               = var.sku_name
   zone_balancing_enabled = var.zone_balancing_enabled
 
   app_service_environment_id   = var.app_service_environment_id

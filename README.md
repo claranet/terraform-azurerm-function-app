@@ -200,7 +200,7 @@ No resources.
 | mount\_points | Storage Account mount points. Name is generated if not set and default type is `AzureFiles`. | <pre>list(object({<br/>    name         = optional(string)<br/>    type         = optional(string, "AzureFiles")<br/>    account_name = string<br/>    share_name   = string<br/>    access_key   = string<br/>    mount_path   = optional(string)<br/>  }))</pre> | `[]` | no |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
-| os\_type | OS type for the Functions to be hosted in the Service Plan. Possible values include `Windows`, `Linux`, `WindowsContainer`, and `Flex`. | `string` | n/a | yes |
+| os\_type | OS type for the Functions to be hosted in the Service Plan. Possible values include `Windows`, `Linux`, `WindowsContainer`. | `string` | n/a | yes |
 | per\_site\_scaling\_enabled | Should per site scaling be enabled on the Service Plan. | `bool` | `false` | no |
 | public\_network\_access\_enabled | Whether public network access is allowed for the function app. | `bool` | `true` | no |
 | rbac\_storage\_blob\_role\_principal\_ids | The principal IDs of the users, groups, and service principals to assign the `Storage Blob Data *` different roles to if Blob containers are created. | <pre>object({<br/>    owners       = optional(list(string), [])<br/>    contributors = optional(list(string), [])<br/>    readers      = optional(list(string), [])<br/>  })</pre> | `{}` | no |
@@ -218,7 +218,7 @@ No resources.
 | service\_plan\_custom\_name | Name of the App Service Plan, generated if not set. | `string` | `""` | no |
 | service\_plan\_extra\_tags | Extra tags to add to Service Plan. | `map(string)` | `{}` | no |
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
-| sku\_name | The SKU for the Service Plan. Possible values include B1, B2, B3, D1, F1, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, P1mv3, P2mv3, P3mv3, P4mv3, P5mv3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, WS3, and Y1. | `string` | `"Y1"` | no |
+| sku\_name | The SKU for the Service Plan. Possible values include B1, B2, B3, D1, F1, FC1, I1, I2, I3, I1v2, I2v2, I3v2, P1v2, P2v2, P3v2, P1v3, P2v3, P3v3, P1mv3, P2mv3, P3mv3, P4mv3, P5mv3, S1, S2, S3, SHARED, EP1, EP2, EP3, WS1, WS2, WS3, and Y1. | `string` | `"Y1"` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | staging\_slot\_custom\_application\_settings | Override staging slot with custom application settings. | `map(string)` | `null` | no |
 | staging\_slot\_custom\_name | Custom name of the Function App slot. | `string` | `null` | no |

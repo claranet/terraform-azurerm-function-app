@@ -4,7 +4,7 @@ moved {
 }
 
 module "linux_function" {
-  count = lower(var.os_type) == "linux" ? 1 : 0
+  count = lower(var.os_type) == "linux" && !local.is_plan_linux_flex ? 1 : 0
 
   source = "./modules/linux-function"
 
@@ -133,7 +133,7 @@ moved {
 }
 
 module "windows_function" {
-  count = lower(var.os_type) == "windows" ? 1 : 0
+  count = lower(var.os_type) == "windows" && !local.is_plan_linux_flex ? 1 : 0
 
   source = "./modules/windows-function"
 
@@ -249,7 +249,7 @@ module "windows_function" {
 }
 
 module "flex_function" {
-  count = lower(var.os_type) == "flex" ? 1 : 0
+  count = local.is_plan_linux_flex ? 1 : 0
 
   source = "./modules/flex-function"
 

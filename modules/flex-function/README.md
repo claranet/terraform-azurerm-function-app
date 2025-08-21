@@ -104,7 +104,6 @@ module "function_app_flex_consumption" {
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |
-| [azurerm_service_plan.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan) | data source |
 | [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
 | [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
 | [external_external.function_app_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
@@ -202,10 +201,11 @@ module "function_app_flex_consumption" {
 | Name | Description |
 |------|-------------|
 | application\_insights\_app\_id | App ID of the associated Application Insights. |
-| application\_insights\_connection\_string | Connection string of the associated Application Insights. |
+| application\_insights\_application\_type | Application Type of the associated Application Insights. |
 | application\_insights\_id | ID of the associated Application Insights. |
 | application\_insights\_instrumentation\_key | Instrumentation key of the associated Application Insights. |
 | application\_insights\_name | Name of the associated Application Insights. |
+| connection\_string | Connection string of the created Function App. |
 | default\_hostname | Default hostname of the created Function App. |
 | id | ID of the created Function App. |
 | identity\_principal\_id | Function App system identity principal ID. |
@@ -214,13 +214,16 @@ module "function_app_flex_consumption" {
 | outbound\_ip\_addresses | Outbound IP addresses of the created Function App. |
 | possible\_outbound\_ip\_addresses | All possible outbound IP addresses of the created Function App. |
 | resource | Function App resource object. |
-| service\_plan\_id | ID of the associated Service Plan. |
-| service\_plan\_name | Name of the associated Service Plan. |
-| service\_plan\_os\_type | OS type of the associated Service Plan. |
-| service\_plan\_sku\_name | SKU name of the associated Service Plan. |
-| storage\_account\_id | ID of the associated Storage Account. |
-| storage\_account\_name | Name of the associated Storage Account. |
-| storage\_account\_primary\_access\_key | Primary access key of the associated Storage Account. |
-| storage\_account\_primary\_connection\_string | Primary connection string of the associated Storage Account. |
-| storage\_account\_secondary\_access\_key | Secondary access key of the associated Storage Account. |
+| resource\_application\_insights | Application Insights resource object. |
+| service\_plan\_id | ID of the App Service Plan. |
+| slot\_default\_hostname | [Not implemented for Flex]. |
+| slot\_identity | [Not implemented for Flex]. |
+| slot\_name | [Not implemented for Flex]. |
+| storage\_account\_id | Storage Account ID, `null` if connection string provided. |
+| storage\_account\_name | Storage Account name, `null` if connection string provided. |
+| storage\_account\_network\_rules | Network rules of the Storage Account. |
+| storage\_account\_primary\_access\_key | Storage Account's primary access key, `null` if connection string provided. |
+| storage\_account\_primary\_connection\_string | Storage Account's primary connection string, `null` if connection string provided. |
+| storage\_account\_secondary\_access\_key | Storage Account's secondary access key, `null` if connection string provided. |
+| storage\_account\_secondary\_connection\_string | Storage Account's secondary connection string, `null` if connection string provided. |
 <!-- END_TF_DOCS -->
