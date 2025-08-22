@@ -39,7 +39,7 @@ locals {
       WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
     # Linux-specific Docker settings
-    lower(var.os_type) == "linux" && substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
+    lower(var.os_type) == "linux" && substr(try(local.site_config.linux_fx_version, ""), 0, 7) == "DOCKER|" ? {
       FUNCTIONS_WORKER_RUNTIME            = null
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     } : {},
