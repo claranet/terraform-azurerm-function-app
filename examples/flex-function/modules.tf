@@ -12,7 +12,8 @@ module "function_app_flex_consumption" {
 
   name_prefix = "hello"
 
-  os_type = "Flex"
+  os_type  = "Linux"
+  sku_name = "FC1"
 
   runtime_name                  = "python"
   runtime_version               = "3.12"

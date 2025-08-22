@@ -50,7 +50,8 @@ module "function_app_flex_consumption" {
 
   name_prefix = "hello"
 
-  os_type = "Flex"
+  os_type  = "Linux"
+  sku_name = "FC1"
 
   runtime_name                  = "python"
   runtime_version               = "3.12"
@@ -89,7 +90,7 @@ module "function_app_flex_consumption" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
-| storage | git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/storage-account.git | fix/threat_protect |
+| storage | claranet/storage-account/azurerm | ~> 8.6.0 |
 
 ## Resources
 

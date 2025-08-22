@@ -133,7 +133,7 @@ moved {
 }
 
 module "windows_function" {
-  count = lower(var.os_type) == "windows" && !local.is_plan_linux_flex ? 1 : 0
+  count = lower(var.os_type) == "windows" ? 1 : 0
 
   source = "./modules/windows-function"
 
