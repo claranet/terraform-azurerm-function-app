@@ -109,9 +109,83 @@ variable "vnet_integration_subnet_id" {
 
 variable "site_config" {
   description = "Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block."
-  type        = any
-  default     = {}
-  nullable    = false
+  type = object({
+    # Basic site config attributes
+    always_on                         = optional(bool)
+    api_definition_url                = optional(string)
+    api_management_api_id             = optional(string)
+    app_command_line                  = optional(string)
+    app_scale_limit                   = optional(number)
+    default_documents                 = optional(list(string))
+    ftps_state                        = optional(string, "Disabled")
+    health_check_path                 = optional(string)
+    health_check_eviction_time_in_min = optional(number)
+    http2_enabled                     = optional(bool)
+    load_balancing_mode               = optional(string)
+    managed_pipeline_mode             = optional(string)
+    minimum_tls_version               = optional(string, "1.2")
+    min_tls_version                   = optional(string) # Legacy attribute for backward compatibility
+    remote_debugging_enabled          = optional(bool, false)
+    remote_debugging_version          = optional(string)
+    runtime_scale_monitoring_enabled  = optional(bool)
+    use_32_bit_worker                 = optional(bool)
+    websockets_enabled                = optional(bool, false)
+
+    # Application Insights
+    application_insights_connection_string = optional(string)
+    application_insights_key               = optional(bool, false)
+
+    # Scaling attributes
+    pre_warmed_instance_count = optional(number)
+    elastic_instance_minimum  = optional(number)
+    worker_count              = optional(number)
+
+    # Network attributes
+    vnet_route_all_enabled            = optional(bool)
+    ip_restriction_default_action     = optional(string, "Deny")
+    scm_ip_restriction_default_action = optional(string, "Deny")
+
+    # SCM attributes
+    scm_type = optional(string)
+
+    # Linux-specific attributes
+    linux_fx_version = optional(string)
+
+    # Application stack configuration
+    application_stack = optional(object({
+      # Docker configuration (Linux only)
+      docker = optional(object({
+        registry_url      = string
+        image_name        = string
+        image_tag         = string
+        registry_username = optional(string)
+        registry_password = optional(string)
+      }))
+
+      # Runtime versions
+      dotnet_version              = optional(string)
+      use_dotnet_isolated_runtime = optional(bool)
+      java_version                = optional(string)
+      node_version                = optional(string)
+      python_version              = optional(string)
+      powershell_core_version     = optional(string)
+      use_custom_runtime          = optional(bool)
+    }))
+
+    # CORS configuration
+    cors = optional(object({
+      allowed_origins     = optional(list(string), [])
+      support_credentials = optional(bool, false)
+    }))
+
+    # App service logs configuration
+    app_service_logs = optional(object({
+      disk_quota_mb         = optional(number)
+      retention_period_days = optional(number)
+    }))
+  })
+  default  = {}
+  nullable = false
 }
 
 variable "sticky_settings" {

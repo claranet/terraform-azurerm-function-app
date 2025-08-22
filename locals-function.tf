@@ -39,12 +39,12 @@ locals {
       WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url
     } : {},
     # Linux-specific Docker settings
-    lower(var.os_type) == "linux" && substr(try(local.site_config.linux_fx_version, ""), 0, 7) == "DOCKER|" ? {
+    lower(var.os_type) == "linux" && substr(coalesce(local.site_config.linux_fx_version, ""), 0, 7) == "DOCKER|" ? {
       FUNCTIONS_WORKER_RUNTIME            = null
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     } : {},
     # Python isolation settings (Linux/Windows)
-    lower(var.os_type) != "flex" && try(local.site_config.application_stack.python_version != null, false) ? {
+    lower(var.os_type) != "flex" && local.site_config.application_stack != null && local.site_config.application_stack.python_version != null ? {
       PYTHON_ISOLATE_WORKER_DEPENDENCIES = 1
     } : {},
     # External app settings (Linux/Windows only)
