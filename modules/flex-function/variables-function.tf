@@ -1,8 +1,18 @@
-variable "function_app_version" {
-  description = "Version of the function app runtime to use."
-  type        = number
-  default     = 3
-  nullable    = false
+variable "runtime_name" {
+  description = "The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`."
+  type        = string
+  default     = "dotnet-isolated"
+}
+
+variable "runtime_version" {
+  description = "The runtime version for the Function App."
+  type        = string
+  default     = "8.0"
+}
+
+variable "service_plan_id" {
+  description = "ID of the App Service Plan for the Function App. Required for flex consumption."
+  type        = string
 }
 
 variable "application_settings" {
@@ -29,42 +39,6 @@ variable "identity_ids" {
   description = "User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`."
   type        = list(string)
   default     = null
-}
-
-variable "mount_points" {
-  description = "Storage Account mount points. Name is generated if not set and default type is `AzureFiles`."
-  type = list(object({
-    name         = optional(string)
-    type         = optional(string, "AzureFiles")
-    account_name = string
-    share_name   = string
-    access_key   = string
-    mount_path   = optional(string)
-  }))
-  validation {
-    condition     = alltrue([for m in var.mount_points : contains(["AzureBlob", "AzureFiles"], m.type)])
-    error_message = "The `type` attribute of `var.mount_points` object list must be `AzureBlob` or `AzureFiles`."
-  }
-  default  = []
-  nullable = false
-}
-
-variable "staging_slot_mount_points" {
-  description = "Storage Account mount points for staging slot. Name is generated if not set and default type is `AzureFiles`."
-  type = list(object({
-    name         = optional(string)
-    type         = optional(string, "AzureFiles")
-    account_name = string
-    share_name   = string
-    access_key   = string
-    mount_path   = optional(string)
-  }))
-  validation {
-    condition     = alltrue([for m in var.staging_slot_mount_points : contains(["AzureBlob", "AzureFiles"], m.type)])
-    error_message = "The `type` attribute of `var.staging_slot_mount_points` object list must be `AzureBlob` or `AzureFiles`."
-  }
-  default  = []
-  nullable = false
 }
 
 variable "public_network_access_enabled" {
@@ -101,12 +75,6 @@ variable "allowed_service_tags" {
   nullable    = false
 }
 
-variable "vnet_integration_subnet_id" {
-  description = "ID of the subnet to associate with the Function App (Virtual Network integration)."
-  type        = string
-  default     = null
-}
-
 variable "site_config" {
   description = "Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block."
   type        = any
@@ -130,13 +98,6 @@ variable "https_only" {
   nullable    = false
 }
 
-variable "builtin_logging_enabled" {
-  description = "Whether built-in logging is enabled."
-  type        = bool
-  default     = true
-  nullable    = false
-}
-
 variable "client_certificate_enabled" {
   description = "Whether the Function App uses client certificates."
   type        = bool
@@ -152,19 +113,6 @@ variable "client_certificate_mode" {
 variable "application_zip_package_path" {
   description = "Local or remote path of a zip package to deploy on the Function App."
   type        = string
-  default     = null
-}
-
-variable "staging_slot_enabled" {
-  description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
-variable "staging_slot_custom_application_settings" {
-  description = "Override staging slot with custom application settings."
-  type        = map(string)
   default     = null
 }
 
@@ -211,19 +159,14 @@ variable "storage_uses_managed_identity" {
   nullable    = false
 }
 
+variable "storage_user_assigned_identity_id" {
+  description = "The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
 # Flex-specific variables
-
-variable "runtime_name" {
-  description = "The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only used when os_type is `flex`."
-  type        = string
-  default     = "dotnet-isolated"
-}
-
-variable "runtime_version" {
-  description = "The runtime version for the Function App. Only used when os_type is `flex`."
-  type        = string
-  default     = "8.0"
-}
 
 variable "maximum_instance_count" {
   description = "The maximum number of instances for this Function App. Only affects apps on Flex Consumption plans."
@@ -247,11 +190,4 @@ variable "instance_memory_mb" {
     condition     = contains([2048, 4096, 8192, 16384], var.instance_memory_mb)
     error_message = "The instance_memory_mb must be one of: 2048, 4096, 8192, 16384."
   }
-}
-
-variable "storage_user_assigned_identity_id" {
-  description = "The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`."
-  type        = string
-  default     = null
-  nullable    = true
 }
