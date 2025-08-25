@@ -141,6 +141,8 @@ resource "azurerm_windows_function_app" "main" {
       app_settings.MACHINEKEY_DecryptionKey,
       app_settings.WEBSITE_CONTENTAZUREFILECONNECTIONSTRING,
       app_settings.WEBSITE_CONTENTSHARE,
+      tags["hidden-link: /app-insights-instrumentation-key"],
+      tags["hidden-link: /app-insights-resource-id"],
     ]
   }
 
@@ -443,6 +445,8 @@ resource "azurerm_windows_function_app_slot" "staging" {
       app_settings.MACHINEKEY_DecryptionKey,
       app_settings.WEBSITE_CONTENTAZUREFILECONNECTIONSTRING,
       app_settings.WEBSITE_CONTENTSHARE,
+      tags["hidden-link: /app-insights-instrumentation-key"],
+      tags["hidden-link: /app-insights-resource-id"],
     ]
   }
 
