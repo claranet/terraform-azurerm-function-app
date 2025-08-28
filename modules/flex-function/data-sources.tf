@@ -1,3 +1,5 @@
+data "azurerm_subscription" "current" {}
+
 data "azurerm_storage_account" "main" {
   count = var.use_existing_storage_account ? 1 : 0
 
@@ -15,10 +17,11 @@ data "azurerm_application_insights" "main" {
 data "external" "function_app_settings" {
   count = var.application_settings_drift_ignore ? 1 : 0
 
-  program = ["bash", "${path.module}/../files/webapp_setting.sh"]
+  program = ["bash", "${path.module}/../../files/webapp_setting.sh"]
 
   query = {
-    resource_group_name = var.resource_group_name
-    function_app_name   = local.function_app_name
+    webapp_name  = local.function_app_name
+    rg_name      = var.resource_group_name
+    subscription = data.azurerm_subscription.current.subscription_id
   }
 }
