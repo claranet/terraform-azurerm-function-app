@@ -163,9 +163,9 @@ module "function_app_linux" {
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |
-| [azurerm_service_plan.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan) | data source |
 | [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
 | [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
+| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 | [external_external.function_app_settings](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
