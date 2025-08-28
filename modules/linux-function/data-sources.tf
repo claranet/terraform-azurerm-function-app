@@ -1,11 +1,13 @@
 data "azurerm_subscription" "current" {}
 
 data "azurerm_service_plan" "main" {
-  name                = element(split("/", var.service_plan_id), 8)
-  resource_group_name = element(split("/", var.service_plan_id), 4)
+  name                = provider::azurerm::parse_resource_id(var.service_plan_id).resource_name
+  resource_group_name = provider::azurerm::parse_resource_id(var.service_plan_id).resource_group_name
 }
 
 data "azurerm_storage_account" "main" {
-  name                = var.use_existing_storage_account ? split("/", var.storage_account_id)[8] : one(module.storage[*].name)
-  resource_group_name = var.use_existing_storage_account ? split("/", var.storage_account_id)[4] : var.resource_group_name
+  count = var.use_existing_storage_account ? 1 : 0
+
+  name                = provider::azurerm::parse_resource_id(var.storage_account_id).resource_name
+  resource_group_name = provider::azurerm::parse_resource_id(var.storage_account_id).resource_group_name
 }

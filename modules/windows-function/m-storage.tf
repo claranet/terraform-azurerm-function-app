@@ -79,7 +79,7 @@ moved {
 resource "azurerm_storage_account_network_rules" "main" {
   count = !var.use_existing_storage_account && var.storage_account_network_rules_enabled ? 1 : 0
 
-  storage_account_id = local.storage_account_output.id
+  storage_account_id = local.storage_account.id
 
   default_action             = "Deny"
   ip_rules                   = local.storage_ips
@@ -98,7 +98,7 @@ resource "azurerm_storage_container" "package_container" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                  = "functions-packages"
-  storage_account_id    = data.azurerm_storage_account.main.id
+  storage_account_id    = local.storage_account.id
   container_access_type = "private"
 }
 
@@ -106,7 +106,7 @@ resource "azurerm_storage_blob" "package_blob" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
   name                   = "${local.function_app_name}.zip"
-  storage_account_name   = data.azurerm_storage_account.main.name
+  storage_account_name   = local.storage_account.name
   storage_container_name = azurerm_storage_container.package_container[0].name
   type                   = "Block"
   source                 = var.application_zip_package_path
@@ -116,7 +116,7 @@ resource "azurerm_storage_blob" "package_blob" {
 data "azurerm_storage_account_sas" "package_sas" {
   count = var.application_zip_package_path != null && !var.storage_uses_managed_identity ? 1 : 0
 
-  connection_string = data.azurerm_storage_account.main.primary_connection_string
+  connection_string = local.storage_account.primary_connection_string
   https_only        = false
   resource_types {
     service   = false
