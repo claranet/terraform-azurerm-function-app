@@ -14,8 +14,8 @@ locals {
   staging_slot_name = coalesce(var.staging_slot_custom_name, "staging-slot")
 
   # Service plan type detection (Linux/Windows only)
-  is_consumption     = lower(var.os_type) != "flex" ? contains(["Y1"], data.azurerm_service_plan.main.sku_name) : false
-  is_elastic_premium = lower(var.os_type) != "flex" ? contains(["EP1", "EP2", "EP3"], data.azurerm_service_plan.main.sku_name) : false
+  is_consumption     = lower(var.os_type) != "flex" ? contains(["Y1"], module.service_plan.resource.sku_name) : false
+  is_elastic_premium = lower(var.os_type) != "flex" ? contains(["EP1", "EP2", "EP3"], module.service_plan.resource.sku_name) : false
 
   # Application Insights reference
   app_insights = try(data.azurerm_application_insights.main[0], one(azurerm_application_insights.main[*]))
@@ -51,7 +51,7 @@ locals {
     lower(var.os_type) != "flex" ? try(data.external.function_app_settings[0].result, {}) : {},
     # Flex-specific storage settings
     lower(var.os_type) == "flex" && !var.storage_uses_managed_identity ? {
-      AzureWebJobsStorage = data.azurerm_storage_account.main.primary_connection_string
+      AzureWebJobsStorage = local.storage_account.primary_connection_string
     } : {}
   )
 
@@ -135,7 +135,7 @@ locals {
   zip_package_url = var.application_zip_package_path != null ? (
     can(regex("^https?://", var.application_zip_package_path)) ?
     var.application_zip_package_path :
-    "${data.azurerm_storage_account.main.primary_blob_endpoint}${azurerm_storage_container.package_container[0].name}/${azurerm_storage_blob.package_blob[0].name}?${data.azurerm_storage_account_sas.package_sas[0].sas}"
+    "${local.storage_account.primary_blob_endpoint}${azurerm_storage_container.package_container[0].name}/${azurerm_storage_blob.package_blob[0].name}?${data.azurerm_storage_account_sas.package_sas[0].sas}"
   ) : null
 
   # Storage-related locals
@@ -158,6 +158,5 @@ locals {
     length(regexall("/3[12]$", cidr)) > 0 ? [cidrhost(cidr, 0), cidrhost(cidr, -1)] : [cidr]
   ]))
 
-  # Storage account output reference
-  storage_account_output = var.use_existing_storage_account ? data.azurerm_storage_account.main : one(module.storage[*])
+  storage_account = try(module.storage[0].resource, one(data.azurerm_storage_account.main))
 }

@@ -142,7 +142,7 @@ module "function_app_linux" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
 | service\_plan | claranet/app-service-plan/azurerm | ~> 8.2.0 |
 | storage | claranet/storage-account/azurerm | ~> 8.6.0 |
 
@@ -299,13 +299,13 @@ module "function_app_linux" {
 | slot\_default\_hostname | Default hostname of the Function App slot. |
 | slot\_identity | Identity block output of the Function App slot. |
 | slot\_name | Name of the Function App slot. |
-| storage\_account\_id | Storage Account ID, empty if connection string provided. |
-| storage\_account\_name | Storage Account name, empty if connection string provided. |
+| storage\_account\_id | Storage Account ID. |
+| storage\_account\_name | Storage Account name. |
 | storage\_account\_network\_rules | Storage Account associated network rules. |
-| storage\_account\_primary\_access\_key | Storage Account primary access key, empty if connection string provided. |
-| storage\_account\_primary\_connection\_string | Storage Account primary connection string, empty if connection string provided. |
-| storage\_account\_secondary\_access\_key | Storage Account secondary access key, empty if connection string provided. |
-| storage\_account\_secondary\_connection\_string | Storage Account secondary connection string, empty if connection string provided. |
+| storage\_account\_primary\_access\_key | Storage Account primary access key. |
+| storage\_account\_primary\_connection\_string | Storage Account primary connection string. |
+| storage\_account\_secondary\_access\_key | Storage Account secondary access key. |
+| storage\_account\_secondary\_connection\_string | Storage Account secondary connection string. |
 | windows\_function\_app | Windows Function App output object if Windows is chosen. |
 <!-- END_TF_DOCS -->
 

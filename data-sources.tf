@@ -1,3 +1,5 @@
+# Data sources consolidated from submodules
+
 data "azurerm_subscription" "current" {}
 
 data "azurerm_storage_account" "main" {
@@ -14,9 +16,8 @@ data "azurerm_application_insights" "main" {
   resource_group_name = provider::azurerm::parse_resource_id(var.application_insights_id).resource_group_name
 }
 
-# External data source for function app settings (Linux/Windows only)
 data "external" "function_app_settings" {
-  count = var.application_settings_drift_ignore && lower(var.os_type) != "flex" ? 1 : 0
+  count = var.application_settings_drift_ignore ? 1 : 0
 
   program = ["bash", "${path.module}/files/webapp_setting.sh"]
 

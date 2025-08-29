@@ -110,7 +110,7 @@ resource "azurerm_storage_container" "flex_container" {
   count = lower(var.os_type) == "flex" ? 1 : 0
 
   name                  = "functions-flex"
-  storage_account_id    = data.azurerm_storage_account.main.id
+  storage_account_id    = local.storage_account.id
   container_access_type = "private"
 }
 

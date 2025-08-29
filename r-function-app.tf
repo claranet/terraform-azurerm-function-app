@@ -10,8 +10,8 @@ resource "azurerm_linux_function_app" "main" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  storage_account_name          = data.azurerm_storage_account.main.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.main.primary_access_key : null
+  storage_account_name          = local.storage_account.name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? local.storage_account.primary_access_key : null
   storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = "~${var.function_app_version}"
@@ -319,8 +319,8 @@ resource "azurerm_windows_function_app" "main" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  storage_account_name          = data.azurerm_storage_account.main.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? data.azurerm_storage_account.main.primary_access_key : null
+  storage_account_name          = local.storage_account.name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? local.storage_account.primary_access_key : null
   storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = "~${var.function_app_version}"
@@ -621,9 +621,9 @@ resource "azurerm_function_app_flex_consumption" "main" {
   runtime_version = var.runtime_version
 
   storage_container_type            = "blobContainer"
-  storage_container_endpoint        = "${data.azurerm_storage_account.main.primary_blob_endpoint}${azurerm_storage_container.flex_container[0].name}"
+  storage_container_endpoint        = "${local.storage_account.primary_blob_endpoint}${azurerm_storage_container.flex_container[0].name}"
   storage_authentication_type       = var.storage_uses_managed_identity ? (var.storage_user_assigned_identity_id != null ? "UserAssignedIdentity" : "SystemAssignedIdentity") : "StorageAccountConnectionString"
-  storage_access_key                = var.storage_uses_managed_identity ? null : local.storage_account_output.primary_access_key
+  storage_access_key                = var.storage_uses_managed_identity ? null : local.storage_account.primary_access_key
   storage_user_assigned_identity_id = var.storage_uses_managed_identity ? var.storage_user_assigned_identity_id : null
 
   # Flex-specific configurations
