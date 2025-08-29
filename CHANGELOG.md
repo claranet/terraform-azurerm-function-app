@@ -1,3 +1,34 @@
+## 8.5.0 (2025-08-29)
+
+### Features
+
+* **AZ-1605:** ✨ ignore hidden-links tags changes a87256c
+* **GH-15:** ✨ add Flex Consumption Function submodule 539aa0a
+
+### Bug Fixes
+
+* **AZ-1606:** 🐛 fix external data source 08c247f
+* **AZ-1606:** 🐛 fix storage account name not found 57ee6bf
+* **AZ-1606:** 🐛 remove unnecessary `depends_on` that triggers resources recreation 87257d4
+
+### Code Refactoring
+
+* ♻️ handle flex 54c3b76
+* **GH-15:** ♻️ add needed container storage for Flex mode 4133c3f
+* **GH-15:** ♻️ update root module c386a0d
+
+### Miscellaneous Chores
+
+* 🔧 fix outputs 7b9650b
+* apply suggestion df2b98a
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ 4efba37
+* **deps:** 🔧 update azurerm provider version to ~> 4.35 9d936dc
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to ~> 8.1.0 1b01639
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 c614add
+* **deps:** update terraform claranet/app-service-plan/azurerm to ~> 8.2.0 c66b353
+* **deps:** update tools 458946a
+* tfdocs f3b5942
+
 ## 8.4.0 (2025-08-01)
 
 ### Features
