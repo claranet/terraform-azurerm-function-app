@@ -122,6 +122,8 @@ resource "azurerm_function_app_flex_consumption" "main" {
       app_settings.MACHINEKEY_DecryptionKey,
       app_settings.WEBSITE_CONTENTAZUREFILECONNECTIONSTRING,
       app_settings.WEBSITE_CONTENTSHARE,
+      tags["hidden-link: /app-insights-instrumentation-key"],
+      tags["hidden-link: /app-insights-resource-id"],
     ]
   }
 
