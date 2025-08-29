@@ -112,7 +112,7 @@ locals {
     var.application_zip_package_path
   )
 
-  storage_account = length(module.storage) == 1 ? one(module.storage[*].resource) : one(data.azurerm_storage_account.main[*])
+  storage_account = try(module.storage[0].resource, one(data.azurerm_storage_account.main))
 
   auth_settings_v2 = merge({
     auth_enabled = false
