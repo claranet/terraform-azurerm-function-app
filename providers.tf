@@ -1,5 +1,4 @@
 terraform {
-  # https://github.com/terraform-linters/tflint/blob/v0.33.2/docs/rules/terraform_unused_required_providers.md
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
