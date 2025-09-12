@@ -1,10 +1,9 @@
-# Application Insights resources consolidated from submodules
 resource "azurerm_application_insights" "main" {
-  count = var.application_insights_enabled && var.application_insights_id == null ? 1 : 0
+  count = var.application_insights_enabled && !var.use_existing_application_insights ? 1 : 0
 
-  name = local.app_insights_name
+  name     = local.app_insights_name
+  location = var.location
 
-  location            = var.location
   resource_group_name = var.resource_group_name
 
   workspace_id     = var.application_insights_log_analytics_workspace_id
@@ -32,7 +31,7 @@ resource "azurerm_application_insights" "main" {
   lifecycle {
     precondition {
       condition     = var.application_insights_enabled && var.application_insights_log_analytics_workspace_id != null
-      error_message = "var.application_insights_log_analytics_workspace_id is mandatory when Application Insights is enabled."
+      error_message = "`var.application_insights_log_analytics_workspace_id` is mandatory when Application Insights is enabled."
     }
   }
 }

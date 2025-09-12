@@ -27,7 +27,7 @@ variable "function_app_custom_name" {
 variable "staging_slot_custom_name" {
   type        = string
   description = "Custom name of the Function App slot."
-  default     = null
+  default     = "staging-slot"
 }
 
 variable "application_insights_name_prefix" {

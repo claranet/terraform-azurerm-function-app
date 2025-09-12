@@ -2,6 +2,14 @@ variable "application_insights_enabled" {
   description = "Whether Application Insights should be deployed."
   type        = bool
   default     = true
+  nullable    = false
+}
+
+variable "use_existing_application_insights" {
+  description = "Whether existing Application Insights should be used instead of creating a new one."
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 variable "application_insights_id" {
@@ -11,9 +19,10 @@ variable "application_insights_id" {
 }
 
 variable "application_insights_type" {
-  description = "Application Insights type if need to be generated. See documentation https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type"
+  description = "Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type)."
   type        = string
   default     = "web"
+  nullable    = false
 }
 
 variable "application_insights_daily_data_cap" {

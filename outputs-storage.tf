@@ -34,5 +34,10 @@ output "storage_account_secondary_access_key" {
 
 output "storage_account_network_rules" {
   description = "Storage Account associated network rules."
-  value       = try(one(azurerm_storage_account_network_rules.main[*]), null)
+  value       = one(azurerm_storage_account_network_rules.main)
+}
+
+output "module_storage_account" {
+  description = "Storage Account module object."
+  value       = module.storage
 }
