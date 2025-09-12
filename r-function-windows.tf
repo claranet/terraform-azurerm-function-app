@@ -477,3 +477,13 @@ resource "azurerm_windows_function_app_slot" "main" {
     ]
   }
 }
+
+moved {
+  from = module.windows_function[0].azurerm_windows_function_app.main
+  to   = azurerm_windows_function_app.main[0]
+}
+
+moved {
+  from = module.windows_function[0].azurerm_windows_function_app_slot.staging[0]
+  to   = azurerm_windows_function_app_slot.main[0]
+}

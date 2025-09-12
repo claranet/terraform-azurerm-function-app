@@ -501,3 +501,13 @@ resource "azurerm_linux_function_app_slot" "main" {
     ]
   }
 }
+
+moved {
+  from = module.linux_function[0].azurerm_linux_function_app.main
+  to   = azurerm_linux_function_app.main[0]
+}
+
+moved {
+  from = module.linux_function[0].azurerm_linux_function_app_slot.staging[0]
+  to   = azurerm_linux_function_app_slot.main[0]
+}

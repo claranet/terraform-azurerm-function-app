@@ -42,3 +42,8 @@ resource "azurerm_storage_container" "flex_container" {
   storage_account_id    = local.storage_account.id
   container_access_type = "private"
 }
+
+moved {
+  from = module.flex_function[0].azurerm_storage_container.flex_container
+  to   = azurerm_storage_container.flex_container[0]
+}

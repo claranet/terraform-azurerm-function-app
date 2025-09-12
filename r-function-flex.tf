@@ -290,3 +290,8 @@ resource "azurerm_function_app_flex_consumption" "main" {
     ]
   }
 }
+
+moved {
+  from = module.flex_function[0].azurerm_function_app_flex_consumption.main
+  to   = azurerm_function_app_flex_consumption.main[0]
+}
