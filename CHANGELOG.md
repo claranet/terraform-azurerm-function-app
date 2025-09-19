@@ -1,3 +1,30 @@
+## 8.6.0 (2025-09-19)
+
+### Features
+
+* **refactor:** ✨ ♻️ remove submodules, unified module 💥💥💥 501aed9
+
+### Code Refactoring
+
+* ♻️ add moved blocks 24e5ee7
+* ♻️ global update 5ba709f
+* ♻️ remove lookups ce91ac2
+* ♻️ type site_config instead of any baf37ab
+
+### Continuous Integration
+
+* 👷 update CI default vars 5060af4
+
+### Miscellaneous Chores
+
+* 🗑️ rebase 2e27902
+* 🗑️ remove submodules fbd5170
+* **deps:** update dependency opentofu to v1.10.6 ae3fff5
+* **deps:** update dependency tflint to v0.59.1 95d56d8
+* **deps:** update dependency trivy to v0.66.0 60c6cf4
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 8.2.0 024a024
+* merge branch 'AZ-1613_refactor' into 'refactor' 5aa4faa
+
 ## 8.5.0 (2025-08-29)
 
 ### Features
