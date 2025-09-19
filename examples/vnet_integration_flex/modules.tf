@@ -10,7 +10,7 @@ module "vnet" {
 
   resource_group_name = module.rg.name
 
-  cidrs = local.vnet_cidr[*]
+  cidrs = ["10.20.30.0/24"]
 
   extra_tags = {
     foo = "bar"
@@ -21,10 +21,6 @@ module "subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
-  for_each = {
-    for subnet in local.subnets : subnet.name => subnet
-  }
-
   location_short = module.azure_region.location_short
   client_name    = var.client_name
   environment    = var.environment
@@ -32,23 +28,21 @@ module "subnet" {
 
   resource_group_name = module.rg.name
 
-  custom_name = each.key
-
   virtual_network_name = module.vnet.name
 
-  service_endpoints = each.value.service_endpoints
+  service_endpoints = ["Microsoft.Storage"]
   delegations = {
-    "app-service-plan" = [{
-      name    = "Microsoft.Web/serverFarms"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    "Microsoft.App/environments" = [{
+      name    = "Microsoft.App/environments" # Different from Linux/Windows Function Apps
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }]
   }
 
-  cidrs = each.value.cidrs
+  cidrs = ["10.20.30.0/25"]
 }
 
-### Linux with VNet integration
-module "function_app_linux" {
+### Linux Flex with VNet integration
+module "function_app_flex_consumption" {
   source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
@@ -60,32 +54,27 @@ module "function_app_linux" {
 
   resource_group_name = module.rg.name
 
-  name_prefix = "hello"
+  os_type  = "Linux"
+  sku_name = "FC1"
 
-  os_type = "Linux"
+  runtime_name    = "python"
+  runtime_version = "3.12"
 
-  function_app_version = 4
-  site_config = {
-    application_stack = {
-      python_version = "3.12"
-    }
-  }
+  storage_account_allowed_ips = ["12.34.56.78/31"]
 
-  allowed_ips        = ["${data.http.myip.body}/32"]
-  allowed_subnet_ids = [module.subnet["subnet-function-app"].id]
-
-  vnet_integration_subnet_id = module.subnet["subnet-function-app"].id
+  vnet_integration_subnet_id = module.subnet.id
 
   application_settings = {
     "tracker_id"      = "AJKGDFJKHFDS"
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
-  application_insights_enabled = false
+  application_insights_log_analytics_workspace_id = module.logs.id
 
-  storage_account_identity_type = "SystemAssigned"
-
-  logs_destinations_ids = []
+  logs_destinations_ids = [
+    module.logs.id,
+    module.logs.storage_account_id,
+  ]
 
   extra_tags = {
     foo = "bar"

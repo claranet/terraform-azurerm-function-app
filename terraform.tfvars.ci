@@ -1,12 +1,15 @@
-location            = "fr-central"
+location            = "francecentral"
 location_short      = "frc"
 client_name         = "test"
 environment         = "test"
 stack               = "ci"
 resource_group_name = "rg-test"
-short_name          = "ci"
-function_language   = "python"
 extra_tags = {
   foo = "bar"
 }
-app_service_plan_os = "Windows"
+os_type               = "Linux"
+sku_name              = "FC1"
+logs_destinations_ids = []
+
+application_insights_enabled = false
+staging_slot_enabled         = true

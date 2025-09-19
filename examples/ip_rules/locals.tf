@@ -1,5 +1,6 @@
 locals {
   vnet_cidr = "10.10.0.0/16"
+
   subnets = [
     {
       name              = "subnet-function-app"

@@ -8,11 +8,6 @@ output "service_plan_name" {
   value       = module.service_plan.name
 }
 
-output "os_type" {
-  description = "The OS type for the Functions to be hosted in this plan."
-  value       = var.os_type
-}
-
 output "module_service_plan" {
   description = "Service Plan module object."
   value       = module.service_plan

@@ -2,6 +2,7 @@ variable "use_existing_storage_account" {
   description = "Whether existing Storage Account should be used instead of creating a new one."
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "storage_account_id" {
@@ -11,7 +12,7 @@ variable "storage_account_id" {
 }
 
 variable "storage_account_kind" {
-  description = "Storage Account Kind."
+  description = "Storage Account kind."
   type        = string
   default     = "StorageV2"
 }
@@ -23,9 +24,10 @@ variable "storage_account_min_tls_version" {
 }
 
 variable "storage_account_advanced_threat_protection_enabled" {
-  description = "Whether advanced threat protection is enabled. See documentation: https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal"
+  description = "Whether advanced threat protection is enabled. [See documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal)."
   type        = bool
   default     = false
+  nullable    = false
 }
 
 variable "storage_account_https_traffic_only_enabled" {
@@ -47,9 +49,10 @@ variable "storage_account_identity_ids" {
 }
 
 variable "storage_account_network_rules_enabled" {
-  description = "Whether to enable Storage Account network default rules for functions."
+  description = "Whether to enable Function Storage Account network default rules."
   type        = bool
   default     = true
+  nullable    = false
 }
 
 variable "storage_account_network_bypass" {
@@ -62,10 +65,11 @@ variable "storage_account_allowed_ips" {
   description = "IPs restrictions for Function Storage Account in CIDR format."
   type        = list(string)
   default     = []
+  nullable    = false
 }
 
 variable "storage_account_infrastructure_encryption_enabled" {
-  description = "Boolean flag which enables infrastructure encryption.  Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information."
+  description = "Boolean flag which enables infrastructure encryption. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information."
   type        = bool
   default     = false
   nullable    = false

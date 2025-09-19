@@ -1,5 +1,5 @@
 variable "function_app_version" {
-  description = "Version of the function app runtime to use."
+  description = "Version of the Function App runtime to use."
   type        = number
   default     = 3
   nullable    = false
@@ -20,7 +20,7 @@ variable "application_settings_drift_ignore" {
 }
 
 variable "identity_type" {
-  description = "Add a Managed Identity (MSI) to the function app. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities."
+  description = "Add a Managed Identity (MSI) to the Function App. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities."
   type        = string
   default     = "SystemAssigned"
 }
@@ -68,7 +68,7 @@ variable "staging_slot_mount_points" {
 }
 
 variable "public_network_access_enabled" {
-  description = "Whether public network access is allowed for the function app."
+  description = "Whether public network access is allowed for the Function App."
   type        = bool
   default     = true
   nullable    = false
@@ -90,8 +90,13 @@ variable "allowed_subnet_ids" {
 
 variable "ip_restriction_headers" {
   description = "IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers)."
-  type        = map(list(string))
-  default     = null
+  type = object({
+    x_azure_fdid      = optional(list(string))
+    x_fd_health_probe = optional(list(string))
+    x_forwarded_for   = optional(list(string))
+    x_forwarded_host  = optional(list(string))
+  })
+  default = null
 }
 
 variable "allowed_service_tags" {
@@ -193,8 +198,13 @@ variable "scm_allowed_subnet_ids" {
 
 variable "scm_ip_restriction_headers" {
   description = "IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
-  type        = map(list(string))
-  default     = null
+  type = object({
+    x_azure_fdid      = optional(list(string))
+    x_fd_health_probe = optional(list(string))
+    x_forwarded_for   = optional(list(string))
+    x_forwarded_host  = optional(list(string))
+  })
+  default = null
 }
 
 variable "scm_allowed_service_tags" {
@@ -214,44 +224,48 @@ variable "storage_uses_managed_identity" {
 # Flex-specific variables
 
 variable "runtime_name" {
-  description = "The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only used when os_type is `flex`."
+  description = "The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only affects apps on Flex Consumption Plan."
   type        = string
   default     = "dotnet-isolated"
+  nullable    = false
 }
 
 variable "runtime_version" {
-  description = "The runtime version for the Function App. Only used when os_type is `flex`."
+  description = "The runtime version for the Function App. Only affects apps on Flex Consumption Plan."
   type        = string
   default     = "8.0"
+  nullable    = false
 }
 
 variable "maximum_instance_count" {
-  description = "The maximum number of instances for this Function App. Only affects apps on Flex Consumption plans."
+  description = "The maximum number of instances for this Function App. Only affects apps on Flex Consumption Plan."
   type        = number
   default     = 100
   nullable    = false
 }
 
-variable "always_ready_instance_count" {
-  description = "The number of instances that are always ready and warm for this Function App. Only affects apps on Flex Consumption plans."
-  type        = number
-  default     = null
+variable "always_ready_functions" {
+  description = "Set the number of always-ready instances for each function in your app. Only affects apps on Flex Consumption Plan. See [documentation](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan#always-ready-instances) for more details."
+  type = list(object({
+    name           = string
+    instance_count = number
+  }))
+  default = []
 }
 
 variable "instance_memory_mb" {
-  description = "The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`."
+  description = "The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`. Only affects apps on Flex Consumption Plan."
   type        = number
   default     = 2048
   nullable    = false
   validation {
     condition     = contains([2048, 4096, 8192, 16384], var.instance_memory_mb)
-    error_message = "The instance_memory_mb must be one of: 2048, 4096, 8192, 16384."
+    error_message = "`var.instance_memory_mb` must be one of: `2048`, `4096`, `8192` or `16384`. Only affects apps on Flex Consumption Plan."
   }
 }
 
 variable "storage_user_assigned_identity_id" {
-  description = "The user assigned Managed Identity to access the storage account. Conflicts with `storage_access_key`."
+  description = "The user assigned Managed Identity to access the storage account. Only affects apps on Flex Consumption Plan."
   type        = string
   default     = null
-  nullable    = true
 }

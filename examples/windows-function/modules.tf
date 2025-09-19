@@ -2,11 +2,12 @@ module "function_app_windows" {
   source  = "claranet/function-app/azurerm"
   version = "x.x.x"
 
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  environment    = var.environment
+  stack          = var.stack
+
   resource_group_name = module.rg.name
 
   name_prefix = "hello"
@@ -18,14 +19,11 @@ module "function_app_windows" {
     "backend_api_url" = "https://backend.domain.tld/api"
   }
 
+  application_insights_enabled = false
+
   storage_account_identity_type = "SystemAssigned"
 
-  # application_insights_log_analytics_workspace_id = module.logs.log_analytics_workspace_id
-
-  logs_destinations_ids = [
-    # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id
-  ]
+  logs_destinations_ids = []
 
   extra_tags = {
     foo = "bar"
