@@ -1,3 +1,9 @@
+## 8.6.1 (2025-09-26)
+
+### Bug Fixes
+
+* 🐛 update moved block for storage 046d083
+
 ## 8.6.0 (2025-09-19)
 
 ### Features
