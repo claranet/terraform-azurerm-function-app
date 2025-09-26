@@ -68,6 +68,6 @@ module "storage" {
 }
 
 moved {
-  from = module.linux_function[0].module.storage[0].azurerm_storage_account.main
-  to   = module.storage[0].azurerm_storage_account.main
+  from = module.linux_function[0].module.storage[0]
+  to   = module.storage[0]
 }
