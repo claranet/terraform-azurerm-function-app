@@ -137,7 +137,7 @@ module "function_app_windows" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2.28 |
+| azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.35 |
 | external | ~> 2.0 |
 
