@@ -33,11 +33,7 @@ module "service_plan" {
 
   default_tags_enabled = var.default_tags_enabled
 
-  extra_tags = merge(
-    var.extra_tags,
-    var.service_plan_extra_tags,
-    local.default_tags,
-  )
+  extra_tags = merge(local.default_tags, var.extra_tags, var.service_plan_extra_tags)
 }
 
 moved {
