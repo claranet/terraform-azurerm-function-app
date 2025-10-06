@@ -1,3 +1,9 @@
+## 8.6.3 (2025-10-06)
+
+### Bug Fixes
+
+* 🔧 fix tags ordering 75414bb
+
 ## 8.6.2 (2025-09-30)
 
 ### Code Refactoring
