@@ -276,7 +276,7 @@ resource "azurerm_function_app_flex_consumption" "main" {
     }
   }
 
-  tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
+  tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
 
   lifecycle {
     ignore_changes = [

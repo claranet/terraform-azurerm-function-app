@@ -305,7 +305,7 @@ resource "azurerm_linux_function_app" "main" {
     }
   }
 
-  tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
+  tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
 
   lifecycle {
     ignore_changes = [
@@ -487,7 +487,7 @@ resource "azurerm_linux_function_app_slot" "main" {
     }
   }
 
-  tags = merge(var.extra_tags, var.function_app_extra_tags, local.default_tags)
+  tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
 
   lifecycle {
     ignore_changes = [

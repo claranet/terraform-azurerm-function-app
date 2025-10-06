@@ -22,11 +22,7 @@ resource "azurerm_application_insights" "main" {
   local_authentication_disabled       = var.application_insights_local_authentication_disabled
   force_customer_storage_for_profiler = var.application_insights_force_customer_storage_for_profiler
 
-  tags = merge(
-    local.default_tags,
-    var.application_insights_extra_tags,
-    var.extra_tags,
-  )
+  tags = merge(local.default_tags, var.extra_tags, var.application_insights_extra_tags)
 
   lifecycle {
     precondition {
