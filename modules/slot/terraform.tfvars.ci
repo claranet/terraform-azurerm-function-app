@@ -1,0 +1,7 @@
+# CI/CD configuration for Function App Slot submodule
+environment = "ci"
+stack       = "test"
+name        = "staging"
+slot_os_type = "linux"
+function_app_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-test/providers/Microsoft.Web/sites/func-test"
+storage_account_name = "storageaccounttest"

@@ -8,7 +8,7 @@ locals {
 
   # Key resource references
   function_app    = one(coalescelist(azurerm_linux_function_app.main, azurerm_windows_function_app.main, azurerm_function_app_flex_consumption.main))
-  staging_slot    = var.staging_slot_enabled && !local.is_linux_flex ? one(coalescelist(azurerm_linux_function_app_slot.main, azurerm_windows_function_app_slot.main)) : null
+  staging_slot    = var.staging_slot_enabled && !local.is_linux_flex ? one(module.staging_slot[*].slot) : null
   app_insights    = try(data.azurerm_application_insights.main[0], one(azurerm_application_insights.main))
   storage_account = try(data.azurerm_storage_account.main[0], one(module.storage[*].resource))
 
