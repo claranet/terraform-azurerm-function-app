@@ -183,5 +183,5 @@ No modules.
 | name | Azure Function App slot name. |
 | outbound\_ip\_addresses | Outbound IP addresses of the Function App slot. |
 | possible\_outbound\_ip\_addresses | All possible outbound IP addresses of the Function App slot. |
-| slot | Azure Function App slot output object. |
+| resource | Azure Function App slot resource object. |
 <!-- END_TF_DOCS -->

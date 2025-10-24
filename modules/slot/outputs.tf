@@ -1,5 +1,5 @@
-output "slot" {
-  description = "Azure Function App slot output object."
+output "resource" {
+  description = "Azure Function App slot resource object."
   value = coalesce(
     one(azurerm_linux_function_app_slot.main[*]),
     one(azurerm_windows_function_app_slot.main[*]),
@@ -19,7 +19,6 @@ output "name" {
   value = coalesce(
     one(azurerm_linux_function_app_slot.main[*].name),
     one(azurerm_windows_function_app_slot.main[*].name),
-    lower(var.slot_os_type) == "flex" ? var.name : null
   )
 }
 

@@ -42,7 +42,7 @@ resource "azurerm_windows_function_app" "main" {
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
 
       application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
-      application_insights_key               = lookup(site_config.value, "application_insights_key", false)
+      application_insights_key               = lookup(site_config.value, "application_insights_key", null)
 
       pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
