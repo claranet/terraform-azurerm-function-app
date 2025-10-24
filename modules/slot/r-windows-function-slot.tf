@@ -5,8 +5,8 @@ resource "azurerm_windows_function_app_slot" "main" {
   function_app_id = var.function_app_id
 
   storage_account_name          = var.storage_account_name
-  storage_account_access_key    = var.storage_account_access_key
-  storage_uses_managed_identity = var.storage_uses_managed_identity
+  storage_account_access_key    = !var.storage_uses_managed_identity ? var.storage_account_access_key : null
+  storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
   functions_extension_version = var.functions_extension_version
 
