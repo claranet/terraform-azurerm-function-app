@@ -147,6 +147,7 @@ module "function_app_windows" {
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
 | service\_plan | claranet/app-service-plan/azurerm | ~> 8.2.0 |
+| staging\_slot | ./modules/slot | n/a |
 | storage | claranet/storage-account/azurerm | ~> 8.6.0 |
 
 ## Resources
@@ -156,13 +157,11 @@ module "function_app_windows" {
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
 | [azurerm_function_app_flex_consumption.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption) | resource |
 | [azurerm_linux_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app) | resource |
-| [azurerm_linux_function_app_slot.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot) | resource |
 | [azurerm_storage_account_network_rules.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 | [azurerm_storage_blob.package_blob](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_blob) | resource |
 | [azurerm_storage_container.flex_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_windows_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app) | resource |
-| [azurerm_windows_function_app_slot.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot) | resource |
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |

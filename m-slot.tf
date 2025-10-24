@@ -55,9 +55,6 @@ module "staging_slot" {
   # Storage mount points
   mount_points = length(var.staging_slot_mount_points) > 0 ? var.staging_slot_mount_points : var.mount_points
 
-  # Sticky settings
-  sticky_settings = var.sticky_settings
-
   # Tags
   default_tags_enabled = var.default_tags_enabled
   extra_tags           = merge(var.extra_tags, var.function_app_extra_tags)
