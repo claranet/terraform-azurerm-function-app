@@ -315,4 +315,7 @@ moved {
   to   = azurerm_windows_function_app.main[0]
 }
 
-# Moved block for Windows Function App slot is no longer needed as it's managed by the slot submodule
+moved {
+  from = azurerm_windows_function_app_slot.main[0]
+  to   = module.function_app_slot[0].azurerm_windows_function_app_slot.main[0]
+}
