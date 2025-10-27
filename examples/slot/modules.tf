@@ -41,38 +41,37 @@ module "function_app_linux" {
   }
 }
 
-### Windows
-module "function_app_windows" {
-  source  = "claranet/function-app/azurerm"
+module "function_app_slot" {
+  source  = "claranet/function-app/azurerm//modules/slot"
   version = "x.x.x"
 
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  client_name    = var.client_name
-  environment    = var.environment
-  stack          = var.stack
+  # Required variables
+  name            = "staging"
+  slot_os_type    = "Linux"
+  function_app_id = module.function_app_linux.id
 
-  resource_group_name = module.rg.name
+  environment = var.environment
+  stack       = var.stack
 
-  name_prefix = "hello"
+  # Storage configuration
+  storage_account_name          = module.function_app_linux.storage_account_name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? module.function_app_linux.storage_account_primary_access_key : null
+  storage_uses_managed_identity = var.storage_uses_managed_identity
 
-  os_type = "Windows"
-
-  application_settings = {
-    "tracker_id"      = "AJKGDFJKHFDS"
-    "backend_api_url" = "https://backend.domain.tld/api"
+  # Optional configuration
+  site_config = {
+    always_on = true
+    application_stack = {
+      dotnet_version = "6.0"
+    }
   }
 
-  application_insights_log_analytics_workspace_id = module.logs.id
+  app_settings = {
+    "ENVIRONMENT" = "staging"
+  }
 
-  storage_account_identity_type = "SystemAssigned"
-
-  logs_destinations_ids = [
-    module.logs.id,
-    module.logs.storage_account_id,
-  ]
-
+  # Tags
   extra_tags = {
-    foo = "bar"
+    Purpose = "staging"
   }
 }

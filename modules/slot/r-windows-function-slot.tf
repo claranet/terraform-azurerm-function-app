@@ -1,26 +1,22 @@
-resource "azurerm_linux_function_app" "main" {
-  count = lower(var.os_type) == "linux" && !local.is_linux_flex ? 1 : 0
+resource "azurerm_windows_function_app_slot" "main" {
+  count = lower(var.slot_os_type) == "windows" ? 1 : 0
 
-  name     = local.function_app_name
-  location = var.location
+  name            = var.name
+  function_app_id = var.function_app_id
 
-  resource_group_name = var.resource_group_name
-
-  service_plan_id = module.service_plan.id
-
-  storage_account_name          = local.storage_account.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? local.storage_account.primary_access_key : null
+  storage_account_name          = var.storage_account_name
+  storage_account_access_key    = !var.storage_uses_managed_identity ? var.storage_account_access_key : null
   storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
 
-  functions_extension_version = "~${var.function_app_version}"
+  functions_extension_version = var.functions_extension_version
 
   virtual_network_subnet_id     = var.vnet_integration_subnet_id
   public_network_access_enabled = var.public_network_access_enabled
 
-  app_settings = local.application_settings
+  app_settings = var.app_settings
 
   dynamic "site_config" {
-    for_each = local.site_config[*]
+    for_each = [var.site_config]
     content {
       always_on                         = lookup(site_config.value, "always_on", null)
       api_definition_url                = lookup(site_config.value, "api_definition_url", null)
@@ -54,7 +50,7 @@ resource "azurerm_linux_function_app" "main" {
       scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
 
       dynamic "ip_restriction" {
-        for_each = concat(local.subnets, local.cidrs, local.service_tags)
+        for_each = var.ip_restriction
         content {
           name                      = ip_restriction.value.name
           ip_address                = ip_restriction.value.ip_address
@@ -62,21 +58,12 @@ resource "azurerm_linux_function_app" "main" {
           service_tag               = ip_restriction.value.service_tag
           priority                  = ip_restriction.value.priority
           action                    = ip_restriction.value.action
-
-          dynamic "headers" {
-            for_each = var.ip_restriction_headers[*]
-            content {
-              x_azure_fdid      = headers.value.x_azure_fdid
-              x_fd_health_probe = headers.value.x_fd_health_probe
-              x_forwarded_for   = headers.value.x_forwarded_for
-              x_forwarded_host  = headers.value.x_forwarded_host
-            }
-          }
+          headers                   = ip_restriction.value.headers
         }
       }
 
       dynamic "scm_ip_restriction" {
-        for_each = concat(local.scm_subnets, local.scm_cidrs, local.scm_service_tags)
+        for_each = var.scm_ip_restriction
         content {
           name                      = scm_ip_restriction.value.name
           ip_address                = scm_ip_restriction.value.ip_address
@@ -84,21 +71,13 @@ resource "azurerm_linux_function_app" "main" {
           service_tag               = scm_ip_restriction.value.service_tag
           priority                  = scm_ip_restriction.value.priority
           action                    = scm_ip_restriction.value.action
-
-          dynamic "headers" {
-            for_each = var.scm_ip_restriction_headers[*]
-            content {
-              x_azure_fdid      = headers.value.x_azure_fdid
-              x_fd_health_probe = headers.value.x_fd_health_probe
-              x_forwarded_for   = headers.value.x_forwarded_for
-              x_forwarded_host  = headers.value.x_forwarded_host
-            }
-          }
+          headers                   = scm_ip_restriction.value.headers
         }
       }
 
       scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
+      scm_minimum_tls_version     = lookup(site_config.value, "scm_minimum_tls_version", "1.2")
+      scm_use_main_ip_restriction = length(var.scm_allowed_cidrs) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null)[*]
@@ -107,20 +86,8 @@ resource "azurerm_linux_function_app" "main" {
           use_dotnet_isolated_runtime = lookup(application_stack.value, "use_dotnet_isolated_runtime", null)
           java_version                = lookup(application_stack.value, "java_version", null)
           node_version                = lookup(application_stack.value, "node_version", null)
-          python_version              = lookup(application_stack.value, "python_version", null)
           powershell_core_version     = lookup(application_stack.value, "powershell_core_version", null)
           use_custom_runtime          = lookup(application_stack.value, "use_custom_runtime", null)
-
-          dynamic "docker" {
-            for_each = lookup(application_stack.value, "docker", null)[*]
-            content {
-              registry_url      = docker.value.registry_url
-              image_name        = docker.value.image_name
-              image_tag         = docker.value.image_tag
-              registry_username = lookup(docker.value, "registry_username", null)
-              registry_password = lookup(docker.value, "registry_password", null)
-            }
-          }
         }
       }
 
@@ -142,18 +109,20 @@ resource "azurerm_linux_function_app" "main" {
     }
   }
 
-  dynamic "sticky_settings" {
-    for_each = var.sticky_settings[*]
+  dynamic "connection_string" {
+    for_each = var.connection_strings
     content {
-      app_setting_names       = sticky_settings.value.app_setting_names
-      connection_string_names = sticky_settings.value.connection_string_names
+      name  = lookup(connection_string.value, "name", null)
+      type  = lookup(connection_string.value, "type", null)
+      value = lookup(connection_string.value, "value", null)
     }
   }
 
-  https_only                 = var.https_only
-  client_certificate_enabled = var.client_certificate_enabled
-  client_certificate_mode    = var.client_certificate_mode
-  builtin_logging_enabled    = var.builtin_logging_enabled
+  https_only                      = var.https_only
+  client_certificate_enabled      = var.client_certificate_enabled
+  client_certificate_mode         = var.client_certificate_mode
+  builtin_logging_enabled         = var.builtin_logging_enabled
+  key_vault_reference_identity_id = var.key_vault_reference_identity_id
 
   dynamic "auth_settings_v2" {
     for_each = lookup(var.auth_settings_v2, "auth_enabled", false) ? var.auth_settings_v2[*] : []
@@ -269,17 +238,17 @@ resource "azurerm_linux_function_app" "main" {
       }
 
       login {
-        logout_endpoint                   = lookup(local.auth_settings_v2_login, "logout_endpoint", null)
-        cookie_expiration_convention      = lookup(local.auth_settings_v2_login, "cookie_expiration_convention", "FixedTime")
-        cookie_expiration_time            = lookup(local.auth_settings_v2_login, "cookie_expiration_time", "08:00:00")
-        preserve_url_fragments_for_logins = lookup(local.auth_settings_v2_login, "preserve_url_fragments_for_logins", false)
-        token_refresh_extension_time      = lookup(local.auth_settings_v2_login, "token_refresh_extension_time", 72)
-        token_store_enabled               = lookup(local.auth_settings_v2_login, "token_store_enabled", false)
-        token_store_path                  = lookup(local.auth_settings_v2_login, "token_store_path", null)
-        token_store_sas_setting_name      = lookup(local.auth_settings_v2_login, "token_store_sas_setting_name", null)
-        validate_nonce                    = lookup(local.auth_settings_v2_login, "validate_nonce", true)
-        nonce_expiration_time             = lookup(local.auth_settings_v2_login, "nonce_expiration_time", "00:05:00")
-        allowed_external_redirect_urls    = lookup(local.auth_settings_v2_login, "allowed_external_redirect_urls", null)
+        logout_endpoint                   = lookup(var.auth_settings_v2_login, "logout_endpoint", null)
+        cookie_expiration_convention      = lookup(var.auth_settings_v2_login, "cookie_expiration_convention", "FixedTime")
+        cookie_expiration_time            = lookup(var.auth_settings_v2_login, "cookie_expiration_time", "08:00:00")
+        preserve_url_fragments_for_logins = lookup(var.auth_settings_v2_login, "preserve_url_fragments_for_logins", false)
+        token_refresh_extension_time      = lookup(var.auth_settings_v2_login, "token_refresh_extension_time", 72)
+        token_store_enabled               = lookup(var.auth_settings_v2_login, "token_store_enabled", false)
+        token_store_path                  = lookup(var.auth_settings_v2_login, "token_store_path", null)
+        token_store_sas_setting_name      = lookup(var.auth_settings_v2_login, "token_store_sas_setting_name", null)
+        validate_nonce                    = lookup(var.auth_settings_v2_login, "validate_nonce", true)
+        nonce_expiration_time             = lookup(var.auth_settings_v2_login, "nonce_expiration_time", "00:05:00")
+        allowed_external_redirect_urls    = lookup(var.auth_settings_v2_login, "allowed_external_redirect_urls", null)
       }
     }
   }
@@ -298,14 +267,14 @@ resource "azurerm_linux_function_app" "main" {
   }
 
   dynamic "identity" {
-    for_each = var.identity_type[*]
+    for_each = var.identity[*]
     content {
-      type         = identity.value
-      identity_ids = endswith(identity.value, "UserAssigned") ? var.identity_ids : null
+      type         = var.identity.type
+      identity_ids = var.identity.identity_ids
     }
   }
 
-  tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
+  tags = merge(local.default_tags, var.extra_tags)
 
   lifecycle {
     ignore_changes = [
@@ -318,16 +287,4 @@ resource "azurerm_linux_function_app" "main" {
       tags["hidden-link: /app-insights-resource-id"],
     ]
   }
-}
-
-# Linux Function App slot is now managed by the slot submodule in m-slot.tf
-
-moved {
-  from = module.linux_function[0].azurerm_linux_function_app.main
-  to   = azurerm_linux_function_app.main[0]
-}
-
-moved {
-  from = azurerm_linux_function_app_slot.main[0]
-  to   = module.function_app_slot[0].azurerm_linux_function_app_slot.main[0]
 }

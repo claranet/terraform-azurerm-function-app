@@ -42,7 +42,7 @@ resource "azurerm_windows_function_app" "main" {
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
 
       application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
-      application_insights_key               = lookup(site_config.value, "application_insights_key", false)
+      application_insights_key               = lookup(site_config.value, "application_insights_key", null)
 
       pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
       elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
@@ -308,175 +308,7 @@ resource "azurerm_windows_function_app" "main" {
   }
 }
 
-resource "azurerm_windows_function_app_slot" "main" {
-  count = length(azurerm_windows_function_app.main) == 1 && var.staging_slot_enabled ? 1 : 0
-
-  name = var.staging_slot_custom_name
-
-  function_app_id = one(azurerm_windows_function_app.main[*].id)
-
-  storage_account_name          = local.storage_account.name
-  storage_account_access_key    = !var.storage_uses_managed_identity ? local.storage_account.primary_access_key : null
-  storage_uses_managed_identity = var.storage_uses_managed_identity ? true : null
-
-  functions_extension_version = "~${var.function_app_version}"
-
-  virtual_network_subnet_id     = var.vnet_integration_subnet_id
-  public_network_access_enabled = var.public_network_access_enabled
-
-  app_settings = var.staging_slot_custom_application_settings == null ? {
-    for key, value in local.application_settings : key => value if key != "WEBSITE_RUN_FROM_PACKAGE"
-  } : local.staging_slot_application_settings
-
-  dynamic "site_config" {
-    for_each = [local.site_config]
-    content {
-      always_on                         = lookup(site_config.value, "always_on", null)
-      api_definition_url                = lookup(site_config.value, "api_definition_url", null)
-      api_management_api_id             = lookup(site_config.value, "api_management_api_id", null)
-      app_command_line                  = lookup(site_config.value, "app_command_line", null)
-      app_scale_limit                   = lookup(site_config.value, "app_scale_limit", null)
-      default_documents                 = lookup(site_config.value, "default_documents", null)
-      ftps_state                        = lookup(site_config.value, "ftps_state", "Disabled")
-      health_check_path                 = lookup(site_config.value, "health_check_path", null)
-      health_check_eviction_time_in_min = lookup(site_config.value, "health_check_eviction_time_in_min", null)
-      http2_enabled                     = lookup(site_config.value, "http2_enabled", null)
-      load_balancing_mode               = lookup(site_config.value, "load_balancing_mode", null)
-      managed_pipeline_mode             = lookup(site_config.value, "managed_pipeline_mode", null)
-      minimum_tls_version               = lookup(site_config.value, "minimum_tls_version", lookup(site_config.value, "min_tls_version", "1.2"))
-      remote_debugging_enabled          = lookup(site_config.value, "remote_debugging_enabled", false)
-      remote_debugging_version          = lookup(site_config.value, "remote_debugging_version", null)
-      runtime_scale_monitoring_enabled  = lookup(site_config.value, "runtime_scale_monitoring_enabled", null)
-      use_32_bit_worker                 = lookup(site_config.value, "use_32_bit_worker", null)
-      websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
-
-      application_insights_connection_string = lookup(site_config.value, "application_insights_connection_string", null)
-      application_insights_key               = lookup(site_config.value, "application_insights_key", false)
-
-      pre_warmed_instance_count = lookup(site_config.value, "pre_warmed_instance_count", null)
-      elastic_instance_minimum  = lookup(site_config.value, "elastic_instance_minimum", null)
-      worker_count              = lookup(site_config.value, "worker_count", null)
-
-      vnet_route_all_enabled = lookup(site_config.value, "vnet_route_all_enabled", var.vnet_integration_subnet_id != null)
-
-      ip_restriction_default_action     = lookup(site_config.value, "ip_restriction_default_action", "Deny")
-      scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
-
-      dynamic "ip_restriction" {
-        for_each = concat(local.subnets, local.cidrs, local.service_tags)
-        content {
-          name                      = ip_restriction.value.name
-          ip_address                = ip_restriction.value.ip_address
-          virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
-          service_tag               = ip_restriction.value.service_tag
-          priority                  = ip_restriction.value.priority
-          action                    = ip_restriction.value.action
-
-          dynamic "headers" {
-            for_each = var.ip_restriction_headers[*]
-            content {
-              x_azure_fdid      = headers.value.x_azure_fdid
-              x_fd_health_probe = headers.value.x_fd_health_probe
-              x_forwarded_for   = headers.value.x_forwarded_for
-              x_forwarded_host  = headers.value.x_forwarded_host
-            }
-          }
-        }
-      }
-
-      dynamic "scm_ip_restriction" {
-        for_each = concat(local.scm_subnets, local.scm_cidrs, local.scm_service_tags)
-        content {
-          name                      = scm_ip_restriction.value.name
-          ip_address                = scm_ip_restriction.value.ip_address
-          virtual_network_subnet_id = scm_ip_restriction.value.virtual_network_subnet_id
-          service_tag               = scm_ip_restriction.value.service_tag
-          priority                  = scm_ip_restriction.value.priority
-          action                    = scm_ip_restriction.value.action
-
-          dynamic "headers" {
-            for_each = var.scm_ip_restriction_headers[*]
-            content {
-              x_azure_fdid      = headers.value.x_azure_fdid
-              x_fd_health_probe = headers.value.x_fd_health_probe
-              x_forwarded_for   = headers.value.x_forwarded_for
-              x_forwarded_host  = headers.value.x_forwarded_host
-            }
-          }
-        }
-      }
-
-      scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_use_main_ip_restriction = length(var.scm_allowed_ips) > 0 || var.scm_allowed_subnet_ids != null ? false : true
-
-      dynamic "application_stack" {
-        for_each = lookup(site_config.value, "application_stack", null)[*]
-        content {
-          dotnet_version              = lookup(application_stack.value, "dotnet_version", null)
-          use_dotnet_isolated_runtime = lookup(application_stack.value, "use_dotnet_isolated_runtime", null)
-          java_version                = lookup(application_stack.value, "java_version", null)
-          node_version                = lookup(application_stack.value, "node_version", null)
-          powershell_core_version     = lookup(application_stack.value, "powershell_core_version", null)
-          use_custom_runtime          = lookup(application_stack.value, "use_custom_runtime", null)
-        }
-      }
-
-      dynamic "cors" {
-        for_each = lookup(site_config.value, "cors", null)[*]
-        content {
-          allowed_origins     = lookup(cors.value, "allowed_origins", [])
-          support_credentials = lookup(cors.value, "support_credentials", false)
-        }
-      }
-
-      dynamic "app_service_logs" {
-        for_each = lookup(site_config.value, "app_service_logs", null)[*]
-        content {
-          disk_quota_mb         = lookup(app_service_logs.value, "disk_quota_mb", null)
-          retention_period_days = lookup(app_service_logs.value, "retention_period_days", null)
-        }
-      }
-    }
-  }
-
-  https_only              = var.https_only
-  builtin_logging_enabled = var.builtin_logging_enabled
-
-  dynamic "storage_account" {
-    for_each = length(var.staging_slot_mount_points) > 0 ? var.staging_slot_mount_points : var.mount_points
-    iterator = mp
-    content {
-      name         = coalesce(mp.value.name, format("%s-%s", mp.value.account_name, mp.value.share_name))
-      type         = mp.value.type
-      account_name = mp.value.account_name
-      share_name   = mp.value.share_name
-      access_key   = mp.value.access_key
-      mount_path   = mp.value.mount_path
-    }
-  }
-
-  dynamic "identity" {
-    for_each = var.identity_type[*]
-    content {
-      type         = identity.value
-      identity_ids = endswith(identity.value, "UserAssigned") ? var.identity_ids : null
-    }
-  }
-
-  tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
-
-  lifecycle {
-    ignore_changes = [
-      app_settings.WEBSITE_RUN_FROM_ZIP,
-      app_settings.WEBSITE_RUN_FROM_PACKAGE,
-      app_settings.MACHINEKEY_DecryptionKey,
-      app_settings.WEBSITE_CONTENTAZUREFILECONNECTIONSTRING,
-      app_settings.WEBSITE_CONTENTSHARE,
-      tags["hidden-link: /app-insights-instrumentation-key"],
-      tags["hidden-link: /app-insights-resource-id"],
-    ]
-  }
-}
+# Windows Function App slot is now managed by the slot submodule in m-slot.tf
 
 moved {
   from = module.windows_function[0].azurerm_windows_function_app.main
@@ -484,6 +316,6 @@ moved {
 }
 
 moved {
-  from = module.windows_function[0].azurerm_windows_function_app_slot.staging[0]
-  to   = azurerm_windows_function_app_slot.main[0]
+  from = azurerm_windows_function_app_slot.main[0]
+  to   = module.function_app_slot[0].azurerm_windows_function_app_slot.main[0]
 }
