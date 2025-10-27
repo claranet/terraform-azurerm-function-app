@@ -1,3 +1,25 @@
+## 8.7.0 (2025-10-27)
+
+### Features
+
+* ✨ add a slot submodule df0d25a
+
+### Documentation
+
+* 📚️ add slot example e60c79a
+
+### Code Refactoring
+
+* ♻️ apply MrAI code improvements suggestions d1455e6
+* ♻️ bump example 95f7fff
+
+### Miscellaneous Chores
+
+* 🔧 add moved blocks 38e38c2
+* **deps:** update dependency trivy to v0.67.1 2848acd
+* **deps:** update dependency trivy to v0.67.2 88f5a97
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 016eb96
+
 ## 8.6.3 (2025-10-06)
 
 ### Bug Fixes
