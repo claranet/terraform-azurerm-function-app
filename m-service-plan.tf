@@ -1,6 +1,6 @@
 module "service_plan" {
   source  = "claranet/app-service-plan/azurerm"
-  version = "~> 8.2.0"
+  version = "~> 8.3.0"
 
   location       = var.location
   location_short = var.location_short
