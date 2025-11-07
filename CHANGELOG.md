@@ -1,3 +1,14 @@
+## 8.8.0 (2025-11-07)
+
+### Features
+
+* **AZ-1620:** add v4 Premium + Isolated SKUs 513d693
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.7 4fe3409
+* **deps:** update terraform claranet/app-service-plan/azurerm to ~> 8.3.0 0ad0962
+
 ## 8.7.0 (2025-10-27)
 
 ### Features
