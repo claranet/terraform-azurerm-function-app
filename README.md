@@ -146,7 +146,7 @@ module "function_app_windows" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
-| service\_plan | claranet/app-service-plan/azurerm | ~> 8.2.0 |
+| service\_plan | claranet/app-service-plan/azurerm | ~> 8.3.0 |
 | staging\_slot | ./modules/slot | n/a |
 | storage | claranet/storage-account/azurerm | ~> 8.6.0 |
 
