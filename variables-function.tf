@@ -75,21 +75,21 @@ variable "public_network_access_enabled" {
 }
 
 variable "allowed_ips" {
-  description = "IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction)."
+  description = "IP restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "allowed_subnet_ids" {
-  description = "Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)."
+  description = "Subnet restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "ip_restriction_headers" {
-  description = "IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers)."
+  description = "IP restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers)."
   type = object({
     x_azure_fdid      = optional(list(string))
     x_fd_health_probe = optional(list(string))
@@ -183,21 +183,21 @@ variable "auth_settings_v2" {
 # SCM parameters
 
 variable "scm_allowed_ips" {
-  description = "SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
+  description = "SCM IP restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "scm_allowed_subnet_ids" {
-  description = "SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
+  description = "SCM subnet restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type        = list(string)
   default     = []
   nullable    = false
 }
 
 variable "scm_ip_restriction_headers" {
-  description = "IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
+  description = "IP restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction)."
   type = object({
     x_azure_fdid      = optional(list(string))
     x_fd_health_probe = optional(list(string))

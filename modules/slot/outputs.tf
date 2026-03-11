@@ -40,16 +40,16 @@ output "identity_principal_id" {
 
 output "outbound_ip_addresses" {
   description = "Outbound IP addresses of the Function App slot."
-  value = coalesce(
+  value = try(coalesce(
     one(azurerm_linux_function_app_slot.main[*].outbound_ip_addresses),
     one(azurerm_windows_function_app_slot.main[*].outbound_ip_addresses),
-  )
+  ), null)
 }
 
 output "possible_outbound_ip_addresses" {
   description = "All possible outbound IP addresses of the Function App slot."
-  value = coalesce(
+  value = try(coalesce(
     one(azurerm_linux_function_app_slot.main[*].possible_outbound_ip_addresses),
     one(azurerm_windows_function_app_slot.main[*].possible_outbound_ip_addresses),
-  )
+  ), null)
 }

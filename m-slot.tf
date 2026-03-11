@@ -35,10 +35,12 @@ module "staging_slot" {
   vnet_integration_subnet_id    = var.vnet_integration_subnet_id
 
   # IP restrictions
-  ip_restriction         = concat(local.subnets, local.cidrs, local.service_tags)
-  scm_ip_restriction     = concat(local.scm_subnets, local.scm_cidrs, local.scm_service_tags)
-  scm_allowed_cidrs      = var.scm_allowed_ips
-  scm_allowed_subnet_ids = var.scm_allowed_subnet_ids
+  ip_restriction             = concat(local.subnets, local.cidrs, local.service_tags)
+  ip_restriction_headers     = var.ip_restriction_headers
+  scm_ip_restriction         = concat(local.scm_subnets, local.scm_cidrs, local.scm_service_tags)
+  scm_allowed_cidrs          = var.scm_allowed_ips
+  scm_allowed_subnet_ids     = var.scm_allowed_subnet_ids
+  scm_ip_restriction_headers = var.scm_ip_restriction_headers
 
   # Security settings
   https_only                 = var.https_only

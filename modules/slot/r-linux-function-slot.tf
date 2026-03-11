@@ -58,7 +58,16 @@ resource "azurerm_linux_function_app_slot" "main" {
           service_tag               = ip_restriction.value.service_tag
           priority                  = ip_restriction.value.priority
           action                    = ip_restriction.value.action
-          headers                   = ip_restriction.value.headers
+
+          dynamic "headers" {
+            for_each = var.ip_restriction_headers[*]
+            content {
+              x_azure_fdid      = headers.value.x_azure_fdid
+              x_fd_health_probe = headers.value.x_fd_health_probe
+              x_forwarded_for   = headers.value.x_forwarded_for
+              x_forwarded_host  = headers.value.x_forwarded_host
+            }
+          }
         }
       }
 
@@ -71,7 +80,16 @@ resource "azurerm_linux_function_app_slot" "main" {
           service_tag               = scm_ip_restriction.value.service_tag
           priority                  = scm_ip_restriction.value.priority
           action                    = scm_ip_restriction.value.action
-          headers                   = scm_ip_restriction.value.headers
+
+          dynamic "headers" {
+            for_each = var.scm_ip_restriction_headers[*]
+            content {
+              x_azure_fdid      = headers.value.x_azure_fdid
+              x_fd_health_probe = headers.value.x_fd_health_probe
+              x_forwarded_for   = headers.value.x_forwarded_for
+              x_forwarded_host  = headers.value.x_forwarded_host
+            }
+          }
         }
       }
 
