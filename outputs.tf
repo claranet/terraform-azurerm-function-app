@@ -51,12 +51,12 @@ output "slot_default_hostname" {
 
 output "slot_outbound_ip_addresses" {
   description = "Outbound IP adresses of the created Function App slot."
-  value       = local.staging_slot.outbound_ip_addresses
+  value       = try(local.staging_slot.outbound_ip_addresses, null)
 }
 
 output "slot_possible_outbound_ip_addresses" {
   description = "All possible outbound IP adresses of the created Function App slot."
-  value       = local.staging_slot.possible_outbound_ip_addresses
+  value       = try(local.staging_slot.possible_outbound_ip_addresses, null)
 }
 
 output "slot_identity_principal_id" {
