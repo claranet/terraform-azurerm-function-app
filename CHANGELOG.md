@@ -1,3 +1,17 @@
+## 8.8.2 (2026-03-13)
+
+### Bug Fixes
+
+* 🐛 fix staging slot 36990fb
+
+### Miscellaneous Chores
+
+* **AI:** 🤖 add AI Agents instructions for Contributing eba7955
+* **deps:** 🔗 bump tflint rules version 9e07ef4
+* **deps:** update dependency trivy to v0.69.2 b47c86c
+* **deps:** update dependency trivy to v0.69.3 ead1bbd
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.11 6c5e093
+
 ## 8.8.1 (2026-02-13)
 
 ### Code Refactoring
