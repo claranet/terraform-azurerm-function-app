@@ -18,6 +18,17 @@ variable "ip_restriction" {
   default     = {}
 }
 
+variable "ip_restriction_headers" {
+  description = "IP restriction headers for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#ip_restriction)."
+  type = object({
+    x_azure_fdid      = optional(list(string))
+    x_fd_health_probe = optional(list(string))
+    x_forwarded_for   = optional(list(string))
+    x_forwarded_host  = optional(list(string))
+  })
+  default = null
+}
+
 variable "scm_ip_restriction" {
   description = "SCM IP restriction for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
   type        = any
@@ -25,13 +36,24 @@ variable "scm_ip_restriction" {
 }
 
 variable "scm_allowed_cidrs" {
-  description = "SCM IPs restriction for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
+  description = "SCM IP restriction for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
   type        = list(string)
   default     = []
 }
 
 variable "scm_allowed_subnet_ids" {
-  description = "SCM subnets restriction for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
+  description = "SCM subnet restriction for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
   type        = list(string)
   default     = []
+}
+
+variable "scm_ip_restriction_headers" {
+  description = "SCM IP restriction headers for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#scm_ip_restriction)."
+  type = object({
+    x_azure_fdid      = optional(list(string))
+    x_fd_health_probe = optional(list(string))
+    x_forwarded_for   = optional(list(string))
+    x_forwarded_host  = optional(list(string))
+  })
+  default = null
 }

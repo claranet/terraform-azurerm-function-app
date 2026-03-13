@@ -174,9 +174,9 @@ module "function_app_windows" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| allowed\_ips | IPs restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
+| allowed\_ips | IP restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
 | allowed\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
-| allowed\_subnet\_ids | Subnets restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
+| allowed\_subnet\_ids | Subnet restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | always\_ready\_functions | Set the number of always-ready instances for each function in your app. Only affects apps on Flex Consumption Plan. See [documentation](https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan#always-ready-instances) for more details. | <pre>list(object({<br/>    name           = string<br/>    instance_count = number<br/>  }))</pre> | `[]` | no |
 | app\_service\_environment\_id | ID of the App Service Environment to create this Service Plan in. Requires an Isolated SKU. Use one of I1, I2, I3 for azurerm\_app\_service\_environment, or I1v2, I2v2, I3v2 for azurerm\_app\_service\_environment\_v3. | `string` | `null` | no |
 | application\_insights\_custom\_name | Custom name for application insights deployed with function app. | `string` | `""` | no |
@@ -215,7 +215,7 @@ module "function_app_windows" {
 | identity\_ids | User Assigned Identities IDs to add to Function App. Mandatory if type is `UserAssigned`. | `list(string)` | `null` | no |
 | identity\_type | Add a Managed Identity (MSI) to the Function App. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities. | `string` | `"SystemAssigned"` | no |
 | instance\_memory\_mb | The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`. Only affects apps on Flex Consumption Plan. | `number` | `2048` | no |
-| ip\_restriction\_headers | IPs restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
+| ip\_restriction\_headers | IP restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -237,10 +237,10 @@ module "function_app_windows" {
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | runtime\_name | The runtime name for the Function App. Possible values include `dotnet`, `dotnet-isolated`, `java`, `node`, `powershell`, `python`, and `custom`. Only affects apps on Flex Consumption Plan. | `string` | `"dotnet-isolated"` | no |
 | runtime\_version | The runtime version for the Function App. Only affects apps on Flex Consumption Plan. | `string` | `"8.0"` | no |
-| scm\_allowed\_ips | SCM IPs restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_allowed\_ips | SCM IP restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_allowed\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
-| scm\_allowed\_subnet\_ids | SCM subnets restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
-| scm\_ip\_restriction\_headers | IPs restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
+| scm\_allowed\_subnet\_ids | SCM subnet restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
+| scm\_ip\_restriction\_headers | IP restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
 | service\_plan\_custom\_name | Name of the App Service Plan, generated if not set. | `string` | `""` | no |
 | service\_plan\_extra\_tags | Extra tags to add to Service Plan. | `map(string)` | `{}` | no |
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
@@ -304,6 +304,8 @@ module "function_app_windows" {
 | slot\_id | ID of the Function App slot. |
 | slot\_identity\_principal\_id | Identity block output of the Function App slot. |
 | slot\_name | Name of the Function App slot. |
+| slot\_outbound\_ip\_addresses | Outbound IP adresses of the created Function App slot. |
+| slot\_possible\_outbound\_ip\_addresses | All possible outbound IP adresses of the created Function App slot. |
 | storage\_account\_id | Storage Account ID. |
 | storage\_account\_name | Storage Account name. |
 | storage\_account\_network\_rules | Storage Account associated network rules. |

@@ -49,9 +49,19 @@ output "slot_default_hostname" {
   value       = try(local.staging_slot.default_hostname, null)
 }
 
+output "slot_outbound_ip_addresses" {
+  description = "Outbound IP adresses of the created Function App slot."
+  value       = local.staging_slot.outbound_ip_addresses
+}
+
+output "slot_possible_outbound_ip_addresses" {
+  description = "All possible outbound IP adresses of the created Function App slot."
+  value       = local.staging_slot.possible_outbound_ip_addresses
+}
+
 output "slot_identity_principal_id" {
   description = "Identity block output of the Function App slot."
-  value       = try(local.staging_slot.identity[0].principal_id, null)
+  value       = try(local.staging_slot.identity_principal_id, null)
 }
 
 output "resource" {
