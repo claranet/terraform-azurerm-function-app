@@ -1,3 +1,9 @@
+## 8.8.3 (2026-03-16)
+
+### Bug Fixes
+
+* 🐛 handle null values for outbound ip addresses in function app slot outputs 0e72373
+
 ## 8.8.2 (2026-03-13)
 
 ### Bug Fixes
