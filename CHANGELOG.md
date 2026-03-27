@@ -1,3 +1,13 @@
+## 8.8.4 (2026-03-27)
+
+### Bug Fixes
+
+* **trivy:** 🐛 drop unsafe trivy pre-commit 🔒️ 0f9abc5
+
+### Code Refactoring
+
+* update module structure and Github actions 👷 a25e1fe
+
 ## 8.8.3 (2026-03-16)
 
 ### Bug Fixes
