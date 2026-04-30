@@ -136,7 +136,7 @@ module "function_app_windows" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azurecaf | >= 1.2.28 |
 | azurerm | ~> 4.35 |
 | external | ~> 2.0 |
@@ -144,7 +144,7 @@ module "function_app_windows" {
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
 | service\_plan | claranet/app-service-plan/azurerm | ~> 8.3.0 |
 | staging\_slot | ./modules/slot | n/a |
@@ -153,7 +153,7 @@ module "function_app_windows" {
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights) | resource |
 | [azurerm_function_app_flex_consumption.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_flex_consumption) | resource |
 | [azurerm_linux_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app) | resource |
@@ -173,7 +173,7 @@ module "function_app_windows" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | allowed\_ips | IP restriction for Function in CIDR format. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#ip_restriction). | `list(string)` | `[]` | no |
 | allowed\_service\_tags | Service Tags restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
 | allowed\_subnet\_ids | Subnet restriction for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/function_app.html#ip_restriction). | `list(string)` | `[]` | no |
@@ -279,7 +279,7 @@ module "function_app_windows" {
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | application\_insights\_app\_id | App ID of the associated Application Insights. |
 | application\_insights\_application\_type | Application Type of the associated Application Insights. |
 | application\_insights\_id | ID of the associated Application Insights. |

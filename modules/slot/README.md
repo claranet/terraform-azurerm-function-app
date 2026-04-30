@@ -125,7 +125,7 @@ module "function_app_slot" {
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | azurerm | ~> 4.35 |
 
 ## Modules
@@ -135,14 +135,14 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [azurerm_linux_function_app_slot.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot) | resource |
 | [azurerm_windows_function_app_slot.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app_slot) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | app\_settings | Application settings for Function App slot. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#app_settings). | `map(string)` | `{}` | no |
 | auth\_settings\_v2 | Authentication settings V2. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/linux_function_app_slot#auth_settings_v2). | `any` | `{}` | no |
 | auth\_settings\_v2\_login | Values for the authentication settings V2 login block. | `any` | `{}` | no |
@@ -178,7 +178,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | default\_hostname | Default hostname of the Function App slot. |
 | id | Azure Function App slot ID. |
 | identity\_principal\_id | Azure Function App slot system identity principal ID. |
