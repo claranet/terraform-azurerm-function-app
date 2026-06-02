@@ -4,6 +4,7 @@ output "resource" {
     one(azurerm_linux_function_app_slot.main[*]),
     one(azurerm_windows_function_app_slot.main[*]),
   )
+  sensitive = true
 }
 
 output "id" {

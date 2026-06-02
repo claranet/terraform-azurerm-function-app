@@ -67,6 +67,7 @@ output "slot_identity_principal_id" {
 output "resource" {
   description = "Function App resource object."
   value       = local.function_app
+  sensitive   = true
 }
 
 output "resource_slot" {
