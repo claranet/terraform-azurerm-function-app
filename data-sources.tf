@@ -2,6 +2,20 @@
 
 data "azurerm_subscription" "current" {}
 
+data "azurerm_service_plan" "existing" {
+  count = var.service_plan != null ? 1 : 0
+
+  name                = provider::azurerm::parse_resource_id(var.service_plan.id).resource_name
+  resource_group_name = provider::azurerm::parse_resource_id(var.service_plan.id).resource_group_name
+
+  lifecycle {
+    precondition {
+      condition     = var.service_plan.id != null
+      error_message = "`var.service_plan.id` must be set when using an existing Service Plan."
+    }
+  }
+}
+
 data "azurerm_storage_account" "main" {
   count = var.use_existing_storage_account ? 1 : 0
 

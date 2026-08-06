@@ -165,6 +165,7 @@ module "function_app_windows" {
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |
+| [azurerm_service_plan.existing](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/service_plan) | data source |
 | [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account) | data source |
 | [azurerm_storage_account_sas.package_sas](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/storage_account_sas) | data source |
 | [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
@@ -241,6 +242,7 @@ module "function_app_windows" {
 | scm\_allowed\_service\_tags | SCM Service Tags restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_allowed\_subnet\_ids | SCM subnet restriction for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | `list(string)` | `[]` | no |
 | scm\_ip\_restriction\_headers | IP restriction headers for Function App. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#scm_ip_restriction). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
+| service\_plan | Existing Service Plan to use instead of creating a new one. Set `id` to the existing Service Plan resource ID. Leave `null` to create a new Service Plan. | <pre>object({<br/>    id = string<br/>  })</pre> | `null` | no |
 | service\_plan\_custom\_name | Name of the App Service Plan, generated if not set. | `string` | `""` | no |
 | service\_plan\_extra\_tags | Extra tags to add to Service Plan. | `map(string)` | `{}` | no |
 | site\_config | Site config for Function App. [See documentation](https://www.terraform.io/docs/providers/azurerm/r/app_service.html#site_config). IP restriction attribute is not managed in this block. | `any` | `{}` | no |
@@ -290,7 +292,7 @@ module "function_app_windows" {
 | id | ID of the created Function App. |
 | identity\_principal\_id | Identity principal ID output of the Function App. |
 | module\_diagnostics | Diagnostic Settings module object. |
-| module\_service\_plan | Service Plan module object. |
+| module\_service\_plan | Service Plan module object. `null` when using an existing Service Plan. |
 | module\_storage\_account | Storage Account module object. |
 | name | Name of the created Function App. |
 | outbound\_ip\_addresses | Outbound IP adresses of the created Function App. |
@@ -298,8 +300,8 @@ module "function_app_windows" {
 | resource | Function App resource object. |
 | resource\_application\_insights | Application Insights resource object. |
 | resource\_slot | Function App staging slot resource object. |
-| service\_plan\_id | ID of the created Service Plan. |
-| service\_plan\_name | Name of the created Service Plan. |
+| service\_plan\_id | ID of the Service Plan (created or existing). |
+| service\_plan\_name | Name of the Service Plan (created or existing). |
 | slot\_default\_hostname | Default hostname of the Function App slot. |
 | slot\_id | ID of the Function App slot. |
 | slot\_identity\_principal\_id | Identity block output of the Function App slot. |

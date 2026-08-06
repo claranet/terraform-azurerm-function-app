@@ -1,4 +1,6 @@
 module "service_plan" {
+  count = var.service_plan == null ? 1 : 0
+
   source  = "claranet/app-service-plan/azurerm"
   version = "~> 8.3.0"
 

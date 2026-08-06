@@ -6,7 +6,7 @@ resource "azurerm_windows_function_app" "main" {
 
   resource_group_name = var.resource_group_name
 
-  service_plan_id = module.service_plan.id
+  service_plan_id = local.service_plan_resource.id
 
   storage_account_name          = local.storage_account.name
   storage_account_access_key    = !var.storage_uses_managed_identity ? local.storage_account.primary_access_key : null

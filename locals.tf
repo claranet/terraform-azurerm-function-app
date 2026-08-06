@@ -2,9 +2,10 @@
 
 locals {
   # Service plan type detection
-  is_consumption     = contains(["Y1"], module.service_plan.resource.sku_name)
-  is_elastic_premium = contains(["EP1", "EP2", "EP3"], module.service_plan.resource.sku_name)
-  is_linux_flex      = startswith(module.service_plan.resource.sku_name, "FC")
+  service_plan_resource = var.service_plan != null ? data.azurerm_service_plan.existing[0] : module.service_plan[0].resource
+  is_consumption        = contains(["Y1"], local.service_plan_resource.sku_name)
+  is_elastic_premium    = contains(["EP1", "EP2", "EP3"], local.service_plan_resource.sku_name)
+  is_linux_flex         = startswith(local.service_plan_resource.sku_name, "FC")
 
   # Key resource references
   function_app    = one(coalescelist(azurerm_linux_function_app.main, azurerm_windows_function_app.main, azurerm_function_app_flex_consumption.main))
