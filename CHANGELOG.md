@@ -1,3 +1,14 @@
+## 8.9.0 (2026-08-07)
+
+### Features
+
+* **service-plan:** ✨ add support for existing service plan 794df96
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.12.5 165afd5
+* **deps:** update dependency tflint to v0.64.0 2417d4b
+
 ## 8.8.6 (2026-07-20)
 
 ### Bug Fixes
