@@ -6,7 +6,7 @@ resource "azurerm_function_app_flex_consumption" "main" {
 
   resource_group_name = var.resource_group_name
 
-  service_plan_id = module.service_plan.id
+  service_plan_id = local.service_plan_resource.id
 
   runtime_name    = var.runtime_name
   runtime_version = var.runtime_version

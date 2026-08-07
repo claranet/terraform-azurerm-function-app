@@ -1,3 +1,11 @@
+variable "service_plan" {
+  description = "Existing Service Plan to use instead of creating a new one. Set `id` to the existing Service Plan resource ID. Leave `null` to create a new Service Plan."
+  type = object({
+    id = string
+  })
+  default = null
+}
+
 variable "os_type" {
   description = "OS type for the Functions to be hosted in the Service Plan. Possible values include `Linux` or `Windows`."
   type        = string
