@@ -292,6 +292,7 @@ resource "azurerm_windows_function_app" "main" {
       identity_ids = endswith(identity.value, "UserAssigned") ? var.identity_ids : null
     }
   }
+  key_vault_reference_identity_id = var.key_vault_reference_identity_id
 
   tags = merge(local.default_tags, var.extra_tags, var.function_app_extra_tags)
 
