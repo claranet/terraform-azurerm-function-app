@@ -217,6 +217,7 @@ module "function_app_windows" {
 | identity\_type | Add a Managed Identity (MSI) to the Function App. Possible values are `SystemAssigned`, `UserAssigned` and `SystemAssigned, UserAssigned` which assigns both a system managed identity as well as the specified user assigned identities. | `string` | `"SystemAssigned"` | no |
 | instance\_memory\_mb | The amount of memory in megabytes allocated to each instance of the Function App. Possible values are `2048`, `4096`, `8192`, and `16384`. Only affects apps on Flex Consumption Plan. | `number` | `2048` | no |
 | ip\_restriction\_headers | IP restriction headers for Function. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app#headers). | <pre>object({<br/>    x_azure_fdid      = optional(list(string))<br/>    x_fd_health_probe = optional(list(string))<br/>    x_forwarded_for   = optional(list(string))<br/>    x_forwarded_host  = optional(list(string))<br/>  })</pre> | `null` | no |
+| key\_vault\_reference\_identity\_id | The identity ID to use for Key Vault references. If not set, the Function App's system assigned identity will be used. | `string` | `null` | no |
 | location | Azure location for Function App and related resources. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |

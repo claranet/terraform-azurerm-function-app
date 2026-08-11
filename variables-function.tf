@@ -31,6 +31,12 @@ variable "identity_ids" {
   default     = null
 }
 
+variable "key_vault_reference_identity_id" {
+  description = "The identity ID to use for Key Vault references. If not set, the Function App's system assigned identity will be used."
+  type        = string
+  default     = null
+}
+
 variable "mount_points" {
   description = "Storage Account mount points. Name is generated if not set and default type is `AzureFiles`."
   type = list(object({
