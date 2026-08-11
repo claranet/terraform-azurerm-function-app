@@ -1,3 +1,9 @@
+## 8.10.0 (2026-08-11)
+
+### Features
+
+* add key vault reference identity variable 94bf650
+
 ## 8.9.0 (2026-08-07)
 
 ### Features
