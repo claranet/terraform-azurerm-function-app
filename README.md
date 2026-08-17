@@ -138,18 +138,18 @@ module "function_app_windows" {
 
 | Name | Version |
 | ---- | ------- |
-| azurecaf | >= 1.2.28 |
-| azurerm | ~> 4.35 |
+| azurecaf | ~> 1.3.0 |
+| azurerm | ~> 5.0 |
 | external | ~> 2.0 |
 
 ## Modules
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| diagnostics | claranet/diagnostic-settings/azurerm | ~> 8.2.0 |
-| service\_plan | claranet/app-service-plan/azurerm | ~> 8.3.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | ~> 9.0 |
+| service\_plan | claranet/app-service-plan/azurerm | ~> 9.0 |
 | staging\_slot | ./modules/slot | n/a |
-| storage | claranet/storage-account/azurerm | ~> 8.6.0 |
+| storage | claranet/storage-account/azurerm | ~> 9.0 |
 
 ## Resources
 

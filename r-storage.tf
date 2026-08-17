@@ -27,12 +27,11 @@ resource "azurerm_storage_container" "package_container" {
 resource "azurerm_storage_blob" "package_blob" {
   count = var.application_zip_package_path != null && local.is_local_zip ? 1 : 0
 
-  name                   = "${local.function_app_name}.zip"
-  storage_account_name   = local.storage_account.name
-  storage_container_name = azurerm_storage_container.package_container[0].name
-  type                   = "Block"
-  source                 = var.application_zip_package_path
-  content_md5            = filemd5(var.application_zip_package_path)
+  name                 = "${local.function_app_name}.zip"
+  storage_container_id = azurerm_storage_container.package_container[0].id
+  type                 = "Block"
+  source               = var.application_zip_package_path
+  content_md5          = filemd5(var.application_zip_package_path)
 }
 
 resource "azurerm_storage_container" "flex_container" {
