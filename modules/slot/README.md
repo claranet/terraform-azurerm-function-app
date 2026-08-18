@@ -127,7 +127,7 @@ module "function_app_slot" {
 
 | Name | Version |
 | ---- | ------- |
-| azurerm | ~> 4.35 |
+| azurerm | ~> 5.0 |
 
 ## Modules
 
