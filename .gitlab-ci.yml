@@ -7,3 +7,12 @@ include:
   - project: "claranet/projects/cloud/azure/terraform/ci"
     ref: master
     file: "/pipeline.yml"
+
+# Examples skipped temporary until all v9 releases
+examples:
+  script:
+    - exit 0
+  rules:
+    - when: never
+
+...
