@@ -1,3 +1,35 @@
+## 9.0.0 (2026-08-19)
+
+### ⚠ BREAKING CHANGES
+
+* **SREAA-368:** the minimum OpenTofu version is raised to `1.12` and the AzureRM provider is
+constrained to `~> 5.0`, so consumers must upgrade both before using this release.
+`site_config.remote_debugging_version` no longer accepts `VS2017` or `VS2019`; the module passes
+the value straight through, so configurations using them are rejected by the provider. Two
+provider-level behaviour changes shipped with AzureRM 5.0 also apply:
+`resource_provider_registrations` now defaults to `none` instead of `legacy`, so no resource
+provider is registered automatically anymore, and the `enhanced_validation` block moved inside
+`features` with location and resource provider validation now disabled by default, which defers
+those errors from plan time to apply time. The `app-service-plan`, `storage-account` and
+`diagnostic-settings` submodules move to `~> 9.0`, which require AzureRM `~> 5.0` as well.
+
+### Features
+
+* **SREAA-368:** upgrade module to v9 (OpenTofu >= 1.12, AzureRM ~> 5.0) d5a0fda
+
+### Bug Fixes
+
+* **ci:** 🐛 👷 temporary drop examples in CI because of inter-dependency checks e008b2f
+
+### Documentation
+
+* **SREAA-368:** regenerate submodule READMEs for v9 aa58ea7
+
+### Miscellaneous Chores
+
+* **SREAA-368:** synchronize committed.toml and AGENTS.md from the ci template af89d63
+* **v9:** 🐛 synchronize common files and docs 39f9f11
+
 ## 8.10.0 (2026-08-11)
 
 ### Features
