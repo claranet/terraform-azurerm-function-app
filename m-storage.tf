@@ -1,6 +1,6 @@
 module "storage" {
   source  = "claranet/storage-account/azurerm"
-  version = "~> 8.6.0"
+  version = "~> 9.0"
 
   count = var.use_existing_storage_account ? 0 : 1
 
