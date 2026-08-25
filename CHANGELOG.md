@@ -1,3 +1,9 @@
+## 9.0.1 (2026-08-25)
+
+### Revert
+
+* **ci:** 👷 restore the examples job e19e95c
+
 ## 9.0.0 (2026-08-19)
 
 ### ⚠ BREAKING CHANGES
