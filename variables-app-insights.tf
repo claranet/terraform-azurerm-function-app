@@ -34,7 +34,7 @@ variable "application_insights_daily_data_cap" {
 variable "application_insights_daily_data_cap_notifications_disabled" {
   description = "Whether disable email notifications when data volume cap is met."
   type        = bool
-  default     = null
+  default     = true
 }
 
 variable "application_insights_retention" {
