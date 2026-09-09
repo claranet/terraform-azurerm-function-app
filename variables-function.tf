@@ -166,6 +166,13 @@ variable "application_zip_package_path" {
   default     = null
 }
 
+variable "application_package_remote_build" {
+  description = "Whether the application package must be built by Azure at deployment time, instead of being deployed as is. Only affects remote packages on the Flex Consumption plan."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "staging_slot_enabled" {
   description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
   type        = bool
