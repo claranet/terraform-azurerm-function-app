@@ -1,3 +1,13 @@
+## 9.0.2 (2026-09-25)
+
+### Bug Fixes
+
+* **AZ-1694:** 🐛 set default for application_insights_daily_data_cap_notifications_disabled to true b0af15a
+
+### Miscellaneous Chores
+
+* **deps:** ⬆️ update tools 🔗 3cb4e4a
+
 ## 9.0.1 (2026-08-25)
 
 ### Revert
