@@ -22,6 +22,17 @@ Based on a current limitation, you cannot mix Windows and Linux apps in the same
 
 Limitations documentation: [docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro#limitations)
 
+On the Flex Consumption plan (`sku_name = "FC1"`), Azure serves the app from its own deployment storage
+container and [deprecates `WEBSITE_RUN_FROM_PACKAGE`](https://learn.microsoft.com/en-us/azure/azure-functions/functions-app-settings#flex-consumption-plan-deprecations).
+`application_zip_package_path` is therefore deployed differently on this plan: a local path is pushed by the
+provider with a zip deploy, while a remote URL is published with the
+[`onedeploy`](https://learn.microsoft.com/en-us/azure/azure-functions/functions-infrastructure-as-code) extension.
+
+Deploying a remote package on Flex Consumption shells out to the Azure CLI, so `az` must be installed and
+authenticated where OpenTofu runs, as is already the case for `application_settings_drift_ignore`. Azure fetches
+the package itself, and the deployment is polled until it completes so a package that cannot be downloaded fails
+the apply instead of leaving the app without code.
+
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
 
@@ -141,6 +152,7 @@ module "function_app_windows" {
 | azurecaf | ~> 1.3.0 |
 | azurerm | ~> 5.0 |
 | external | ~> 2.0 |
+| terraform | n/a |
 
 ## Modules
 
@@ -163,6 +175,7 @@ module "function_app_windows" {
 | [azurerm_storage_container.flex_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_storage_container.package_container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_windows_function_app.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/windows_function_app) | resource |
+| [terraform_data.flex_remote_package](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [azurecaf_name.application_insights](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurecaf_name.function_app](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 | [azurerm_application_insights.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/application_insights) | data source |
@@ -197,6 +210,7 @@ module "function_app_windows" {
 | application\_insights\_retention | Retention period (in days) for logs. | `number` | `90` | no |
 | application\_insights\_sampling\_percentage | Percentage of data produced by the monitored application sampled for Application Insights telemetry. | `number` | `null` | no |
 | application\_insights\_type | Application Insights type if need to be generated. [See documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights#application_type). | `string` | `"web"` | no |
+| application\_package\_remote\_build | Whether the application package must be built by Azure at deployment time, instead of being deployed as is. Only affects remote packages on the Flex Consumption plan. | `bool` | `false` | no |
 | application\_settings | Function App application settings. | `map(string)` | `{}` | no |
 | application\_settings\_drift\_ignore | Ignore drift from settings manually set. | `bool` | `true` | no |
 | application\_zip\_package\_path | Local or remote path of a zip package to deploy on the Function App. | `string` | `null` | no |

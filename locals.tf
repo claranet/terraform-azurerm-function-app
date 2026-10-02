@@ -28,7 +28,9 @@ locals {
 
   # Application settings
   default_application_settings = merge(
-    var.application_zip_package_path != null ? {
+    # Flex Consumption serves the app from its own deployment container and Azure deprecates
+    # `WEBSITE_RUN_FROM_PACKAGE` there, so the setting only applies to the other plans.
+    !local.is_linux_flex && var.application_zip_package_path != null ? {
       WEBSITE_RUN_FROM_PACKAGE = local.zip_package_url # MD5 as query to force function restart on change
     } : {},
     lower(var.os_type) == "linux" && substr(lookup(local.site_config, "linux_fx_version", ""), 0, 7) == "DOCKER|" ? {
@@ -117,6 +119,13 @@ locals {
 
   # ZIP package URL logic
   is_local_zip = length(regexall("^(http(s)?|ftp)://", var.application_zip_package_path != null ? var.application_zip_package_path : "")) == 0
+
+  # On Flex Consumption a local package is deployed by the provider with a Kudu zip push
+  # deploy, while a remote one is handed to the `onedeploy` extension, the only mechanism
+  # able to fetch a URL on this plan.
+  flex_zip_deploy_file       = local.is_linux_flex && var.application_zip_package_path != null && local.is_local_zip ? var.application_zip_package_path : null
+  flex_remote_package_deploy = local.is_linux_flex && var.application_zip_package_path != null && !local.is_local_zip
+
   zip_package_url = var.application_zip_package_path != null ? (
     can(regex("^https?://", var.application_zip_package_path)) ? var.application_zip_package_path :
     format("%s%s/%s?%s}",

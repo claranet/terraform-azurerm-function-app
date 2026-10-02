@@ -20,6 +20,8 @@ resource "azurerm_function_app_flex_consumption" "main" {
   maximum_instance_count = var.maximum_instance_count
   instance_memory_in_mb  = var.instance_memory_mb
 
+  zip_deploy_file = local.flex_zip_deploy_file
+
   virtual_network_subnet_id     = var.vnet_integration_subnet_id
   public_network_access_enabled = var.public_network_access_enabled
 
