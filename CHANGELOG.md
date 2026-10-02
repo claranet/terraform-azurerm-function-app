@@ -1,3 +1,13 @@
+## 9.1.0 (2026-10-02)
+
+### Features
+
+* **flex:** ✨ deploy zip packages on the Flex Consumption plan dbbaf3d
+
+### Bug Fixes
+
+* **app-insights:** 🐛 keep nullable `_disabled` inputs null-safe 59c1125
+
 ## 9.0.2 (2026-09-25)
 
 ### Bug Fixes
